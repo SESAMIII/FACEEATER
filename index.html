@@ -19,7 +19,7 @@ body {
 #wallpaper {
   position: fixed;
   top: 0; left: 0; right: 0; bottom: 28px;
-  background-image: url("cover.jpg");
+  background-image: url("images/cover.jpg");
   background-size: auto 100%;
   background-position: left center;
   background-repeat: repeat-x;
@@ -473,8 +473,8 @@ input[type=text], textarea {
 </div>
 
 <script>
-const IMG_GHOULS="ghouls.jpg", IMG_CAR="car.jpg", IMG_MOUTH="mouth.png", IMG_COVER="cover.jpg";
-document.getElementById('wallpaper').style.backgroundImage='url("cover.jpg")';
+const IMG_GHOULS="images/ghouls.jpg", IMG_CAR="images/car.jpg", IMG_MOUTH="images/mouth.png", IMG_COVER="images/cover.jpg";
+document.getElementById('wallpaper').style.backgroundImage='url("images/cover.jpg")';
 
 const POPUP_DEFS={
   stems:{title:"faceeater_stems.zip",icon:"💾",menu:["File","Edit","View","Help"],
@@ -510,7 +510,7 @@ const POPUP_DEFS={
   virus_livecam:{title:"LIVE CAM — nick_bedroom — 0 viewers",icon:"📹",menu:["File","View","Help"],
     body:`<div style="position:relative;width:100%;">
     <video autoplay muted loop playsinline style="width:100%;display:block;">
-    <source src="mold01.mp4" type="video/mp4"></video>
+    <source src="videos/mold01.mp4" type="video/mp4"></video>
     <div style="position:absolute;top:4px;left:4px;background:rgba(0,0,0,0.6);padding:2px 5px;font-size:10px;color:#fff;display:flex;align-items:center;gap:3px;">
     <span class="blink" style="color:red;">●</span> REC &nbsp;|&nbsp; 0 viewers</div></div>
     <p style="font-size:10px;margin-top:3px;color:#555;">nick_bedroom | 28.8k modem</p>`,
@@ -524,7 +524,7 @@ const POPUP_DEFS={
   virus_welove:{title:"we_love_you_01.mp4 — Windows Media Player",icon:"▶",
     menu:["File","View","Play","Help"],
     body:`<video autoplay muted loop playsinline style="width:100%;display:block;">
-    <source src="we_love_you.mp4" type="video/mp4"></video>
+    <source src="videos/we_love_you.mp4" type="video/mp4"></video>
     <div class="hearts" style="margin-top:4px;">❤️ 🖤 ❤️ 🖤 ❤️</div>
     <p style="text-align:center;font-size:11px;font-weight:bold;margin-top:4px;">WE LOVE YOU</p>`,
     status:"Playing...",
@@ -544,7 +544,7 @@ const POPUP_DEFS={
   virus_finaladd:{title:"FINAL_ADD.mp4 — Windows Media Player",icon:"📺",
     menu:["File","View","Play","Help"],
     body:`<video autoplay muted loop playsinline style="width:100%;display:block;">
-    <source src="final_add.mp4" type="video/mp4"></video>`,
+    <source src="videos/final_add.mp4" type="video/mp4"></video>`,
     status:"Playing... 00:00 / 00:30",
     buttons:[{l:"▶ Play",a:"shake"},{l:"■ Stop",a:"close"}],w:300},
   virus_ghouls:{title:"!! HOT SINGLES IN YOUR AREA !!",icon:"👻",
