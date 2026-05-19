@@ -914,7 +914,7 @@ function updatePanicBtn() {
   const btn = document.querySelector('.panic-btn');
   if (!btn) return;
   const count = document.querySelectorAll('.popup').length;
-  if (count > 5) {
+  if (count > 15) {
     btn.classList.add('visible');
     btn.textContent = '✕ PANIC (' + count + ')';
   } else {
