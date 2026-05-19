@@ -80,6 +80,107 @@ body {
 .panic-btn:active { border-color: #880000 #ff6666 #ff6666 #880000; }
 .panic-btn.visible { display: flex; align-items: center; }
 
+
+#heaven-overlay {
+  display: none;
+  position: fixed; top:0; left:0; right:0; bottom:0;
+  background: linear-gradient(180deg, #fffbe0 0%, #fff4b0 40%, #ffe070 100%);
+  z-index: 999999;
+  text-align: center;
+  font-family: 'MS Sans Serif','Arial',sans-serif;
+  overflow: hidden;
+}
+#heaven-overlay.show { display: flex; flex-direction: column; align-items: center; justify-content: center; }
+#heaven-gate {
+  font-size: 11px; color: #555; margin-bottom: 20px;
+}
+#heaven-title {
+  font-size: 48px; font-weight: 900;
+  color: #b8860b;
+  text-shadow: 2px 2px 0 #fff, 0 0 30px #ffe060;
+  letter-spacing: 4px;
+  margin-bottom: 10px;
+  animation: halo-pulse 2s ease-in-out infinite;
+}
+@keyframes halo-pulse {
+  0%,100%{text-shadow: 2px 2px 0 #fff, 0 0 20px #ffe060;}
+  50%{text-shadow: 2px 2px 0 #fff, 0 0 60px #fff700, 0 0 80px #ffe060;}
+}
+#heaven-sub {
+  font-size: 14px; color: #8b6914; margin-bottom: 30px;
+  max-width: 400px; line-height: 1.6;
+}
+#heaven-clouds {
+  font-size: 60px; letter-spacing: 10px;
+  animation: float-clouds 4s ease-in-out infinite;
+  margin-bottom: 20px;
+}
+@keyframes float-clouds { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-12px);} }
+#heaven-gate-img {
+  font-size: 80px; margin-bottom: 16px;
+  animation: gate-glow 1.5s ease-in-out infinite;
+}
+@keyframes gate-glow { 0%,100%{opacity:1;} 50%{opacity:0.6;} }
+#heaven-refresh {
+  background: #ffd700;
+  border: 3px solid; border-color: #fff #a07800 #a07800 #fff;
+  padding: 8px 24px;
+  font-size: 16px; font-weight: bold;
+  font-family: 'MS Sans Serif','Arial',sans-serif;
+  cursor: pointer; color: #5a3e00;
+  animation: btn-glow 1s infinite;
+}
+@keyframes btn-glow { 0%,100%{box-shadow:0 0 0 0 rgba(255,215,0,0.8);} 50%{box-shadow:0 0 0 8px rgba(255,215,0,0);} }
+.heaven-star {
+  position: absolute; font-size: 20px;
+  animation: twinkle 1.5s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes twinkle { 0%,100%{opacity:1;transform:scale(1);} 50%{opacity:0.3;transform:scale(0.7);} }
+
+
+#floating-logo {
+  position: fixed;
+  z-index: 3000;
+  cursor: grab;
+  user-select: none;
+  animation: float-logo 6s ease-in-out infinite;
+  display: none;
+}
+#floating-logo.show { display: block; }
+#floating-logo:active { cursor: grabbing; }
+@keyframes float-logo {
+  0%,100%{transform: rotate(-5deg);}
+  50%{transform: rotate(5deg);}
+}
+
+
+#secret-overlay {
+  display: none;
+  position: fixed; top:50%; left:50%; transform:translate(-50%,-50%);
+  background: #c0c0c0;
+  border: 3px solid; border-color: #fff #808080 #808080 #fff;
+  width: 360px;
+  z-index: 99998;
+  box-shadow: 6px 6px 0 #000;
+  font-family: 'MS Sans Serif','Arial',sans-serif;
+}
+#secret-overlay.show { display: block; }
+#secret-titlebar {
+  background: #000080; color: #fff;
+  padding: 3px 6px; display:flex; align-items:center; justify-content:space-between;
+  font-size: 12px; font-weight: bold;
+}
+#secret-body { padding: 16px; font-size: 12px; color: #000; }
+#secret-input {
+  width: 100%; margin: 8px 0;
+  border: 2px solid; border-color: #808080 #fff #fff #808080;
+  padding: 4px; font-size: 14px; text-align: center;
+  letter-spacing: 4px; font-family: monospace;
+  background: #fff;
+}
+#secret-error { color: #cc0000; font-size: 11px; min-height: 16px; text-align:center; }
+
 /* SITE */
 #site {
   position: fixed;
@@ -347,6 +448,44 @@ input[type=text], textarea {
 
 <div id="wallpaper"></div>
 
+<div id="secret-overlay">
+  <div id="secret-titlebar">
+    🔒 RESTRICTED ACCESS
+    <button onclick="document.getElementById('secret-overlay').classList.remove('show')"
+      style="width:14px;height:13px;background:#c0c0c0;border:2px solid;border-color:#fff #808080 #808080 #fff;font-size:9px;cursor:pointer;font-weight:bold;display:flex;align-items:center;justify-content:center;">✕</button>
+  </div>
+  <div id="secret-body">
+    <p style="margin-bottom:8px;">you found a secret door.</p>
+    <p style="margin-bottom:4px;">enter the password:</p>
+    <input type="password" id="secret-input" placeholder="········" onkeydown="if(event.key==='Enter')checkSecret()"/>
+    <p id="secret-error"></p>
+    <div style="display:flex;gap:6px;justify-content:center;margin-top:8px;">
+      <button onclick="checkSecret()" style="background:#c0c0c0;border:2px solid;border-color:#fff #808080 #808080 #fff;padding:3px 20px;font-size:12px;cursor:pointer;border:2px solid #000;">Enter</button>
+      <button onclick="document.getElementById('secret-overlay').classList.remove('show')" style="background:#c0c0c0;border:2px solid;border-color:#fff #808080 #808080 #fff;padding:3px 20px;font-size:12px;cursor:pointer;">Cancel</button>
+    </div>
+  </div>
+</div>
+
+
+<div id="floating-logo">
+  <img src="images/logo.jpg" style="width:120px;height:120px;object-fit:contain;" alt="FE"/>
+</div>
+
+
+<div id="heaven-overlay">
+  <div id="heaven-clouds">☁️ ☁️ ☁️</div>
+  <div id="heaven-gate-img">🌟</div>
+  <div id="heaven-title">YOU MADE IT</div>
+  <div id="heaven-sub">
+    you opened <strong>1,000 popups</strong>.<br>
+    the gates are open.<br>
+    there is nothing left for you here.<br><br>
+    <em>refresh to return to the living.</em>
+  </div>
+  <button id="heaven-refresh" onclick="location.reload()">↺ return to earth</button>
+</div>
+
+
 <!-- DESKTOP ICONS -->
 <div id="desktop-icons">
       <div class="desktop-icon" ondblclick="window.open('https://mega.nz/folder/cJ9iELbI#5b9eoabm7cJzssyA-pJnlw','_blank')" onclick="openPopupById('stems')">
@@ -602,7 +741,7 @@ const POPUP_DEFS={
 
   virus_lyrictrivia:{title:"🎵 FACEEATER Lyric Trivia",icon:"🎵",
     body:`<div id="trivia-body"><p style="font-weight:bold;margin-bottom:6px;">finish the lyric:</p><p id="trivia-q" style="font-style:italic;font-size:13px;color:#000080;margin-bottom:8px;"></p><div id="trivia-opts" style="display:flex;flex-direction:column;gap:4px;"></div></div>`,
-    status:"question 1 of 3",
+    status:"question 1 of 5",
     buttons:[],w:280,trivia:true},
 
   virus_5000:{title:"🎉 CONGRATULATIONS !!!",icon:"🎉",
@@ -616,6 +755,13 @@ const POPUP_DEFS={
     <p style="font-size:9px;color:#888;margin-top:6px;">100% secure. we promise. trust us.</p>
     </div>`,
     buttons:[{l:"CLAIM PRIZE",a:"crash"},{l:"No thanks",a:"close"}],w:300},
+
+  virus_doubleup:{title:"⚠ SYSTEM: doubling...",icon:"⚠",
+    body:`<div class="warn-box"><span class="warn-icon">⚠️</span>
+    <div><p><strong>DOUBLING INITIATED</strong></p>
+    <p style="font-size:10px;color:#555;">all open popups will be duplicated.</p></div></div>
+    <div class="progress-wrap"><div class="progress-fill" style="animation-duration:1.5s"></div></div>`,
+    buttons:[{l:"Cancel",a:"doubleup-cancel"},{l:"OK",a:"doubleup"}],w:260},
   virus_mauloff:{title:"MAULOFF x TRANQUIVEX - New Release",icon:"🎵",
     body:`<p style="text-align:center;font-weight:bold;font-size:13px;">MAULOFF × TRANQUIVEX</p>
     <p style="text-align:center;font-size:11px;">SPLIT RELEASE</p>
@@ -647,7 +793,7 @@ const POPUP_DEFS={
       <label><input type="radio" name="q1"> I didn't (you are lying)</label>
       <label><input type="radio" name="q1"> I AM FACEEATER</label>
     </div>`,
-    buttons:[{l:"Submit",a:"duplicate",d:true},{l:"Skip",a:"close"}],w:260},
+    buttons:[{l:"Submit",a:"survey-secret",d:true},{l:"Skip",a:"close"}],w:260},
   virus_error:{title:"Error",icon:"🛑",
     body:`<div class="warn-box"><span class="warn-icon">🛑</span>
     <div><p>A fatal exception <span class="blink" style="font-family:'Courier New';">0xFACEEA7E</span> has occurred.</p>
@@ -672,14 +818,15 @@ const POPUP_DEFS={
 };
 
 const VIRUS_IDS=['virus_logo','virus_livecam','virus_fefm','virus_welove','virus_monstermassig',
-  'virus_moldvideo','virus_tracklist','virus_albumcover','virus_5000','virus_chat','virus_lyrictrivia','virus_mauloff','virus_finaladd','virus_ghouls','virus_18','virus_car','virus_nudefolder','virus_survey','virus_error',
+  'virus_moldvideo','virus_tracklist','virus_albumcover','virus_5000','virus_chat','virus_lyrictrivia','virus_doubleup','virus_mauloff','virus_finaladd','virus_ghouls','virus_18','virus_car','virus_nudefolder','virus_survey','virus_error',
   'virus_lego','virus_update','virus_riddle'];
 
 let openPopups={},popupZTop=1000,popupCounter=0;
 
 function spawnPopup(defId,forceNew){
   const def=POPUP_DEFS[defId];if(!def)return;
-  if(!forceNew&&openPopups[defId]){bringToFront(openPopups[defId]);return;}
+  // only block duplicates for non-forced spawns of respawn-type popups
+  if(!forceNew&&openPopups[defId]&&def.behavior==='respawn'){bringToFront(openPopups[defId]);return;}
   const uid=defId+'_'+(++popupCounter);
   const popup=document.createElement('div');
   popup.className='popup';popup.id=uid;
@@ -704,14 +851,16 @@ function spawnPopup(defId,forceNew){
     ${def.status?`<div class="popup-statusbar">${def.status}</div>`:''}`;
   popup.addEventListener('mousedown',()=>bringToFront(popup));
   document.body.appendChild(popup);
-  if(!forceNew)openPopups[defId]=popup;
+  // only track one instance per id for respawn behavior
+  if(def.behavior==='respawn') openPopups[defId]=popup;
   bringToFront(popup);
   if(def.trivia) setTimeout(()=>initTrivia(uid),50);
+  checkHeaven();
   return popup;
 }
 
 function openPopupById(id){spawnPopup(id,false);}
-const POPUP_WEIGHTS={virus_nudefolder:1,virus_5000:1,virus_albumcover:4,virus_chat:5,virus_lyrictrivia:5,_default:10};
+const POPUP_WEIGHTS={virus_nudefolder:1,virus_5000:1,virus_doubleup:2,virus_albumcover:4,virus_chat:5,virus_lyrictrivia:5,_default:10};
 function spawnRandomPopup(){
   const avail=VIRUS_IDS.filter(id=>!openPopups[id]);
   if(!avail.length)return;
@@ -735,6 +884,9 @@ function handleBtn(uid,defId,action){
   }else if(action==='shake'){
     el.classList.remove('shaking');void el.offsetWidth;el.classList.add('shaking');
     setTimeout(()=>{el.classList.remove('shaking');spawnPopup(defId,true);},500);
+  }else if(action==='survey-secret'){
+    el.remove(); delete openPopups[defId];
+    setTimeout(openSecret, 300);
   }else if(action==='complaint-submit'){
     const nameEl=el.querySelector('input[type=text]');
     const msgEl=el.querySelector('textarea');
@@ -746,6 +898,11 @@ function handleBtn(uid,defId,action){
     <p style="font-size:10px;color:#555;">It has been deleted from our servers.</p></div></div>
     <div class="popup-btns"><button class="popup-btn default-btn" onclick="this.closest('.popup').remove()">OK</button></div>`;
     setTimeout(()=>{el.remove();delete openPopups[defId];},2000);
+  }else if(action==='doubleup'){
+    el.remove(); delete openPopups[defId];
+    setTimeout(doDoubleUp, 200);
+  }else if(action==='doubleup-cancel'){
+    el.remove(); delete openPopups[defId];
   }else if(action==='bandcamp'){window.open('https://faceeaterz.bandcamp.com','_blank');
     window.open('https://faceeater.bandcamp.com','_blank');
   }else if(action==='riddle-check'){
@@ -857,15 +1014,55 @@ function sendChat() {
 }
 
 const TRIVIA_QS = [
-  { q: '"breathe through a tube, i can\'t get _____"', opts: ["enough air","out of bed","over you","to sleep"], ans: 2, song: "BREATHINGTUBE" },
-  { q: '"the mold is real, the mold is _____"', opts: ["dying","alive","spreading","growing"], ans: 1, song: "MOLD" },
-  { q: '"heartbreak soldier, you are a _____"', opts: ["disaster","warrior","ghost","stranger"], ans: 0, song: "HEARTBREAK SOLDIER" },
+  {
+    q: '"I need the comfort of a _____, attached from me to you"',
+    opts: ["life support", "breathing tube", "living room", "suture"],
+    ans: 1,
+    song: "BREATHING TUBE"
+  },
+  {
+    q: '"Woke up in a cold sweat, patterns on my shirt, it\'s _____"',
+    opts: ["all I know", "killing me", "irrelevant", "permanent"],
+    ans: 2,
+    song: "MOLD"
+  },
+  {
+    q: '"I\'m out of time, faith, _____, soul"',
+    opts: ["hope", "love", "grace", "center"],
+    ans: 3,
+    song: "CENTERFOLD"
+  },
+  {
+    q: '"Catch a glimpse, I see your face, I won\'t wait, don\'t _____"',
+    opts: ["hesitate", "run away", "look back", "think twice"],
+    ans: 0,
+    song: "THE RAGE"
+  },
+  {
+    q: '"Operator, I\'ve been waiting for you, finding ways _____"',
+    opts: ["to you", "back home", "back down", "out now"],
+    ans: 2,
+    song: "OPERATOR"
+  },
+  {
+    q: '"Here lies all the reservations, here lies those forgotten _____"',
+    opts: ["memories", "promises", "gifts", "words"],
+    ans: 2,
+    song: "MOLD"
+  },
+  {
+    q: '"I wish I never would have want you, you always take it _____"',
+    opts: ["from me", "too far", "away", "too much"],
+    ans: 1,
+    song: "FACEEATER"
+  },
 ];
 
 let triviaState = { q: 0, score: 0 };
 
 function initTrivia(uid) {
-  triviaState = { q: 0, score: 0 };
+  const shuffled = [...TRIVIA_QS].sort(()=>Math.random()-0.5).slice(0,5);
+  triviaState = { q: 0, score: 0, questions: shuffled };
   renderTrivia(uid);
 }
 
@@ -890,7 +1087,7 @@ function renderTrivia(uid) {
 }
 
 function answerTrivia(uid, idx) {
-  const q = TRIVIA_QS[triviaState.q];
+  const q = triviaState.questions[triviaState.q];
   const el = document.getElementById(uid);
   if (!el) return;
   const btns = el.querySelectorAll('#trivia-opts button');
@@ -900,7 +1097,13 @@ function answerTrivia(uid, idx) {
     else if (i === idx && idx !== q.ans) b.style.background = '#ffaaaa';
   });
   if (idx === q.ans) triviaState.score++;
-  setTimeout(() => { triviaState.q++; renderTrivia(uid); }, 900);
+  // show song name hint
+  const optsEl = el.querySelector('#trivia-opts');
+  const hint = document.createElement('p');
+  hint.style.cssText = 'font-size:10px;color:#666;margin-top:4px;font-style:italic;';
+  hint.textContent = '— ' + q.song;
+  optsEl.appendChild(hint);
+  setTimeout(() => { triviaState.q++; renderTrivia(uid); }, 1200);
 }
 
 
@@ -926,10 +1129,91 @@ function updatePanicBtn() {
 const panicObserver = new MutationObserver(updatePanicBtn);
 panicObserver.observe(document.body, { childList: true, subtree: false });
 
+
+// ── POPUP COUNTER + HEAVEN ──
+let totalPopupCount = 0;
+function checkHeaven() {
+  totalPopupCount++;
+  if (totalPopupCount >= 1000) {
+    // freeze - remove all popups, show heaven
+    document.querySelectorAll('.popup').forEach(p => p.remove());
+    openPopups = {};
+    const overlay = document.getElementById('heaven-overlay');
+    overlay.classList.add('show');
+    // add twinkling stars
+    for (let i = 0; i < 20; i++) {
+      const star = document.createElement('div');
+      star.className = 'heaven-star';
+      star.textContent = ['⭐','✨','🌟'][Math.floor(Math.random()*3)];
+      star.style.left = Math.random()*100 + 'vw';
+      star.style.top = Math.random()*100 + 'vh';
+      star.style.animationDelay = Math.random()*2 + 's';
+      overlay.appendChild(star);
+    }
+  }
+}
+
+// ── DOUBLEUP ACTION ──
+function doDoubleUp() {
+  const current = Object.keys(openPopups);
+  current.forEach(id => {
+    setTimeout(() => spawnPopup(id, true), Math.random()*500);
+  });
+}
+
+// ── FLOATING LOGO DRAG ──
+(function() {
+  const logo = document.getElementById('floating-logo');
+  if (!logo) return;
+  // show after 30s
+  setTimeout(() => {
+    logo.classList.add('show');
+    logo.style.left = (Math.random()*(window.innerWidth-140)) + 'px';
+    logo.style.top = (Math.random()*(window.innerHeight-160)) + 'px';
+  }, 30000);
+
+  let dragging = false, ox, oy;
+  logo.addEventListener('mousedown', e => {
+    dragging = true;
+    ox = e.clientX - logo.getBoundingClientRect().left;
+    oy = e.clientY - logo.getBoundingClientRect().top;
+    logo.style.animation = 'none';
+    e.preventDefault();
+  });
+  document.addEventListener('mousemove', e => {
+    if (!dragging) return;
+    logo.style.left = Math.max(0,Math.min(e.clientX-ox,window.innerWidth-120)) + 'px';
+    logo.style.top = Math.max(0,Math.min(e.clientY-oy,window.innerHeight-120)) + 'px';
+  });
+  document.addEventListener('mouseup', () => {
+    if (dragging) { dragging = false; logo.style.animation = ''; }
+  });
+})();
+
+// ── SECRET PASSWORD ──
+const SECRET_PASSWORD = 'faceeater'; // change this later
+function openSecret() {
+  document.getElementById('secret-overlay').classList.add('show');
+  document.getElementById('secret-input').value = '';
+  document.getElementById('secret-error').textContent = '';
+}
+function checkSecret() {
+  const val = document.getElementById('secret-input').value.trim().toLowerCase();
+  if (val === SECRET_PASSWORD) {
+    document.getElementById('secret-overlay').classList.remove('show');
+    // open secret content - for now open bandcamp
+    window.open('https://faceeaterz.bandcamp.com', '_blank');
+  } else {
+    document.getElementById('secret-error').textContent = 'wrong password. try again.';
+    document.getElementById('secret-input').value = '';
+    spawnPopup('virus_error', true);
+  }
+}
+
 function clippyToggle(){document.getElementById('clippy-bubble').classList.toggle('show');}
 function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
 shuffle([...VIRUS_IDS]).slice(0,7).forEach((id,i)=>setTimeout(()=>spawnPopup(id,false),500+i*700));
-(function sched(){setTimeout(()=>{const avail=VIRUS_IDS.filter(id=>!openPopups[id]);if(avail.length){const pool=[];avail.forEach(id=>{const w=POPUP_WEIGHTS[id]!==undefined?POPUP_WEIGHTS[id]:POPUP_WEIGHTS._default;for(let i=0;i<w;i++)pool.push(id);});spawnPopup(pool[Math.floor(Math.random()*pool.length)],false);}sched();},8000+Math.random()*12000);})();
+(function sched(){setTimeout(()=>{const avail=VIRUS_IDS;if(avail.length){const pool=[];avail.forEach(id=>{const w=POPUP_WEIGHTS[id]!==undefined?POPUP_WEIGHTS[id]:POPUP_WEIGHTS._default;for(let i=0;i<w;i++)pool.push(id);});spawnPopup(pool[Math.floor(Math.random()*pool.length)],true);}sched();},5000+Math.random()*10000);})();
 </script>
 </body>
 </html>
