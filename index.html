@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="icon" type="image/png" href="images/logo.jpg" id="favicon"/>
+<link rel="icon" type="image/jpeg" href="images/favicon.jpg" id="favicon"/>
 <style>
 /* red favicon trick - actual favicon set above */
 </style>
@@ -193,6 +193,162 @@ body {
 #secret-confess:hover {
   background: rgba(0,0,0,0.6);
   color: #ffd700;
+}
+
+
+/* ═══ MOBILE ═══ */
+@media (max-width: 768px) {
+
+  /* mobile notice */
+  #mobile-notice {
+    display: flex !important;
+  }
+
+  /* hide desktop icons on mobile */
+  #desktop-icons { display: none; }
+
+  /* site fills full width */
+  #site { left: 0; padding: 8px; }
+
+  /* content box fills screen */
+  #site-content { max-width: 100%; padding: 10px; }
+
+  /* bigger download button */
+  .download-btn { font-size: 18px; padding: 12px 16px; width: 100%; display: block; text-align: center; }
+
+  /* smaller h1 */
+  #site-logo img { max-width: 160px !important; height: 160px !important; }
+
+  /* popups max-width on mobile */
+  .popup { max-width: 90vw !important; min-width: 240px !important; }
+
+  /* taskbar compact */
+  .start-btn { padding: 2px 6px; font-size: 11px; }
+  .quicklaunch { display: none; }
+
+  /* floating logo smaller */
+  #floating-logo img { width: 70px !important; height: 70px !important; }
+}
+
+@media (min-width: 769px) {
+  #mobile-notice { display: none !important; }
+}
+
+#mobile-notice {
+  display: none;
+  position: fixed; top: 0; left: 0; right: 0;
+  background: #000080; color: #ff0;
+  font-family: 'MS Sans Serif','Arial',sans-serif;
+  font-size: 11px; text-align: center;
+  padding: 6px 10px; z-index: 99990;
+  border-bottom: 2px solid #fff;
+}
+
+
+/* ═══ WINAMP PLAYER ═══ */
+#player {
+  position: fixed;
+  bottom: 28px;
+  left: 64px;
+  transform: none;
+  width: 480px;
+  background: #1a1a1a;
+  border: 2px solid; border-color: #888 #333 #333 #888;
+  font-family: 'Courier New', monospace;
+  z-index: 8000;
+  box-shadow: 3px 3px 0 #000;
+  user-select: none;
+}
+#player-titlebar {
+  background: linear-gradient(180deg, #444 0%, #222 100%);
+  padding: 2px 6px;
+  display: flex; align-items: center; gap: 6px;
+  height: 18px; cursor: move;
+}
+#player-titlebar span { color: #aaa; font-size: 10px; flex:1; }
+#player-titlebar button {
+  width: 12px; height: 11px;
+  background: #555; border: 1px solid #888; border-color: #888 #333 #333 #888;
+  font-size: 7px; cursor: pointer; color: #ccc; padding: 0; line-height: 1;
+}
+#player-main {
+  display: flex;
+}
+/* left: album art + info */
+#player-left {
+  background: #000;
+  width: 160px; flex-shrink: 0;
+  padding: 8px;
+  display: flex; flex-direction: column; gap: 4px;
+}
+#player-artist { color: #fff; font-size: 14px; font-weight: bold; }
+#player-track { color: #00cc00; font-size: 11px; }
+#player-time { color: #00cc00; font-size: 11px; margin-top: 4px; }
+/* viz bar */
+#player-viz {
+  display: flex; gap: 1px; align-items: flex-end;
+  height: 20px; margin-top: 4px;
+}
+.viz-bar {
+  width: 3px; background: #00cc00;
+  animation: viz-bounce 0.4s ease-in-out infinite;
+}
+@keyframes viz-bounce {
+  0%,100%{ height: 4px; } 50%{ height: 20px; }
+}
+/* right: playlist */
+#player-right {
+  background: #000; flex: 1;
+  overflow-y: auto; max-height: 120px;
+}
+.track-item {
+  padding: 2px 8px;
+  font-size: 11px; color: #888;
+  cursor: pointer; display: flex; justify-content: space-between;
+  border-bottom: 1px solid #111;
+}
+.track-item:hover { background: #1a1a1a; color: #ccc; }
+.track-item.active { color: #00cc00; background: #0a1a0a; }
+.track-num { color: #555; margin-right: 6px; min-width: 16px; }
+/* controls */
+#player-controls {
+  background: #222;
+  border-top: 1px solid #444;
+  padding: 4px 8px;
+  display: flex; align-items: center; gap: 6px;
+}
+#player-progress-wrap {
+  flex: 1; height: 8px;
+  background: #111; border: 1px solid #555; border-color: #333 #777 #777 #333;
+  cursor: pointer; position: relative;
+}
+#player-progress-fill {
+  height: 100%; background: #00cc00; width: 0%;
+  transition: width 0.5s linear;
+}
+#player-progress-handle {
+  position: absolute; top: -2px; width: 8px; height: 12px;
+  background: #888; cursor: ew-resize; transform: translateX(-50%);
+}
+.ctrl-btn {
+  background: #333; border: 1px solid; border-color: #666 #222 #222 #666;
+  color: #aaa; font-size: 11px; padding: 2px 6px;
+  cursor: pointer; font-family: monospace;
+}
+.ctrl-btn:active { border-color: #222 #666 #666 #222; }
+.ctrl-btn:hover { color: #fff; background: #444; }
+#player-vol-wrap {
+  width: 60px; height: 8px;
+  background: #111; border: 1px solid #555; border-color: #333 #777 #777 #333;
+  cursor: pointer; position: relative;
+}
+#player-vol-fill { height: 100%; background: #008800; width: 70%; }
+#player-status { color: #00cc00; font-size: 9px; min-width: 32px; text-align:right; }
+
+/* mobile: hide player or make compact */
+@media (max-width: 768px) {
+  #player { width: 100%; left: 0 !important; transform: none !important; bottom: 28px; }
+  #player-right { max-height: 80px; }
 }
 
 /* SITE */
@@ -461,6 +617,7 @@ input[type=text], textarea {
 <body>
 
 <div id="wallpaper"></div>
+<div id="mobile-notice">⚠ best viewed on desktop — mobile experience may be chaotic</div>
 
 <div id="secret-overlay">
   <div id="secret-titlebar">
@@ -605,7 +762,49 @@ input[type=text], textarea {
 </div>
 
 <!-- TASKBAR -->
+
+<div id="player">
+  <div id="player-titlebar" onmousedown="playerDrag(event)">
+    <span>🎵 FACEEATER — "FACEEATER" the album</span>
+    <button onclick="document.getElementById('player').style.display='none'" title="minimize">_</button>
+  </div>
+  <div id="player-main">
+    <div id="player-left">
+      <div id="player-artist">FACEEATER</div>
+      <div id="player-track">select a track</div>
+      <div id="player-time">0:00 / 0:00</div>
+      <div id="player-viz">
+        <div class="viz-bar" style="animation-delay:0s"></div>
+        <div class="viz-bar" style="animation-delay:0.05s"></div>
+        <div class="viz-bar" style="animation-delay:0.1s"></div>
+        <div class="viz-bar" style="animation-delay:0.15s"></div>
+        <div class="viz-bar" style="animation-delay:0.2s"></div>
+        <div class="viz-bar" style="animation-delay:0.25s"></div>
+        <div class="viz-bar" style="animation-delay:0.3s"></div>
+        <div class="viz-bar" style="animation-delay:0.35s"></div>
+      </div>
+    </div>
+    <div id="player-right" id="playlist"></div>
+  </div>
+  <div id="player-controls">
+    <button class="ctrl-btn" onclick="playerPrev()" title="prev">|◀</button>
+    <button class="ctrl-btn" id="play-btn" onclick="playerPlayPause()">▶</button>
+    <button class="ctrl-btn" onclick="playerStop()">■</button>
+    <button class="ctrl-btn" onclick="playerNext()">▶|</button>
+    <div id="player-progress-wrap" onclick="playerSeek(event)">
+      <div id="player-progress-fill"></div>
+    </div>
+    <div id="player-vol-wrap" onclick="playerVol(event)" title="volume">
+      <div id="player-vol-fill"></div>
+    </div>
+    <div id="player-status">■</div>
+  </div>
+</div>
+<audio id="player-audio"></audio>
+
 <div id="taskbar">
+  <button class="start-btn" onclick="document.getElementById('player').style.display='block'" title="show player">🎵</button>
+  <div class="taskbar-divider"></div>
   <button class="start-btn" onclick="spawnRandomPopup()">
     <span style="font-size:14px;">&#8862;</span> Start
   </button>
@@ -919,6 +1118,8 @@ function handleBtn(uid,defId,action){
       '</div></div>';
     el.style.width='400px';
   
+  }else if(action==='ghouls-join'){
+    doGhoulsJoin(uid);
   }else if(action==='doubleup'){
     el.remove(); delete openPopups[defId];
     setTimeout(doDoubleUp, 200);
@@ -1267,10 +1468,206 @@ function checkDungeonPW() {
   }
 }
 
+
+// ── GHOULS JOIN ──
+const GHOULS_MSGS = [
+  "darling, you really thought our ghouls would be interested in a worm like you?",
+  "our ghouls have standards. unfortunately, you don't meet them.",
+  "the ghouls have reviewed your profile. they said no.",
+  "you dare approach our ghouls? bold. foolish. delicious.",
+];
+
+function doGhoulsJoin(uid) {
+  const el = document.getElementById(uid);
+  if (!el) return;
+
+  // Step 1: camera flash
+  const flash = document.createElement('div');
+  flash.style.cssText = 'position:fixed;top:0;left:0;right:0;bottom:0;background:#fff;z-index:99999;pointer-events:none;';
+  document.body.appendChild(flash);
+  setTimeout(() => flash.remove(), 200);
+
+  // Step 2: show camera icon briefly
+  el.querySelector('.popup-body').innerHTML =
+    '<div style="background:#000;color:#fff;text-align:center;padding:20px;font-family:monospace;">' +
+    '<p style="font-size:32px;">📷</p>' +
+    '<p style="font-size:12px;">capturing image...</p>' +
+    '</div>';
+
+  // Step 3: show message
+  setTimeout(() => {
+    const msg = GHOULS_MSGS[Math.floor(Math.random() * GHOULS_MSGS.length)];
+    el.querySelector('.popup-title-text').textContent = '📍 LOCATION RECEIVED';
+    el.querySelector('.popup-body').innerHTML =
+      '<div style="background:#000;color:#0f0;font-family:monospace;padding:16px;text-align:center;">' +
+      '<p style="font-size:11px;margin-bottom:8px;" class="blink">● CAMERA ACCESSED ●</p>' +
+      '<p style="font-size:13px;color:#fff;margin-bottom:10px;font-style:italic;">"' + msg + '"</p>' +
+      '<p style="font-size:11px;color:#ff4444;" class="blink">we have received your location.<br>they will be on their way.</p>' +
+      '</div>';
+    // widen
+    el.style.width = '340px';
+    // spawn more popups
+    setTimeout(() => spawnPopup('virus_error', true), 800);
+    setTimeout(() => spawnPopup('virus_error', true), 1400);
+  }, 800);
+}
+
+
+// ── WINAMP PLAYER ──
+const TRACKS = [
+  {n:1,  title:'BREATHING TUBE',  file:'music/1 - BREATHING TUBE_mas1_48kHz_24bit.mp3'},
+  {n:2,  title:'DISSIPATE',       file:'music/2 - DISSAPATE_mas1_48kHz_24bit.mp3'},
+  {n:3,  title:'CENTERFOLD',      file:'music/3 - CENTERFOLD_mas1_48kHz_24bit.mp3'},
+  {n:4,  title:'OPERATOR',        file:'music/4 - OPERATOR_mas1_48kHz_24bit.mp3'},
+  {n:5,  title:'OUT OF MY MIND',  file:'music/5 - OUT OF MY MIND_mas1_48kHz_24bit.mp3'},
+  {n:6,  title:'WISH U WERE HERE',file:'music/6 - WISH YOU WERE HERE_mas1_48kHz_24bit.mp3'},
+  {n:7,  title:'THE RAGE',        file:'music/7 - THE RAGE_mas1_48kHz_24bit.mp3'},
+  {n:8,  title:'ROTTEN',          file:'music/8 - ROTTEN _mas1_48kHz_24bit.mp3'},
+  {n:9,  title:'FACEEATER',       file:'music/9 - FACEEATER_mas1_48kHz_24bit.mp3'},
+  {n:10, title:"DON'T DO IT",     file:'music/10 - DONT DO IT_mas1_48kHz_24bit.mp3'},
+  {n:11, title:'MOLD',            file:'music/11 - MOLD_mas1_48kHz_24bit.mp3'},
+];
+
+let currentTrack = -1;
+let isPlaying = false;
+const audio = document.getElementById('player-audio');
+
+// Build playlist
+(function buildPlaylist() {
+  const pl = document.getElementById('player-right');
+  TRACKS.forEach((t, i) => {
+    const row = document.createElement('div');
+    row.className = 'track-item';
+    row.id = 'track-row-' + i;
+    row.innerHTML = '<span><span class="track-num">' + t.n + '</span>' + t.title + '</span>';
+    row.onclick = () => playerLoad(i, true);
+    pl.appendChild(row);
+  });
+})();
+
+function playerLoad(idx, autoplay) {
+  if (idx < 0 || idx >= TRACKS.length) return;
+  currentTrack = idx;
+  const t = TRACKS[idx];
+  audio.src = t.file;
+  document.getElementById('player-track').textContent = t.title;
+  document.querySelectorAll('.track-item').forEach((r,i) => {
+    r.classList.toggle('active', i === idx);
+  });
+  // scroll track into view
+  const row = document.getElementById('track-row-' + idx);
+  if (row) row.scrollIntoView({block:'nearest'});
+  if (autoplay) playerPlay();
+}
+
+function playerPlay() {
+  audio.play().then(() => {
+    isPlaying = true;
+    document.getElementById('play-btn').textContent = '⏸';
+    document.getElementById('player-status').textContent = '▶';
+    startViz();
+  }).catch(() => {});
+}
+
+function playerPause() {
+  audio.pause();
+  isPlaying = false;
+  document.getElementById('play-btn').textContent = '▶';
+  document.getElementById('player-status').textContent = '■';
+  stopViz();
+}
+
+function playerPlayPause() {
+  if (currentTrack === -1) { playerLoad(0, true); return; }
+  if (isPlaying) playerPause(); else playerPlay();
+}
+
+function playerStop() {
+  audio.pause(); audio.currentTime = 0;
+  isPlaying = false;
+  document.getElementById('play-btn').textContent = '▶';
+  document.getElementById('player-status').textContent = '■';
+  document.getElementById('player-progress-fill').style.width = '0%';
+  stopViz();
+}
+
+function playerNext() {
+  playerLoad((currentTrack + 1) % TRACKS.length, isPlaying);
+}
+
+function playerPrev() {
+  playerLoad((currentTrack - 1 + TRACKS.length) % TRACKS.length, isPlaying);
+}
+
+function playerSeek(e) {
+  const rect = e.currentTarget.getBoundingClientRect();
+  const pct = (e.clientX - rect.left) / rect.width;
+  if (audio.duration) audio.currentTime = pct * audio.duration;
+}
+
+function playerVol(e) {
+  const rect = e.currentTarget.getBoundingClientRect();
+  const pct = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+  audio.volume = pct;
+  document.getElementById('player-vol-fill').style.width = (pct*100) + '%';
+}
+
+// progress update
+audio.addEventListener('timeupdate', () => {
+  if (!audio.duration) return;
+  const pct = (audio.currentTime / audio.duration) * 100;
+  document.getElementById('player-progress-fill').style.width = pct + '%';
+  const fmt = t => Math.floor(t/60) + ':' + String(Math.floor(t%60)).padStart(2,'0');
+  document.getElementById('player-time').textContent = fmt(audio.currentTime) + ' / ' + fmt(audio.duration);
+});
+
+// auto next
+audio.addEventListener('ended', () => { playerNext(); });
+
+// viz animation toggle
+let vizRunning = false;
+function startViz() {
+  vizRunning = true;
+  document.querySelectorAll('.viz-bar').forEach(b => b.style.animationPlayState = 'running');
+}
+function stopViz() {
+  vizRunning = false;
+  document.querySelectorAll('.viz-bar').forEach(b => {
+    b.style.animationPlayState = 'paused';
+    b.style.height = '4px';
+  });
+}
+stopViz();
+
+// player drag
+let playerDragging = false, pdx, pdy;
+function playerDrag(e) {
+  const el = document.getElementById('player');
+  playerDragging = true;
+  pdx = e.clientX - el.getBoundingClientRect().left;
+  pdy = e.clientY - el.getBoundingClientRect().top;
+  e.preventDefault();
+}
+document.addEventListener('mousemove', e => {
+  if (!playerDragging) return;
+  const el = document.getElementById('player');
+  el.style.left = Math.max(0, Math.min(e.clientX - pdx, window.innerWidth - el.offsetWidth)) + 'px';
+  el.style.top = Math.max(0, Math.min(e.clientY - pdy, window.innerHeight - el.offsetHeight)) + 'px';
+  el.style.transform = 'none';
+  el.style.bottom = 'auto';
+});
+document.addEventListener('mouseup', () => { playerDragging = false; });
+
+// show player button in taskbar
+document.addEventListener('DOMContentLoaded', () => {});
+
 function clippyToggle(){document.getElementById('clippy-bubble').classList.toggle('show');}
 function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
-shuffle([...VIRUS_IDS]).slice(0,7).forEach((id,i)=>setTimeout(()=>spawnPopup(id,false),500+i*700));
-(function sched(){setTimeout(()=>{const avail=VIRUS_IDS;if(avail.length){const pool=[];avail.forEach(id=>{const w=POPUP_WEIGHTS[id]!==undefined?POPUP_WEIGHTS[id]:POPUP_WEIGHTS._default;for(let i=0;i<w;i++)pool.push(id);});spawnPopup(pool[Math.floor(Math.random()*pool.length)],true);}sched();},5000+Math.random()*10000);})();
+const isMobile = window.innerWidth <= 768;
+const initCount = isMobile ? 2 : 7;
+const spawnDelay = isMobile ? 15000 : 5000;
+shuffle([...VIRUS_IDS]).slice(0,initCount).forEach((id,i)=>setTimeout(()=>spawnPopup(id,false),500+i*700));
+(function sched(){setTimeout(()=>{const avail=VIRUS_IDS;if(avail.length){const pool=[];avail.forEach(id=>{const w=POPUP_WEIGHTS[id]!==undefined?POPUP_WEIGHTS[id]:POPUP_WEIGHTS._default;for(let i=0;i<w;i++)pool.push(id);});spawnPopup(pool[Math.floor(Math.random()*pool.length)],true);}sched();},spawnDelay+Math.random()*15000);})();
 </script>
 </body>
 </html>
