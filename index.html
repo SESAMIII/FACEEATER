@@ -900,21 +900,26 @@ function handleBtn(uid,defId,action){
     const name=nameEl?nameEl.value:'';
     const msg=msgEl?msgEl.value:'';
     window.open('mailto:faceeater.business@gmail.com?subject=Complaint from '+encodeURIComponent(name)+'&body='+encodeURIComponent(msg),'_blank');
-    // show dungeon inline
-    const dungeonImg = document.querySelector('#secret-overlay #secret-body img');
-    const dungeonSrc = dungeonImg ? dungeonImg.src : '';
-    el.querySelector('.popup-title-text').textContent = '🔒 your complaint has been received';
-    el.querySelector('.popup-body').innerHTML =
-      '<div style="position:relative;width:100%;">' +
-      '<img src="' + dungeonSrc + '" style="width:100%;display:block;"/>' +
-      '<a href="https://faceeaterz.bandcamp.com" target="_blank" ' +
-      'style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);' +
-      'color:#fff;font-size:16px;font-weight:bold;font-family:monospace;' +
-      'text-shadow:2px 2px 0 #000,-1px -1px 0 #000;text-decoration:none;cursor:pointer;' +
-      'padding:6px 12px;background:rgba(0,0,0,0.35);border:1px solid rgba(255,255,255,0.3);' +
-      'white-space:nowrap;letter-spacing:1px;">' +
-      'Confess that I'm wrong</a></div>';
-    el.style.width = '400px';
+    const dungeonImg=document.querySelector('#secret-overlay #secret-body img');
+    const dungeonSrc=dungeonImg?dungeonImg.src:'';
+    el.querySelector('.popup-title-text').textContent='🔒 your complaint has been received';
+    el.querySelector('.popup-body').innerHTML=
+      '<div style="position:relative;width:100%;">'+
+      '<img src="'+dungeonSrc+'" style="width:100%;display:block;"/>'+
+      '<div style="position:absolute;bottom:12px;left:50%;transform:translateX(-50%);'+
+      'background:rgba(0,0,0,0.75);padding:8px 12px;border:1px solid rgba(255,255,255,0.3);'+
+      'font-family:monospace;color:#fff;text-align:center;white-space:nowrap;">'+
+      'PASSWORD :<br><input type="password" id="dungeon-pw" placeholder="········" '+
+      'style="background:#000;border:1px solid #fff;color:#fff;font-family:monospace;'+
+      'font-size:13px;padding:3px 6px;width:160px;text-align:center;margin-top:4px;" '+
+      'onkeydown="if(event.key==='Enter')checkDungeonPW()"/>'+
+      '<br><button onclick="checkDungeonPW()" '+
+      'style="margin-top:6px;background:#222;border:1px solid #fff;color:#fff;'+
+      'font-family:monospace;padding:3px 16px;cursor:pointer;">ENTER</button>'+
+      '<p id="dungeon-err" style="font-size:10px;color:#ff4444;margin-top:4px;min-height:14px;"></p>'+
+      '</div></div>';
+    el.style.width='400px';
+  
   }else if(action==='doubleup'){
     el.remove(); delete openPopups[defId];
     setTimeout(doDoubleUp, 200);
@@ -1246,6 +1251,21 @@ function doDoubleUp() {
 // ── SECRET ROOM ──
 function openSecret() {
   document.getElementById('secret-overlay').classList.add('show');
+}
+
+
+function checkDungeonPW() {
+  const inp = document.getElementById('dungeon-pw');
+  const err = document.getElementById('dungeon-err');
+  if (!inp) return;
+  const val = inp.value.trim().toLowerCase();
+  if (val === 'faceeater') {
+    window.open('https://faceeaterz.bandcamp.com', '_blank');
+  } else {
+    if (err) err.textContent = 'wrong password.';
+    inp.value = '';
+    spawnPopup('virus_error', true);
+  }
 }
 
 function clippyToggle(){document.getElementById('clippy-bubble').classList.toggle('show');}
