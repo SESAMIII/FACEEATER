@@ -66,6 +66,20 @@ body {
 }
 .quicklaunch svg { display: block; }
 
+
+.panic-btn {
+  background: #cc0000;
+  border: 2px solid; border-color: #ff6666 #880000 #880000 #ff6666;
+  color: #fff;
+  font-family: 'MS Sans Serif','Arial',sans-serif;
+  font-size: 11px; font-weight: bold;
+  padding: 2px 8px; height: 20px;
+  cursor: pointer; letter-spacing: 1px;
+  display: none;
+}
+.panic-btn:active { border-color: #880000 #ff6666 #ff6666 #880000; }
+.panic-btn.visible { display: block; }
+
 /* SITE */
 #site {
   position: fixed;
@@ -490,6 +504,7 @@ input[type=text], textarea {
   <div id="tray">
     <span>🔊</span><span>📶</span><span id="clock">00:00</span>
   </div>
+  <button class="panic-btn" onclick="panicClose()" title="close all popups">&#10005; PANIC</button>
 </div>
 
 <script>
@@ -696,7 +711,7 @@ function spawnPopup(defId,forceNew){
 }
 
 function openPopupById(id){spawnPopup(id,false);}
-const POPUP_WEIGHTS={virus_nudefolder:2,virus_5000:2,virus_albumcover:4,virus_chat:5,virus_lyrictrivia:5,_default:10};
+const POPUP_WEIGHTS={virus_nudefolder:1,virus_5000:1,virus_albumcover:4,virus_chat:5,virus_lyrictrivia:5,_default:10};
 function spawnRandomPopup(){
   const avail=VIRUS_IDS.filter(id=>!openPopups[id]);
   if(!avail.length)return;
@@ -887,6 +902,29 @@ function answerTrivia(uid, idx) {
   if (idx === q.ans) triviaState.score++;
   setTimeout(() => { triviaState.q++; renderTrivia(uid); }, 900);
 }
+
+
+function panicClose() {
+  document.querySelectorAll('.popup').forEach(p => p.remove());
+  openPopups = {};
+  updatePanicBtn();
+}
+
+function updatePanicBtn() {
+  const btn = document.querySelector('.panic-btn');
+  if (!btn) return;
+  const count = document.querySelectorAll('.popup').length;
+  if (count > 5) {
+    btn.classList.add('visible');
+    btn.textContent = '✕ PANIC (' + count + ')';
+  } else {
+    btn.classList.remove('visible');
+  }
+}
+
+// Watch for popup changes
+const panicObserver = new MutationObserver(updatePanicBtn);
+panicObserver.observe(document.body, { childList: true, subtree: false });
 
 function clippyToggle(){document.getElementById('clippy-bubble').classList.toggle('show');}
 function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
