@@ -204,10 +204,38 @@ body {
 }
 
 
+
 /* ═══ MOBILE ═══ */
 @media (max-width: 768px) {
+  #mobile-notice { display: flex !important; }
+  #desktop-icons { display: flex !important; z-index: 15 !important; }
+  #site { left: 0 !important; padding: 8px !important; padding-bottom: 140px !important; z-index: 2; }
+  #site-page { width: 85vw !important; max-width: 85vw !important; margin: 0 auto !important; }
+  .download-btn { font-size: 16px; padding: 10px; width: 100%; display: block; text-align: center; }
+  #site-logo img { max-width: 140px !important; height: 140px !important; }
+  .popup { max-width: 88vw !important; min-width: 220px !important; }
+  .start-btn { padding: 2px 4px; font-size: 10px; }
+  .quicklaunch { display: none !important; }
+  #floating-logo img { width: 60px !important; height: 60px !important; }
+  #player {
+    width: 100vw !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 28px !important;
+    transform: none !important;
+    box-sizing: border-box !important;
+    z-index: 7999;
+  }
+  #player-left { width: 80px !important; flex-shrink: 0 !important; }
+  #player-right { max-height: 55px !important; }
+  .track-item { font-size: 10px !important; padding: 2px 5px !important; }
+  #player-controls { flex-wrap: wrap; gap: 3px; }
+}
+@media (min-width: 769px) {
+  #mobile-notice { display: none !important; }
+}
 
-  /* mobile notice */
+/* mobile notice */
   #mobile-notice {
     display: flex !important;
   }
@@ -377,6 +405,13 @@ body {
   /* slower popups on mobile */
   .popup { max-width: 88vw !important; }
 }
+
+
+@keyframes border-blink {
+  0%,100%{ box-shadow: 0 0 0 3px #cc0000; }
+  50%{ box-shadow: 0 0 0 3px transparent; }
+}
+.blink-border { animation: border-blink 0.8s ease-in-out infinite; }
 
 /* SITE */
 #site {
@@ -711,7 +746,7 @@ input[type=text], textarea {
       <table class="events-table">
         <tr><th colspan="2">⚡ UPCOMING SHOWS &amp; RELEASES</th></tr>
         <tr><td>JUL 8</td><td>SHOW — Chicago</td></tr>
-        <tr><td>TBA</td><td>FEFM — new side project release</td></tr>
+        <tr><td>TBA</td><td>FEFM — a new faceeater project</td></tr>
         <tr><td>TBA</td><td>LIVESTREAM — check back later</td></tr>
       </table>
       <hr class="hr-rainbow">
@@ -855,7 +890,7 @@ const POPUP_DEFS={
     <p style="font-size:10px;color:#555;">Complaints are reviewed and immediately deleted.</p>`,
     buttons:[{l:"Submit",a:"complaint-submit",d:true},{l:"Cancel",a:"close"}],w:280,email:"faceeater.business@gmail.com"},
   mission:{title:"team.txt - Notepad",icon:"🗒️",menu:["File","Edit","Format","Help"],
-    body:`<div class="notepad-body">NICK.................. Lead Mold Officer<br>LE WOK................ 2nd Mold Officer<br>SESAMi................ Web Vibe Department<br>FACEEATER............. Entity, not a person<br><br>We are not responsible for anything.</div>`,
+    body:`<div class="notepad-body">NICK GREEN............ Test Subject<br>FENJA LOU............. Sample Management<br>GRACE................. Medical Supervisor<br>JAKOB UWE SEYBERTH.... Safety and Compliance<br>GODWILL OKE........... Public Relations<br>SESAMI................ Experiment Execution<br>FACEEATER............. Entity, not a person<br><br>We are not responsible for anything.</div>`,
     buttons:[{l:"Close",a:"close"}],w:280},
 
   virus_logo:{title:"FACEEATER.exe",icon:"☠",
@@ -863,16 +898,17 @@ const POPUP_DEFS={
     <div class="glitch">FACEEATER.EXE IS RUNNING</div>
     <p style="text-align:center;font-size:10px;margin-top:3px;">loading consciousness...</p>`,
     buttons:[{l:"...",a:"duplicate"}],w:230,behavior:'respawn'},
-  virus_livecam:{title:"LIVE CAM — nick_bedroom — 0 viewers",icon:"📹",menu:["File","View","Help"],
-    body:`<div style="position:relative;width:100%;background:#000;text-align:center;">
-    <img src="images/eye.gif" style="width:100%;display:block;" alt="live cam"/>
-    <div style="position:absolute;top:4px;left:4px;background:rgba(0,0,0,0.6);padding:2px 5px;font-size:10px;color:#fff;display:flex;align-items:center;gap:3px;">
-    <span class="blink" style="color:red;">●</span> REC &nbsp;|&nbsp; 0 viewers</div></div>
-    <p style="font-size:10px;margin-top:3px;color:#555;">nick_bedroom | 28.8k modem</p>`,
-    status:"● LIVE",buttons:[{l:"Refresh",a:"respawn"},{l:"Close",a:"close"}],w:280,behavior:'respawn'},
+    virus_tvshit:{title:"📺 static — channel unknown",icon:"📺",
+    body:`<video src="videos/tv_shit.mp4" autoplay loop muted playsinline style="width:100%;display:block;"></video>`,
+    buttons:[{l:"Change Channel",a:"close"}],w:320},
+
+  virus_maulogtv:{title:"📺 mauloff.tv",icon:"📺",
+    body:`<video src="videos/mauloff_tv.mp4" autoplay loop muted playsinline style="width:100%;display:block;"></video>`,
+    buttons:[{l:"Close",a:"close"}],w:320},
+
   virus_fefm:{title:"FEFM - Coming Soon",icon:"★",
     body:`<p style="text-align:center;font-size:22px;font-weight:900;letter-spacing:4px;font-family:'Arial Black',sans-serif;">FEFM</p>
-    <p style="text-align:center;font-size:11px;">a new FACEEATER side project<br><strong>release date: TBA</strong></p>
+    <p style="text-align:center;font-size:11px;">a new FACEEATER a new faceeater project<br><strong>release date: TBA</strong></p>
     <div class="progress-wrap" style="margin-top:6px;"><div class="progress-fill" style="animation-duration:15s"></div></div>
     <p style="text-align:center;font-size:10px;color:#555;">loading hype...</p>`,
     buttons:[{l:"Remind me",a:"duplicate"},{l:"Dismiss",a:"close"}],w:220},
@@ -890,12 +926,6 @@ const POPUP_DEFS={
     <source src="videos/mold01.mp4" type="video/mp4"></video></div>
     <p style="font-size:10px;margin-top:3px;color:#555;">mold01.mp4 | 00:00 / 01:24</p>`,
     status:"Playing...",buttons:[{l:"■ Stop",a:"close"},{l:"⏏ Eject",a:"duplicate"}],w:280},
-  virus_monstermassig:{title:"monstermassig_intro.avi - Windows Media Player",icon:"▶",menu:["File","View","Play","Help"],
-    body:`<div style="background:#000;width:100%;height:60px;display:flex;align-items:center;justify-content:center;border:2px inset #808080;">
-    <span class="blink" style="color:#fff;font-size:24px;">▶</span></div>
-    <div class="progress-wrap"><div class="progress-fill" style="animation-duration:8s;"></div></div>
-    <p style="font-size:10px;color:#555;">00:00 / 03:14 | Buffering...</p>`,
-    status:"Ready",buttons:[{l:"Play",a:"shake"},{l:"Stop",a:"close"}],w:240},
   virus_tracklist:{title:"FACEEATER — full tracklist",icon:"📋",
     menu:["File","Edit","View"],
     body:`<img src="images/albumcover.png" style="width:100%;display:block;"/>
@@ -951,7 +981,7 @@ const POPUP_DEFS={
     <p style="font-size:9px;color:#888;text-align:center;margin-top:2px;">click image</p></div>`,
     buttons:[{l:"Close",a:"close"}],w:300},
 
-  virus_download:{title:"⬇ DOWNLOAD — \"FACEEATER\" the album",icon:"💾",
+  virus_download:{title:"⬇ DOWNLOAD — \"FACEEATER\" the album",icon:"💾",cls:'blink-border',
     body:`<div style="padding:8px;">
     <p style="font-size:11px;margin-bottom:10px;color:#555;">choose your format:</p>
     <div style="display:flex;flex-direction:column;gap:6px;">
@@ -980,12 +1010,14 @@ const POPUP_DEFS={
     <img src="images/hbs_color.jpg" style="width:100%;display:block;"/>
     <p style="font-size:9px;color:#888;text-align:center;margin-top:2px;">click image</p></div>`,
     buttons:[{l:"Close",a:"close"}],w:320},
-  virus_mauloff:{title:"MAULOFF x TRANQUIVEX - New Release",icon:"🎵",
-    body:`<p style="text-align:center;font-weight:bold;font-size:13px;">MAULOFF × TRANQUIVEX</p>
-    <p style="text-align:center;font-size:11px;">SPLIT RELEASE</p>
-    <p style="text-align:center;font-size:18px;font-weight:900;color:#cc0000;">OUT NOW???</p>
-    <div class="progress-wrap"><div class="progress-fill" style="animation-duration:10s"></div></div>`,
-    buttons:[{l:"Buy Now",a:"close",d:true},{l:"Later",a:"close"}],w:230},
+
+  virus_rotten:{title:"🎬 ROTTEN — official",icon:"🎬",
+    body:`<video src="videos/rotten.mov" autoplay loop muted playsinline controls style="width:100%;display:block;"></video>`,
+    buttons:[{l:"Close",a:"close"}],w:340},
+
+  virus_childshaking:{title:"📹 untitled footage",icon:"📹",
+    body:`<video src="videos/child_shaking.mov" autoplay loop muted playsinline style="width:100%;display:block;"></video>`,
+    buttons:[{l:"Close",a:"close"}],w:320},
   virus_finaladd:{title:"FINAL_ADD.mp4 — Windows Media Player",icon:"📺",
     menu:["File","View","Play","Help"],
     body:`<video autoplay muted loop playsinline style="width:100%;display:block;">
@@ -1035,8 +1067,7 @@ const POPUP_DEFS={
     buttons:[{l:"Submit",a:"riddle-check",d:true},{l:"Give Up",a:"close"}],w:230},
 };
 
-const VIRUS_IDS=['virus_logo','virus_livecam','virus_fefm','virus_welove','virus_monstermassig',
-  'virus_moldvideo','virus_tracklist','virus_albumcover','virus_cover','virus_hbs','virus_5000','virus_chat','virus_lyrictrivia','virus_doubleup','virus_mauloff','virus_finaladd','virus_ghouls','virus_18','virus_car','virus_nudefolder','virus_survey','virus_error',
+const VIRUS_IDS=['virus_logo','virus_tvshit','virus_maulogtv','virus_fefm','virus_welove','virus_moldvideo','virus_tracklist','virus_albumcover','virus_cover','virus_hbs','virus_rotten','virus_childshaking','virus_5000','virus_chat','virus_lyrictrivia','virus_doubleup','virus_finaladd','virus_ghouls','virus_18','virus_car','virus_nudefolder','virus_survey','virus_error',
   'virus_lego','virus_update','virus_riddle'];
 
 let openPopups={},popupZTop=1000,popupCounter=0;
@@ -1047,7 +1078,7 @@ function spawnPopup(defId,forceNew){
   if(!forceNew&&openPopups[defId]&&def.behavior==='respawn'){bringToFront(openPopups[defId]);return;}
   const uid=defId+'_'+(++popupCounter);
   const popup=document.createElement('div');
-  popup.className='popup';popup.id=uid;
+  popup.className='popup'+(def.cls?' '+def.cls:'');popup.id=uid;
   popup.style.width=(def.w||260)+'px';
   const vw=window.innerWidth,vh=window.innerHeight,pw=def.w||260;
   popup.style.left=Math.max(66,Math.floor(Math.random()*Math.max(10,vw-pw-20)))+'px';
@@ -1078,7 +1109,7 @@ function spawnPopup(defId,forceNew){
 }
 
 function openPopupById(id){spawnPopup(id,false);}
-const POPUP_WEIGHTS={virus_nudefolder:1,virus_5000:1,virus_doubleup:2,virus_ghouls:3,virus_car:3,virus_hbs:3,virus_cover:3,virus_albumcover:4,virus_chat:5,virus_lyrictrivia:5,_default:10};
+const POPUP_WEIGHTS={virus_nudefolder:1,virus_5000:1,virus_rotten:6,virus_childshaking:6,virus_tvshit:6,virus_maulogtv:6,virus_doubleup:2,virus_ghouls:3,virus_car:3,virus_hbs:3,virus_cover:3,virus_albumcover:4,virus_chat:5,virus_lyrictrivia:5,_default:10};
 function spawnRandomPopup(){
   const avail=VIRUS_IDS.filter(id=>!openPopups[id]);
   if(!avail.length)return;
