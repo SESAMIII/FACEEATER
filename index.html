@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="icon" type="image/jpeg" href="images/favicon.jpg?v=2"/>
+<link rel="icon" id="favicon-link" type="image/jpeg" href="images/favicon.jpg?v=3"/>
 <style>
 /* red favicon trick - actual favicon set above */
 </style>
@@ -29,6 +29,13 @@ body {
   background-repeat: repeat-x;
   z-index: 0;
   filter: saturate(0.6) brightness(0.35);
+  cursor: crosshair;
+}
+#bg-click-layer {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 28px;
+  z-index: 1;
+  cursor: crosshair;
 }
 
 /* DESKTOP ICONS */
@@ -37,6 +44,7 @@ body {
   left: 6px; top: 6px;
   display: flex; flex-direction: column; gap: 6px;
   z-index: 10;
+  pointer-events: all;
 }
 .desktop-icon {
   display: flex; flex-direction: column; align-items: center;
@@ -355,10 +363,11 @@ body {
 
 /* mobile: hide player or make compact */
 @media (max-width: 768px) {
-  #player { width: 100% !important; left: 0 !important; right: 0 !important; transform: none !important; bottom: 28px; }
-  #player-left { width: 100px !important; }
+  #player { width: 100vw !important; left: 0 !important; right: 0 !important; transform: none !important; bottom: 28px; box-sizing: border-box; }
+  #player-left { width: 90px !important; }
   #player-right { max-height: 70px; }
   .track-item { font-size: 10px; padding: 2px 6px; }
+  #player-controls { flex-wrap: wrap; }
 }
 
 /* SITE */
@@ -626,7 +635,8 @@ input[type=text], textarea {
 </head>
 <body>
 
-<div id="wallpaper" onclick="toggleBackground()" style="cursor:crosshair;" title="..."></div>
+<div id="wallpaper"></div>
+<div id="bg-click-layer" onclick="toggleBackground()"></div>
 <div id="mobile-notice">⚠ best viewed on desktop — mobile experience may be chaotic</div>
 
 <div id="secret-overlay">
