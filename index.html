@@ -43,7 +43,7 @@ body {
   position: fixed;
   left: 6px; top: 6px;
   display: flex; flex-direction: column; gap: 6px;
-  z-index: 10;
+  z-index: 15;
   pointer-events: all;
 }
 .desktop-icon {
@@ -212,6 +212,9 @@ body {
     display: flex !important;
   }
 
+  /* hide desktop icons on mobile */
+  #desktop-icons { display: none; }
+
   /* site fills full width */
   #site { left: 0; padding: 8px; }
 
@@ -360,11 +363,19 @@ body {
 
 /* mobile: hide player or make compact */
 @media (max-width: 768px) {
-  #player { width: 100vw !important; left: 0 !important; right: 0 !important; transform: none !important; bottom: 28px; box-sizing: border-box; }
-  #player-left { width: 90px !important; }
-  #player-right { max-height: 70px; }
+  #player { width: 100vw !important; left: 0 !important; right: 0 !important; transform: none !important; bottom: 28px; box-sizing: border-box; z-index: 7999; }
+  #player-left { width: 80px !important; }
+  #player-right { max-height: 60px; }
   .track-item { font-size: 10px; padding: 2px 6px; }
   #player-controls { flex-wrap: wrap; }
+  /* site content not blocked by player */
+  #site { padding-bottom: 120px !important; }
+  /* site content 85% width */
+  #site-page { width: 85vw !important; max-width: 85vw !important; margin: 0 auto; }
+  /* desktop icons visible */
+  #desktop-icons { display: flex !important; z-index: 15; }
+  /* slower popups on mobile */
+  .popup { max-width: 88vw !important; }
 }
 
 /* SITE */
@@ -911,7 +922,7 @@ const POPUP_DEFS={
     buttons:[{l:"Disconnect",a:"close"}],w:300},
 
   virus_lyrictrivia:{title:"🎵 FACEEATER Lyric Trivia",icon:"🎵",
-    body:`<div id="trivia-body"><p style="font-weight:bold;margin-bottom:6px;">finish the lyric:</p><p id="trivia-q" style="font-style:italic;font-size:13px;color:#000080;margin-bottom:8px;"></p><div id="trivia-opts" style="display:flex;flex-direction:column;gap:4px;"></div></div>`,
+    body:`<div class="trivia-body"><p style="font-weight:bold;margin-bottom:6px;">finish the lyric:</p><p class="trivia-q" style="font-style:italic;font-size:13px;color:#000080;margin-bottom:8px;"></p><div class="trivia-opts" style="display:flex;flex-direction:column;gap:4px;"></div></div>`,
     status:"question 1 of 5",
     buttons:[],w:280,trivia:true},
 
@@ -963,6 +974,12 @@ const POPUP_DEFS={
     <p style="font-size:9px;color:#888;margin-top:8px;text-align:center;">free. take it.</p>
     </div>`,
     buttons:[{l:"Close",a:"close"}],w:280},
+
+  virus_hbs:{title:"🎮 HEARTBREAK SOLDIER — PS1",icon:"🎮",
+    body:`<div style="cursor:pointer;position:relative;" onclick="this.querySelector('img').src=this.querySelector('img').src.includes('hbs_color')?'images/hbs_chrome.jpg':'images/hbs_color.jpg'">
+    <img src="images/hbs_color.jpg" style="width:100%;display:block;"/>
+    <p style="font-size:9px;color:#888;text-align:center;margin-top:2px;">click image</p></div>`,
+    buttons:[{l:"Close",a:"close"}],w:320},
   virus_mauloff:{title:"MAULOFF x TRANQUIVEX - New Release",icon:"🎵",
     body:`<p style="text-align:center;font-weight:bold;font-size:13px;">MAULOFF × TRANQUIVEX</p>
     <p style="text-align:center;font-size:11px;">SPLIT RELEASE</p>
@@ -1019,7 +1036,7 @@ const POPUP_DEFS={
 };
 
 const VIRUS_IDS=['virus_logo','virus_livecam','virus_fefm','virus_welove','virus_monstermassig',
-  'virus_moldvideo','virus_tracklist','virus_albumcover','virus_cover','virus_5000','virus_chat','virus_lyrictrivia','virus_doubleup','virus_mauloff','virus_finaladd','virus_ghouls','virus_18','virus_car','virus_nudefolder','virus_survey','virus_error',
+  'virus_moldvideo','virus_tracklist','virus_albumcover','virus_cover','virus_hbs','virus_5000','virus_chat','virus_lyrictrivia','virus_doubleup','virus_mauloff','virus_finaladd','virus_ghouls','virus_18','virus_car','virus_nudefolder','virus_survey','virus_error',
   'virus_lego','virus_update','virus_riddle'];
 
 let openPopups={},popupZTop=1000,popupCounter=0;
@@ -1061,7 +1078,7 @@ function spawnPopup(defId,forceNew){
 }
 
 function openPopupById(id){spawnPopup(id,false);}
-const POPUP_WEIGHTS={virus_nudefolder:1,virus_5000:1,virus_doubleup:2,virus_albumcover:4,virus_chat:5,virus_lyrictrivia:5,_default:10};
+const POPUP_WEIGHTS={virus_nudefolder:1,virus_5000:1,virus_doubleup:2,virus_ghouls:3,virus_car:3,virus_hbs:3,virus_cover:3,virus_albumcover:4,virus_chat:5,virus_lyrictrivia:5,_default:10};
 function spawnRandomPopup(){
   const avail=VIRUS_IDS.filter(id=>!openPopups[id]);
   if(!avail.length)return;
@@ -1263,7 +1280,7 @@ function renderTrivia(uid) {
   const qs = state.questions;
   const q = qs[state.q];
   const total = qs.length;
-  const body = el.querySelector('#trivia-body');
+  const body = el.querySelector('.trivia-body');
   if (!q) {
     const msg = state.score===total ? 'perfect. you are one of us.' :
                 state.score>=total*0.6 ? 'not bad. listen more.' : 'go listen to the album again.';
@@ -1273,8 +1290,8 @@ function renderTrivia(uid) {
       '<div class="popup-btns"><button class="popup-btn default-btn" onclick="initTrivia(\'' + uid + '\')">Play Again</button>' + secretBtn + '</div>';
     return;
   }
-  el.querySelector('#trivia-q').textContent = q.q;
-  const optsEl = el.querySelector('#trivia-opts');
+  el.querySelector('.trivia-q').textContent = q.q;
+  const optsEl = el.querySelector('.trivia-opts');
   optsEl.innerHTML = q.opts.map((o,i) =>
     '<button onclick="answerTrivia(\'' + uid + '\',' + i + ')" style="background:#c0c0c0;border:2px solid;border-color:#fff #808080 #808080 #fff;padding:3px 8px;cursor:pointer;font-family:monospace;font-size:11px;text-align:left;">' + o + '</button>'
   ).join('');
@@ -1287,14 +1304,14 @@ function answerTrivia(uid, idx) {
   if (!el || !el._trivia) return;
   const state = el._trivia;
   const q = state.questions[state.q];
-  const btns = el.querySelectorAll('#trivia-opts button');
+  const btns = el.querySelectorAll('.trivia-opts button');
   btns.forEach((b,i) => {
     b.disabled = true;
     if (i === q.ans) b.style.background = '#90ee90';
     else if (i === idx && idx !== q.ans) b.style.background = '#ffaaaa';
   });
   if (idx === q.ans) state.score++;
-  const optsEl = el.querySelector('#trivia-opts');
+  const optsEl = el.querySelector('.trivia-opts');
   const hint = document.createElement('p');
   hint.style.cssText = 'font-size:10px;color:#666;margin-top:4px;font-style:italic;';
   hint.textContent = '— ' + q.song;
@@ -1728,9 +1745,10 @@ function clippyToggle(){document.getElementById('clippy-bubble').classList.toggl
 function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
 const isMobile = window.innerWidth <= 768;
 const initCount = isMobile ? 1 : 7;
-const spawnDelay = isMobile ? 30000 : 5000;
+const spawnDelay = isMobile ? 45000 : 5000;
+const mobileMaxPopups = 4;
 shuffle([...VIRUS_IDS]).slice(0,initCount).forEach((id,i)=>setTimeout(()=>spawnPopup(id,false),500+i*700));
-(function sched(){setTimeout(()=>{const avail=VIRUS_IDS;if(avail.length){const pool=[];avail.forEach(id=>{const w=POPUP_WEIGHTS[id]!==undefined?POPUP_WEIGHTS[id]:POPUP_WEIGHTS._default;for(let i=0;i<w;i++)pool.push(id);});spawnPopup(pool[Math.floor(Math.random()*pool.length)],true);}sched();},spawnDelay+Math.random()*15000);})();
+(function sched(){setTimeout(()=>{const avail=VIRUS_IDS;if(avail.length&&(!isMobile||document.querySelectorAll('.popup').length<mobileMaxPopups)){const pool=[];avail.forEach(id=>{const w=POPUP_WEIGHTS[id]!==undefined?POPUP_WEIGHTS[id]:POPUP_WEIGHTS._default;for(let i=0;i<w;i++)pool.push(id);});spawnPopup(pool[Math.floor(Math.random()*pool.length)],true);}sched();},spawnDelay+Math.random()*15000);})();
 </script>
 </body>
 </html>
