@@ -723,6 +723,7 @@ input[type=text], textarea {
 <body>
 
 <div id="wallpaper"></div>
+<div id="floating-logo"><img src="images/logo_transparent.png" id="floating-logo-img" style="width:110px;height:110px;object-fit:contain;animation:spin-logo 8s linear infinite;"/></div>
 <div id="bg-click-layer" onclick="toggleBackground()"></div>
 <div id="desktop-icons">
   <div class="icon-btn" ondblclick="openPopupById('mission')" title="team.txt">
@@ -1080,7 +1081,7 @@ const POPUP_DEFS={
     body:`<video src="videos/rotten.mp4" autoplay loop muted playsinline controls style="width:100%;display:block;"></video>`,
     buttons:[{l:"Close",a:"close"}],w:340},
 
-  virus_childshaking:{title:"📹 untitled footage",icon:"📹",
+  virus_childshaking:{title:"📹 Agree.mp4",icon:"📹",
     body:`<video src="videos/child_shaking.mp4" autoplay loop muted playsinline style="width:100%;display:block;"></video>`,
     buttons:[{l:"Close",a:"close"}],w:320},
   virus_finaladd:{title:"FINAL_ADD.mp4 — Windows Media Player",icon:"📺",
@@ -1115,11 +1116,10 @@ const POPUP_DEFS={
     <p style="font-size:10px;color:#cc0000;margin-top:3px;">FACEEATER.DLL not found</p>
     <p style="font-size:10px;color:#555;margin-top:2px;">Press OK to continue.</p></div></div>`,
     buttons:[{l:"OK",a:"duplicate",d:true},{l:"Cancel",a:"duplicate"},{l:"Ignore",a:"duplicate"}],w:270,behavior:'shake'},
-  virus_lego:{title:"FACEEATER LEGO Set - Official Store",icon:"🧱",
-    body:`<p style="font-weight:bold;">Introducing the Official<br>FACEEATER™ LEGO® Collector's Set</p>
-    <p style="font-size:30px;text-align:center;letter-spacing:4px;line-height:1.2;">🧱🧱🧱<br>🧱☠🧱<br>🧱🧱🧱</p>
-    <p style="font-size:10px;">9,999 pieces · Ages 3+ · €9,999.99 · Limited Edition</p>`,
-    buttons:[{l:"Add to Cart",a:"crash",d:true},{l:"Wishlist",a:"duplicate"}],w:240},
+  virus_lego:{title:"🧱 THE FACEEATER — LEGO Set",icon:"🧱",
+    body:`<img src="images/lego.png" style="width:100%;display:block;"/>
+    <p style="font-size:10px;text-align:center;margin-top:4px;color:#555;">350pc • exclusive minifig</p>`,
+    buttons:[{l:"I need this",a:"close"},{l:"Close",a:"close"}],w:340},
   virus_update:{title:"System Update Available",icon:"💿",
     body:`<div class="warn-box"><span class="warn-icon">💿</span>
     <div><p>An update for <strong>FACEEATER</strong> is ready to install.</p>
@@ -1132,7 +1132,7 @@ const POPUP_DEFS={
     buttons:[{l:"Submit",a:"riddle-check",d:true},{l:"Give Up",a:"close"}],w:230},
 };
 
-const VIRUS_IDS=['virus_logo','virus_tvshit','virus_maulogtv','virus_fefm','virus_welove','virus_moldvideo','virus_tracklist','virus_albumcover','virus_cover','virus_hbs','virus_rotten','virus_childshaking','virus_5000','virus_chat','virus_lyrictrivia','virus_doubleup','virus_finaladd','virus_ghouls','virus_18','virus_car','virus_nudefolder','virus_survey','virus_error',
+const VIRUS_IDS=['virus_logo','virus_tvshit','virus_maulogtv','virus_fefm','virus_welove','virus_moldvideo','virus_tracklist','virus_albumcover','virus_cover','virus_lewok','virus_hbs','virus_rotten','virus_childshaking','virus_5000','virus_chat','virus_lyrictrivia','virus_doubleup','virus_finaladd','virus_ghouls','virus_18','virus_car','virus_nudefolder','virus_survey','virus_error',
   'virus_lego','virus_update','virus_riddle'];
 
 let openPopups={},popupZTop=1000,popupCounter=0;
@@ -1174,7 +1174,7 @@ function spawnPopup(defId,forceNew){
 }
 
 function openPopupById(id){spawnPopup(id,false);}
-const POPUP_WEIGHTS={virus_nudefolder:1,virus_5000:1,virus_rotten:6,virus_childshaking:6,virus_tvshit:6,virus_maulogtv:6,virus_doubleup:2,virus_ghouls:3,virus_car:3,virus_hbs:3,virus_cover:3,virus_albumcover:4,virus_chat:5,virus_lyrictrivia:5,_default:10};
+const POPUP_WEIGHTS={virus_lewok:2,virus_nudefolder:1,virus_5000:1,virus_rotten:6,virus_childshaking:6,virus_tvshit:6,virus_maulogtv:6,virus_doubleup:2,virus_ghouls:3,virus_car:3,virus_hbs:3,virus_cover:3,virus_albumcover:4,virus_chat:5,virus_lyrictrivia:5,_default:10};
 function spawnRandomPopup(){
   const avail=VIRUS_IDS.filter(id=>!openPopups[id]);
   if(!avail.length)return;
