@@ -38,7 +38,29 @@ body {
   cursor: crosshair;
 }
 
+
 /* DESKTOP ICONS */
+#desktop-icons {
+  position: fixed;
+  left: 6px; top: 6px;
+  display: flex; flex-direction: column; gap: 6px;
+  z-index: 15;
+  pointer-events: all;
+}
+.icon-btn {
+  display: flex; flex-direction: column; align-items: center;
+  width: 56px; cursor: pointer; padding: 4px 2px;
+  border: 1px solid transparent;
+}
+.icon-btn:hover { background: rgba(0,0,128,0.3); border-color: rgba(255,255,255,0.5); }
+.icon-img { font-size: 24px; line-height: 1; }
+.icon-label {
+  font-size: 10px; color: #fff; text-align: center;
+  text-shadow: 1px 1px 2px #000, -1px -1px 2px #000;
+  margin-top: 2px; word-break: break-word;
+  font-family: 'MS Sans Serif','Arial',sans-serif;
+}
+
 #desktop-icons {
   position: fixed;
   left: 6px; top: 6px;
@@ -206,39 +228,12 @@ body {
 
 
 /* ═══ MOBILE ═══ */
-@media (max-width: 768px) {
-  #mobile-notice { display: flex !important; }
-  #desktop-icons { display: flex !important; z-index: 15 !important; }
-  #site { left: 0 !important; padding: 8px !important; padding-bottom: 140px !important; z-index: 2; }
-  #site-page { width: 85vw !important; max-width: 85vw !important; margin: 0 auto !important; }
-  .download-btn { font-size: 16px; padding: 10px; width: 100%; display: block; text-align: center; }
-  #site-logo img { max-width: 140px !important; height: 140px !important; }
-  .popup { max-width: 88vw !important; min-width: 220px !important; }
-  .start-btn { padding: 2px 4px; font-size: 10px; }
-  .quicklaunch { display: none !important; }
-  #floating-logo img { width: 60px !important; height: 60px !important; }
-  #player {
-    width: 100vw !important;
-    left: 0 !important;
-    right: 0 !important;
-    bottom: 28px !important;
-    transform: none !important;
-    box-sizing: border-box !important;
-    z-index: 7999;
-  }
-  #player-left { width: 80px !important; flex-shrink: 0 !important; }
-  #player-right { max-height: 55px !important; }
-  .track-item { font-size: 10px !important; padding: 2px 5px !important; }
-  #player-controls { flex-wrap: wrap; gap: 3px; }
-}
 @media (min-width: 769px) {
-  #mobile-notice { display: none !important; }
+  
 }
 
 /* mobile notice */
-  #mobile-notice {
-    display: flex !important;
-  }
+  
 
   /* hide desktop icons on mobile */
   #desktop-icons { display: none; }
@@ -267,18 +262,10 @@ body {
 }
 
 @media (min-width: 769px) {
-  #mobile-notice { display: none !important; }
+  
 }
 
-#mobile-notice {
-  display: none;
-  position: fixed; top: 0; left: 0; right: 0;
-  background: #000080; color: #ff0;
-  font-family: 'MS Sans Serif','Arial',sans-serif;
-  font-size: 11px; text-align: center;
-  padding: 6px 10px; z-index: 99990;
-  border-bottom: 2px solid #fff;
-}
+
 
 
 /* ═══ WINAMP PLAYER ═══ */
@@ -412,6 +399,54 @@ body {
   50%{ box-shadow: 0 0 0 3px transparent; }
 }
 .blink-border { animation: border-blink 0.8s ease-in-out infinite; }
+
+
+#mobile-notice {
+  display: none;
+  position: fixed; top: 0; left: 0; right: 0;
+  background: #000080; color: #ffff00;
+  font-family: 'MS Sans Serif','Arial',sans-serif;
+  font-size: 14px; font-weight: bold;
+  text-align: center; padding: 10px;
+  z-index: 99990; border-bottom: 3px solid #fff;
+}
+@media (min-width: 769px) {
+  #mobile-notice { display: none !important; }
+}
+
+
+@media (max-width: 768px) {
+  /* notice */
+  #mobile-notice { display: block !important; }
+  /* show desktop icons */
+  #desktop-icons { display: flex !important; z-index: 15 !important; }
+  /* site */
+  #site { left: 0 !important; padding: 8px !important; padding-bottom: 160px !important; z-index: 2; }
+  #site-content { width: 85vw !important; max-width: 85vw !important; margin: 0 auto !important; }
+  #site-page { width: 100% !important; }
+  /* logo */
+  #site-logo img { max-width: 130px !important; height: 130px !important; }
+  /* popups */
+  .popup { max-width: 88vw !important; min-width: 220px !important; }
+  /* taskbar */
+  .quicklaunch { display: none !important; }
+  /* player FULL WIDTH */
+  #player {
+    width: 100vw !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 28px !important;
+    transform: none !important;
+    box-sizing: border-box !important;
+  }
+  #player-left { width: 80px !important; flex-shrink: 0 !important; }
+  #player-right { max-height: 55px !important; }
+  .track-item { font-size: 10px !important; padding: 2px 5px !important; }
+  #player-controls { gap: 3px; }
+}
+@media (min-width: 769px) {
+  #mobile-notice { display: none !important; }
+}
 
 /* SITE */
 #site {
@@ -679,6 +714,27 @@ input[type=text], textarea {
 <body>
 
 <div id="wallpaper"></div>
+<div id="bg-click-layer" onclick="toggleBackground()"></div>
+<div id="desktop-icons">
+  <div class="icon-btn" ondblclick="openPopupById('mission')" title="team.txt">
+    <div class="icon-img">🗒️</div><div class="icon-label">team.txt</div>
+  </div>
+  <div class="icon-btn" ondblclick="openPopupById('complaints')" title="complaints">
+    <div class="icon-img">📮</div><div class="icon-label">complaints</div>
+  </div>
+  <div class="icon-btn" ondblclick="window.open('https://mega.nz/folder/cJ9iELbI#5b9eoabm7cJzssyA-pJnlw','_blank')" onclick="openPopupById('stems')" title="stems">
+    <div class="icon-img">💾</div><div class="icon-label">stems</div>
+  </div>
+  <div class="icon-btn" ondblclick="window.open('https://mega.nz/folder/0FdiAKYJ#Iwqufag84SfCZrz5WeerWQ','_blank')" onclick="openPopupById('samplepack')" title="sample pack">
+    <div class="icon-img">📦</div><div class="icon-label">sample pack</div>
+  </div>
+  <div class="icon-btn" ondblclick="spawnPopup('virus_lyrictrivia',true)" title="trivia">
+    <div class="icon-img">🎵</div><div class="icon-label">trivia.exe</div>
+  </div>
+  <div class="icon-btn" ondblclick="spawnPopup('virus_riddle',true)" title="riddle">
+    <div class="icon-img">❓</div><div class="icon-label">???.exe</div>
+  </div>
+</div>
 <div id="mobile-notice">⚠ best viewed on desktop — mobile experience may be chaotic</div>
 
 
@@ -884,7 +940,7 @@ const POPUP_DEFS={
   foldingguide:{title:"README.txt - Notepad",icon:"🗒️",menu:["File","Edit","Format","Help"],
     body:`<div class="notepad-body">FOLDING INSTRUCTIONS<br>====================<br><br>1. Print the zine PDF<br>2. Fold in half (long side)<br>3. Fold again<br>4. Cut along dotted line<br>5. You did it.<br><br><span class="blink">Still confused? That is fine.</span></div>`,
     buttons:[{l:"OK",a:"close",d:true}],w:260},
-  complaints:{title:"Submit a Complaint",icon:"📮",
+  complaints:{title:"Submit a Complaint",icon:"📮",cls:'blink-border',
     body:`<p>Name:<br><input type="text" style="width:100%;margin:2px 0 6px;"></p>
     <p>Complaint:<br><textarea style="width:100%;height:44px;resize:none;"></textarea></p>
     <p style="font-size:10px;color:#555;">Complaints are reviewed and immediately deleted.</p>`,
@@ -1012,11 +1068,11 @@ const POPUP_DEFS={
     buttons:[{l:"Close",a:"close"}],w:320},
 
   virus_rotten:{title:"🎬 ROTTEN — official",icon:"🎬",
-    body:`<video src="videos/rotten.mov" autoplay loop muted playsinline controls style="width:100%;display:block;"></video>`,
+    body:`<video src="videos/rotten.mp4" autoplay loop muted playsinline controls style="width:100%;display:block;"></video>`,
     buttons:[{l:"Close",a:"close"}],w:340},
 
   virus_childshaking:{title:"📹 untitled footage",icon:"📹",
-    body:`<video src="videos/child_shaking.mov" autoplay loop muted playsinline style="width:100%;display:block;"></video>`,
+    body:`<video src="videos/child_shaking.mp4" autoplay loop muted playsinline style="width:100%;display:block;"></video>`,
     buttons:[{l:"Close",a:"close"}],w:320},
   virus_finaladd:{title:"FINAL_ADD.mp4 — Windows Media Player",icon:"📺",
     menu:["File","View","Play","Help"],
@@ -1399,9 +1455,20 @@ function checkHeaven() {
 
 // ── DOUBLEUP ACTION ──
 function doDoubleUp() {
-  const current = Object.keys(openPopups);
-  current.forEach(id => {
-    setTimeout(() => spawnPopup(id, true), Math.random()*500);
+  const allPopups = Array.from(document.querySelectorAll('.popup'));
+  let delay = 0;
+  allPopups.forEach(p => {
+    const defId = p.id.replace(/_[^_]+$/, '');
+    const rect = p.getBoundingClientRect();
+    setTimeout(() => {
+      const clone = spawnPopup(defId, true);
+      if (clone) {
+        // offset slightly from original
+        clone.style.left = (parseInt(p.style.left||rect.left) + 18 + Math.random()*20) + 'px';
+        clone.style.top  = (parseInt(p.style.top||rect.top)  + 18 + Math.random()*20) + 'px';
+      }
+    }, delay);
+    delay += 80;
   });
 }
 
@@ -1776,8 +1843,8 @@ function clippyToggle(){document.getElementById('clippy-bubble').classList.toggl
 function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
 const isMobile = window.innerWidth <= 768;
 const initCount = isMobile ? 1 : 7;
-const spawnDelay = isMobile ? 45000 : 5000;
-const mobileMaxPopups = 4;
+const spawnDelay = isMobile ? 40000 : 5000;
+const mobileMaxPopups = 3;
 shuffle([...VIRUS_IDS]).slice(0,initCount).forEach((id,i)=>setTimeout(()=>spawnPopup(id,false),500+i*700));
 (function sched(){setTimeout(()=>{const avail=VIRUS_IDS;if(avail.length&&(!isMobile||document.querySelectorAll('.popup').length<mobileMaxPopups)){const pool=[];avail.forEach(id=>{const w=POPUP_WEIGHTS[id]!==undefined?POPUP_WEIGHTS[id]:POPUP_WEIGHTS._default;for(let i=0;i<w;i++)pool.push(id);});spawnPopup(pool[Math.floor(Math.random()*pool.length)],true);}sched();},spawnDelay+Math.random()*15000);})();
 </script>
