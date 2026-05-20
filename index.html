@@ -947,17 +947,17 @@ const POPUP_DEFS={
     body:`<div style="padding:8px;">
     <p style="font-size:11px;margin-bottom:10px;color:#555;">choose your format:</p>
     <div style="display:flex;flex-direction:column;gap:6px;">
-      <a href="https://mega.nz/folder/NY0VlRLD#gN2giBxkAb1c9i3OrD2n-w/folder/Qd0SAIpB" target="_blank"
+      <a href="https://mega.nz/folder/QA0AVaCB-gMMCMZqmMfswmKxPQ" target="_blank"
         style="display:block;background:#000080;color:#fff;text-decoration:none;padding:8px 12px;
         font-family:monospace;font-size:12px;border:2px solid;border-color:#fff #808080 #808080 #fff;text-align:center;">
         🎵 MP3 — direct download
       </a>
-      <a href="https://mega.nz/folder/NY0VlRLD#gN2giBxkAb1c9i3OrD2n-w/folder/dd8y1QAB" target="_blank"
+      <a href="https://mega.nz/folder/1Bc1mIZI" target="_blank"
         style="display:block;background:#c0c0c0;color:#000;text-decoration:none;padding:8px 12px;
         font-family:monospace;font-size:12px;border:2px solid;border-color:#fff #808080 #808080 #fff;text-align:center;">
         🎵 FLAC — lossless
       </a>
-      <a href="https://mega.nz/folder/NY0VlRLD#gN2giBxkAb1c9i3OrD2n-w/folder/VFVAhBoS" target="_blank"
+      <a href="https://mega.nz/folder/5M913JRI-NME2z-1PA" target="_blank"
         style="display:block;background:#c0c0c0;color:#000;text-decoration:none;padding:8px 12px;
         font-family:monospace;font-size:12px;border:2px solid;border-color:#fff #808080 #808080 #fff;text-align:center;">
         🎵 WAV — uncompressed
@@ -1251,25 +1251,26 @@ const TRIVIA_QS = [
   },
 ];
 
-let triviaState = { q: 0, score: 0 };
-
 function initTrivia(uid) {
   const shuffled = [...TRIVIA_QS].sort(()=>Math.random()-0.5).slice(0,5);
-  triviaState = { q: 0, score: 0, questions: shuffled };
+  const el = document.getElementById(uid);
+  if (!el) return;
+  el._trivia = { q: 0, score: 0, questions: shuffled };
   renderTrivia(uid);
 }
 
 function renderTrivia(uid) {
   const el = document.getElementById(uid);
   if (!el) return;
-  const qs = triviaState.questions || TRIVIA_QS;
-  const q = qs[triviaState.q];
+  const state = el._trivia || { q: 0, score: 0, questions: TRIVIA_QS };
+  const qs = state.questions;
+  const q = qs[state.q];
   const total = qs.length;
   const body = el.querySelector('#trivia-body');
   if (!q) {
-    const msg = triviaState.score===total ? 'perfect. you are one of us.' :
-                triviaState.score>=total*0.6 ? 'not bad. listen more.' : 'go listen to the album again.';
-    const secretBtn = triviaState.score===total ? '<button class="popup-btn" style="background:#ffd700;border-color:#a07800 #fff #fff #a07800;" onclick="openDungeonPopup()">🔒 Secret Room</button>' : '';
+    const msg = state.score===total ? 'perfect. you are one of us.' :
+                state.score>=total*0.6 ? 'not bad. listen more.' : 'go listen to the album again.';
+    const secretBtn = state.score===total ? '<button class="popup-btn" style="background:#ffd700;border-color:#a07800 #fff #fff #a07800;" onclick="openDungeonPopup()">🔒 Secret Room</button>' : '';
     body.innerHTML = '<p style="text-align:center;font-size:16px;font-weight:bold;margin-bottom:6px;">score: ' + triviaState.score + '/' + total + '</p>' +
       '<p style="text-align:center;font-size:12px;color:#555;margin-bottom:8px;">' + msg + '</p>' +
       '<div class="popup-btns"><button class="popup-btn default-btn" onclick="initTrivia(\'' + uid + '\')">Play Again</button>' + secretBtn + '</div>';
@@ -1281,27 +1282,27 @@ function renderTrivia(uid) {
     '<button onclick="answerTrivia(\'' + uid + '\',' + i + ')" style="background:#c0c0c0;border:2px solid;border-color:#fff #808080 #808080 #fff;padding:3px 8px;cursor:pointer;font-family:monospace;font-size:11px;text-align:left;">' + o + '</button>'
   ).join('');
   const sb = el.querySelector('.popup-statusbar');
-  if (sb) sb.textContent = 'question ' + (triviaState.q+1) + ' of ' + total;
+  if (sb) sb.textContent = 'question ' + (state.q+1) + ' of ' + total;
 }
 
 function answerTrivia(uid, idx) {
-  const q = triviaState.questions[triviaState.q];
   const el = document.getElementById(uid);
-  if (!el) return;
+  if (!el || !el._trivia) return;
+  const state = el._trivia;
+  const q = state.questions[state.q];
   const btns = el.querySelectorAll('#trivia-opts button');
   btns.forEach((b,i) => {
     b.disabled = true;
     if (i === q.ans) b.style.background = '#90ee90';
     else if (i === idx && idx !== q.ans) b.style.background = '#ffaaaa';
   });
-  if (idx === q.ans) triviaState.score++;
-  // show song name hint
+  if (idx === q.ans) state.score++;
   const optsEl = el.querySelector('#trivia-opts');
   const hint = document.createElement('p');
   hint.style.cssText = 'font-size:10px;color:#666;margin-top:4px;font-style:italic;';
   hint.textContent = '— ' + q.song;
   optsEl.appendChild(hint);
-  setTimeout(() => { triviaState.q++; renderTrivia(uid); }, 1200);
+  setTimeout(() => { state.q++; renderTrivia(uid); }, 1200);
 }
 
 
