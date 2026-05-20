@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="icon" type="image/jpeg" href="images/favicon.jpg"/>
+<link rel="icon" type="image/jpeg" href="images/favicon.jpg?v=2"/>
 <style>
 /* red favicon trick - actual favicon set above */
 </style>
@@ -23,7 +23,7 @@ body {
 #wallpaper {
   position: fixed;
   top: 0; left: 0; right: 0; bottom: 28px;
-  background-image: url("images/cover.jpg");
+  background-image: url("images/cover_plain.jpg");
   background-size: auto 100%;
   background-position: left center;
   background-repeat: repeat-x;
@@ -249,9 +249,8 @@ body {
 #player {
   position: fixed;
   bottom: 28px;
-  left: 0;
-  right: 0;
-  width: 100%;
+  left: 64px;
+  width: 520px;
   transform: none;
   background: #1a1a1a;
   border: 2px solid; border-color: #888 #333 #333 #888;
@@ -627,7 +626,7 @@ input[type=text], textarea {
 </head>
 <body>
 
-<div id="wallpaper"></div>
+<div id="wallpaper" onclick="toggleBackground()" style="cursor:crosshair;" title="..."></div>
 <div id="mobile-notice">⚠ best viewed on desktop — mobile experience may be chaotic</div>
 
 <div id="secret-overlay">
@@ -696,7 +695,7 @@ input[type=text], textarea {
     <!-- white page content -->
     <div id="site-page">
       <p class="under-construction">&#9888; UNDER CONSTRUCTION &#9888;</p>
-      <div id="site-logo" onclick="toggleBackground()" style="cursor:pointer;" title="click me">
+      <div id="site-logo">
   <div style="width:200px;height:200px;overflow:hidden;margin:0 auto;display:flex;align-items:center;justify-content:center;">
     <img src="images/logo.jpg" id="logo-spin" alt="FACEEATER"/>
   </div>
@@ -866,7 +865,7 @@ input[type=text], textarea {
 
 <script>
 const IMG_GHOULS="images/ghouls.jpg", IMG_CAR="images/car.jpg", IMG_MOUTH="images/mouth.png", IMG_COVER="images/cover.jpg";
-document.getElementById('wallpaper').style.backgroundImage='url("images/cover.jpg")';
+document.getElementById('wallpaper').style.backgroundImage="url('images/cover_plain.jpg')";
 
 const POPUP_DEFS={
   stems:{title:"faceeater_stems.zip",icon:"💾",menu:["File","Edit","View","Help"],
