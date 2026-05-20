@@ -1118,7 +1118,7 @@ function handleBtn(uid,defId,action){
     const msgEl=el.querySelector('textarea');
     const name=nameEl?nameEl.value:'';
     const msg=msgEl?msgEl.value:'';
-    window.open('mailto:faceeater.business@gmail.com?subject=Complaint from '+encodeURIComponent(name)+'&body='+encodeURIComponent(msg),'_blank');
+    fetch('https://formspree.io/f/mkoeolyk',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify({name:name,message:msg})}).catch(()=>{});
     const dungeonImg=document.querySelector('#secret-overlay #secret-body img');
     const dungeonSrc=dungeonImg?dungeonImg.src:'';
     el.querySelector('.popup-title-text').textContent='🔒 your complaint has been received';
