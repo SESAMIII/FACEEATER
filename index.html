@@ -967,11 +967,6 @@ const POPUP_DEFS={
     virus_tvshit:{title:"📺 static — channel unknown",icon:"📺",
     body:`<video src="videos/tv_shit.mp4" autoplay loop muted playsinline style="width:100%;display:block;"></video>`,
     buttons:[{l:"Change Channel",a:"close"}],w:320},
-
-  virus_maulogtv:{title:"📺 mauloff.tv",icon:"📺",
-    body:`<video src="videos/mauloff_tv.mp4" autoplay loop muted playsinline style="width:100%;display:block;"></video>`,
-    buttons:[{l:"Close",a:"close"}],w:320},
-
   virus_fefm:{title:"FEFM - Coming Soon",icon:"★",
     body:`<p style="text-align:center;font-size:22px;font-weight:900;letter-spacing:4px;font-family:'Arial Black',sans-serif;">FEFM</p>
     <p style="text-align:center;font-size:11px;">a new FACEEATER a new faceeater project<br><strong>release date: TBA</strong></p>
@@ -1084,12 +1079,6 @@ const POPUP_DEFS={
   virus_childshaking:{title:"📹 Agree.mp4",icon:"📹",
     body:`<video src="videos/child_shaking.mp4" autoplay loop muted playsinline style="width:100%;display:block;"></video>`,
     buttons:[{l:"Close",a:"close"}],w:320},
-  virus_finaladd:{title:"FINAL_ADD.mp4 — Windows Media Player",icon:"📺",
-    menu:["File","View","Play","Help"],
-    body:`<video autoplay muted loop playsinline style="width:100%;display:block;">
-    <source src="videos/final_add.mp4" type="video/mp4"></video>`,
-    status:"Playing... 00:00 / 00:30",
-    buttons:[{l:"▶ Play",a:"shake"},{l:"■ Stop",a:"close"}],w:300},
   virus_ghouls:{title:"!! HOT SINGLES IN YOUR AREA !!",icon:"👻",
     body:`<img src="${IMG_GHOULS}" style="width:100%;display:block;"/>`,
     buttons:[{l:"JOIN NOW",a:"ghouls-join"},{l:"No (liar)",a:"duplicate"}],w:310},
@@ -1132,7 +1121,7 @@ const POPUP_DEFS={
     buttons:[{l:"Submit",a:"riddle-check",d:true},{l:"Give Up",a:"close"}],w:230},
 };
 
-const VIRUS_IDS=['virus_logo','virus_tvshit','virus_maulogtv','virus_fefm','virus_welove','virus_moldvideo','virus_tracklist','virus_albumcover','virus_cover','virus_lewok','virus_hbs','virus_rotten','virus_childshaking','virus_5000','virus_chat','virus_lyrictrivia','virus_doubleup','virus_finaladd','virus_ghouls','virus_18','virus_car','virus_nudefolder','virus_survey','virus_error',
+const VIRUS_IDS=['virus_logo','virus_tvshit','virus_tranquivex','virus_fefm','virus_welove','virus_moldvideo','virus_tracklist','virus_albumcover','virus_cover','virus_lewok','virus_hbs','virus_rotten','virus_childshaking','virus_5000','virus_chat','virus_lyrictrivia','virus_doubleup','virus_ghouls','virus_18','virus_car','virus_nudefolder','virus_survey','virus_error',
   'virus_lego','virus_update','virus_riddle'];
 
 let openPopups={},popupZTop=1000,popupCounter=0;
@@ -1174,7 +1163,7 @@ function spawnPopup(defId,forceNew){
 }
 
 function openPopupById(id){spawnPopup(id,false);}
-const POPUP_WEIGHTS={virus_lewok:2,virus_nudefolder:1,virus_5000:1,virus_rotten:6,virus_childshaking:6,virus_tvshit:6,virus_maulogtv:6,virus_doubleup:2,virus_ghouls:3,virus_car:3,virus_hbs:3,virus_cover:3,virus_albumcover:4,virus_chat:5,virus_lyrictrivia:5,_default:10};
+const POPUP_WEIGHTS={virus_lewok:2,virus_lego:3,virus_childshaking:3,virus_tranquivex:5,virus_nudefolder:1,virus_5000:1,virus_rotten:6,virus_childshaking:6,virus_tvshit:6,virus_doubleup:2,virus_ghouls:3,virus_car:3,virus_hbs:3,virus_cover:3,virus_albumcover:4,virus_chat:5,virus_lyrictrivia:5,_default:10};
 function spawnRandomPopup(){
   const avail=VIRUS_IDS.filter(id=>!openPopups[id]);
   if(!avail.length)return;
