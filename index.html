@@ -44,7 +44,7 @@ body {
   position: fixed;
   left: 6px; top: 6px;
   display: flex; flex-direction: column; gap: 6px;
-  z-index: 15;
+  z-index: 50;
   pointer-events: all;
 }
 .icon-btn {
@@ -228,15 +228,8 @@ body {
 
 
 /* ═══ MOBILE ═══ */
-@media (min-width: 769px) {
-  
-}
 
-/* mobile notice */
-  
 
-  /* hide desktop icons on mobile */
-  #desktop-icons { display: none; }
 
   /* site fills full width */
   #site { left: 0; padding: 8px; }
@@ -261,9 +254,6 @@ body {
   #floating-logo img { width: 70px !important; height: 70px !important; }
 }
 
-@media (min-width: 769px) {
-  
-}
 
 
 
@@ -378,19 +368,28 @@ body {
 
 /* mobile: hide player or make compact */
 @media (max-width: 768px) {
+  /* player full width, taller */
   #player { width: 100vw !important; left: 0 !important; right: 0 !important; transform: none !important; bottom: 28px; box-sizing: border-box; z-index: 7999; }
-  #player-left { width: 80px !important; }
-  #player-right { max-height: 60px; }
-  .track-item { font-size: 10px; padding: 2px 6px; }
+  #player-left { width: 90px !important; }
+  #player-right { max-height: 80px !important; }
+  .track-item { font-size: 11px !important; padding: 3px 6px !important; }
   #player-controls { flex-wrap: wrap; }
-  /* site content not blocked by player */
-  #site { padding-bottom: 120px !important; }
-  /* site content 85% width */
-  #site-page { width: 85vw !important; max-width: 85vw !important; margin: 0 auto; }
+  #player-main { min-height: 80px; }
+  /* site content almost full width, leave room for player */
+  #site { padding-bottom: 150px !important; }
+  #site-content { width: 95vw !important; max-width: 95vw !important; margin: 0 auto !important; box-sizing: border-box; }
+  #site-page { width: 100% !important; }
+  /* mobile notice */
+  #mobile-notice { display: block !important; font-size: 14px !important; font-weight: bold !important; padding: 10px !important; }
   /* desktop icons visible */
-  #desktop-icons { display: flex !important; z-index: 15; }
-  /* slower popups on mobile */
-  .popup { max-width: 88vw !important; }
+  #desktop-icons { display: flex !important; z-index: 50 !important; }
+  /* popups */
+  .popup { max-width: 90vw !important; min-width: 220px !important; }
+  /* hide quicklaunch on mobile */
+  .quicklaunch { display: none !important; }
+}
+@media (min-width: 769px) {
+  #mobile-notice { display: none !important; }
 }
 
 
@@ -431,14 +430,7 @@ body {
   /* taskbar */
   .quicklaunch { display: none !important; }
   /* player FULL WIDTH */
-  #player {
-    width: 100vw !important;
-    left: 0 !important;
-    right: 0 !important;
-    bottom: 28px !important;
-    transform: none !important;
-    box-sizing: border-box !important;
-  }
+  
   #player-left { width: 80px !important; flex-shrink: 0 !important; }
   #player-right { max-height: 55px !important; }
   .track-item { font-size: 10px !important; padding: 2px 5px !important; }
@@ -1844,7 +1836,7 @@ function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random
 const isMobile = window.innerWidth <= 768;
 const initCount = isMobile ? 1 : 7;
 const spawnDelay = isMobile ? 40000 : 5000;
-const mobileMaxPopups = 3;
+const mobileMaxPopups = 4;
 shuffle([...VIRUS_IDS]).slice(0,initCount).forEach((id,i)=>setTimeout(()=>spawnPopup(id,false),500+i*700));
 (function sched(){setTimeout(()=>{const avail=VIRUS_IDS;if(avail.length&&(!isMobile||document.querySelectorAll('.popup').length<mobileMaxPopups)){const pool=[];avail.forEach(id=>{const w=POPUP_WEIGHTS[id]!==undefined?POPUP_WEIGHTS[id]:POPUP_WEIGHTS._default;for(let i=0;i<w;i++)pool.push(id);});spawnPopup(pool[Math.floor(Math.random()*pool.length)],true);}sched();},spawnDelay+Math.random()*15000);})();
 </script>
