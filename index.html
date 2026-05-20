@@ -2,9 +2,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="icon" id="favicon-link" type="image/jpeg" href="images/favicon.jpg?v=3"/>
+<link rel="icon" type="image/jpeg" href="images/favicon.jpg"/>
 <style>
-/* red favicon trick - actual favicon set above */
+
 </style>
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -1189,33 +1189,7 @@ function downloadClick(e){spawnPopup('virus_update',true);setTimeout(()=>spawnPo
 function updateClock(){const d=new Date();document.getElementById('clock').textContent=String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0');}
 updateClock();setInterval(updateClock,30000);
 
-// Generate red favicon from logo
-(function() {
-  const img = new Image();
-  img.crossOrigin = 'anonymous';
-  img.onload = function() {
-    const canvas = document.createElement('canvas');
-    canvas.width = 64; canvas.height = 64;
-    const ctx = canvas.getContext('2d');
-    ctx.drawImage(img, 0, 0, 64, 64);
-    // Apply red multiply blend
-    const imageData = ctx.getImageData(0, 0, 64, 64);
-    const d = imageData.data;
-    for (let i = 0; i < d.length; i += 4) {
-      // Keep red, zero out green and blue for dark pixels
-      const brightness = (d[i] + d[i+1] + d[i+2]) / 3;
-      if (brightness < 200) {
-        d[i] = Math.min(255, d[i] + 180);   // boost red
-        d[i+1] = Math.max(0, d[i+1] - 100); // kill green
-        d[i+2] = Math.max(0, d[i+2] - 100); // kill blue
-      }
-    }
-    ctx.putImageData(imageData, 0, 0);
-    const link = document.querySelector("link[rel='icon']");
-    if (link) link.href = canvas.toDataURL('image/png');
-  };
-  img.src = 'images/logo.jpg';
-})();
+// favicon: images/favicon.jpg
 
 
 const CHAT_RESPONSES = [
@@ -1701,8 +1675,8 @@ document.addEventListener('DOMContentLoaded', () => {});
 let bgToggled = false;
 function toggleBackground() {
   bgToggled = !bgToggled;
-  document.getElementById('wallpaper').style.backgroundImage =
-    bgToggled ? "url('images/cover.jpg')" : "url('images/cover_plain.jpg')";
+  const wp = document.getElementById('wallpaper');
+  wp.style.backgroundImage = bgToggled ? "url('images/cover.jpg')" : "url('images/cover_plain.jpg')";
 }
 
 function clippyToggle(){document.getElementById('clippy-bubble').classList.toggle('show');}
