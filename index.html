@@ -43,7 +43,8 @@ body {
 #desktop-icons {
   position: fixed;
   left: 6px; top: 6px;
-  display: flex; flex-direction: column; gap: 6px;
+  display: flex;
+  flex-direction: column; gap: 6px;
   z-index: 50;
   pointer-events: all;
 }
@@ -228,8 +229,14 @@ body {
 
 
 /* ═══ MOBILE ═══ */
+@media (min-width: 769px) {
+  
+}
 
+/* mobile notice */
+  
 
+  /* hide desktop icons on mobile */
 
   /* site fills full width */
   #site { left: 0; padding: 8px; }
@@ -254,6 +261,9 @@ body {
   #floating-logo img { width: 70px !important; height: 70px !important; }
 }
 
+@media (min-width: 769px) {
+  
+}
 
 
 
@@ -368,29 +378,16 @@ body {
 
 /* mobile: hide player or make compact */
 @media (max-width: 768px) {
-  /* player full width, taller */
-  #player { width: 100vw !important; left: 0 !important; right: 0 !important; transform: none !important; bottom: 28px; box-sizing: border-box; z-index: 7999; }
+  #mobile-notice { display: block !important; font-size: 14px !important; font-weight: bold !important; padding: 10px !important; }
+  #desktop-icons { display: flex !important; z-index: 50 !important; }
+  #site { padding-bottom: 150px !important; }
+  #site-content { width: 92vw !important; max-width: 92vw !important; margin: 0 auto !important; }
+  .popup { max-width: 90vw !important; }
+  .quicklaunch { display: none !important; }
+  #player { width: 100vw !important; left: 0 !important; right: 0 !important; transform: none !important; bottom: 28px !important; box-sizing: border-box !important; }
   #player-left { width: 80px !important; }
   #player-right { max-height: 70px !important; }
   .track-item { font-size: 10px !important; padding: 2px 5px !important; }
-  #player-controls { flex-wrap: wrap; }
-  
-  
-  .track-item { font-size: 11px !important; padding: 3px 6px !important; }
-  
-  
-  /* site content almost full width, leave room for player */
-  #site { padding-bottom: 150px !important; }
-  #site-content { width: 95vw !important; max-width: 95vw !important; margin: 0 auto !important; box-sizing: border-box; }
-  #site-page { width: 100% !important; }
-  /* mobile notice */
-  #mobile-notice { display: block !important; font-size: 14px !important; font-weight: bold !important; padding: 10px !important; }
-  /* desktop icons visible */
-  #desktop-icons { display: flex !important; z-index: 50 !important; }
-  /* popups */
-  .popup { max-width: 90vw !important; min-width: 220px !important; }
-  /* hide quicklaunch on mobile */
-  .quicklaunch { display: none !important; }
 }
 @media (min-width: 769px) {
   #mobile-notice { display: none !important; }
@@ -434,11 +431,18 @@ body {
   /* taskbar */
   .quicklaunch { display: none !important; }
   /* player FULL WIDTH */
-  
-  
-  
+  #player {
+    width: 100vw !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 28px !important;
+    transform: none !important;
+    box-sizing: border-box !important;
+  }
+  #player-left { width: 80px !important; flex-shrink: 0 !important; }
+  #player-right { max-height: 55px !important; }
   .track-item { font-size: 10px !important; padding: 2px 5px !important; }
-  
+  #player-controls { gap: 3px; }
 }
 @media (min-width: 769px) {
   #mobile-notice { display: none !important; }
@@ -825,7 +829,6 @@ input[type=text], textarea {
 
 <!-- TASKBAR -->
 
-
 <div id="player">
   <div id="player-titlebar" onmousedown="playerDrag(event)">
     <span>🎵 FACEEATER — "FACEEATER" the album</span>
@@ -864,7 +867,7 @@ input[type=text], textarea {
   </div>
 </div>
 <audio id="player-audio"></audio>
-<audio id="player-audio"></audio>
+
 <div id="taskbar">
   <button class="start-btn" onclick="document.getElementById('player').style.display='block'" title="show player">🎵</button>
   <div class="taskbar-divider"></div>
