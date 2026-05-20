@@ -370,11 +370,15 @@ body {
 @media (max-width: 768px) {
   /* player full width, taller */
   #player { width: 100vw !important; left: 0 !important; right: 0 !important; transform: none !important; bottom: 28px; box-sizing: border-box; z-index: 7999; }
-  #player-left { width: 90px !important; }
-  #player-right { max-height: 80px !important; }
-  .track-item { font-size: 11px !important; padding: 3px 6px !important; }
+  #player-left { width: 80px !important; }
+  #player-right { max-height: 70px !important; }
+  .track-item { font-size: 10px !important; padding: 2px 5px !important; }
   #player-controls { flex-wrap: wrap; }
-  #player-main { min-height: 80px; }
+  
+  
+  .track-item { font-size: 11px !important; padding: 3px 6px !important; }
+  
+  
   /* site content almost full width, leave room for player */
   #site { padding-bottom: 150px !important; }
   #site-content { width: 95vw !important; max-width: 95vw !important; margin: 0 auto !important; box-sizing: border-box; }
@@ -431,10 +435,10 @@ body {
   .quicklaunch { display: none !important; }
   /* player FULL WIDTH */
   
-  #player-left { width: 80px !important; flex-shrink: 0 !important; }
-  #player-right { max-height: 55px !important; }
+  
+  
   .track-item { font-size: 10px !important; padding: 2px 5px !important; }
-  #player-controls { gap: 3px; }
+  
 }
 @media (min-width: 769px) {
   #mobile-notice { display: none !important; }
@@ -821,6 +825,7 @@ input[type=text], textarea {
 
 <!-- TASKBAR -->
 
+
 <div id="player">
   <div id="player-titlebar" onmousedown="playerDrag(event)">
     <span>🎵 FACEEATER — "FACEEATER" the album</span>
@@ -859,7 +864,7 @@ input[type=text], textarea {
   </div>
 </div>
 <audio id="player-audio"></audio>
-
+<audio id="player-audio"></audio>
 <div id="taskbar">
   <button class="start-btn" onclick="document.getElementById('player').style.display='block'" title="show player">🎵</button>
   <div class="taskbar-divider"></div>
