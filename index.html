@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="icon" type="image/jpeg" href="images/favicon.jpg" id="favicon"/>
+<link rel="icon" type="image/jpeg" href="images/favicon.jpg"/>
 <style>
 /* red favicon trick - actual favicon set above */
 </style>
@@ -249,9 +249,10 @@ body {
 #player {
   position: fixed;
   bottom: 28px;
-  left: 64px;
+  left: 0;
+  right: 0;
+  width: 100%;
   transform: none;
-  width: 480px;
   background: #1a1a1a;
   border: 2px solid; border-color: #888 #333 #333 #888;
   font-family: 'Courier New', monospace;
@@ -276,11 +277,19 @@ body {
 }
 /* left: album art + info */
 #player-left {
-  background: #000;
+  background: url('images/shirt.jpg') center/cover no-repeat;
+  position: relative;
   width: 160px; flex-shrink: 0;
   padding: 8px;
   display: flex; flex-direction: column; gap: 4px;
 }
+#player-left::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: rgba(0,0,0,0.72);
+  pointer-events: none;
+}
+#player-left > * { position: relative; z-index: 1; }
 #player-artist { color: #fff; font-size: 14px; font-weight: bold; }
 #player-track { color: #00cc00; font-size: 11px; }
 #player-time { color: #00cc00; font-size: 11px; margin-top: 4px; }
@@ -299,7 +308,7 @@ body {
 /* right: playlist */
 #player-right {
   background: #000; flex: 1;
-  overflow-y: auto; max-height: 120px;
+  overflow-y: auto; max-height: 90px;
 }
 .track-item {
   padding: 2px 8px;
@@ -347,8 +356,10 @@ body {
 
 /* mobile: hide player or make compact */
 @media (max-width: 768px) {
-  #player { width: 100%; left: 0 !important; transform: none !important; bottom: 28px; }
-  #player-right { max-height: 80px; }
+  #player { width: 100% !important; left: 0 !important; right: 0 !important; transform: none !important; bottom: 28px; }
+  #player-left { width: 100px !important; }
+  #player-right { max-height: 70px; }
+  .track-item { font-size: 10px; padding: 2px 6px; }
 }
 
 /* SITE */
@@ -685,7 +696,7 @@ input[type=text], textarea {
     <!-- white page content -->
     <div id="site-page">
       <p class="under-construction">&#9888; UNDER CONSTRUCTION &#9888;</p>
-      <div id="site-logo">
+      <div id="site-logo" onclick="toggleBackground()" style="cursor:pointer;" title="click me">
   <div style="width:200px;height:200px;overflow:hidden;margin:0 auto;display:flex;align-items:center;justify-content:center;">
     <img src="images/logo.jpg" id="logo-spin" alt="FACEEATER"/>
   </div>
@@ -1561,12 +1572,28 @@ function playerLoad(idx, autoplay) {
 }
 
 function playerPlay() {
-  audio.play().then(() => {
-    isPlaying = true;
-    document.getElementById('play-btn').textContent = '⏸';
-    document.getElementById('player-status').textContent = '▶';
-    startViz();
-  }).catch(() => {});
+  audio.volume = audio.volume || 0.8;
+  audio.muted = false;
+  const p = audio.play();
+  if (p !== undefined) {
+    p.then(() => {
+      isPlaying = true;
+      document.getElementById('play-btn').textContent = '⏸';
+      document.getElementById('player-status').textContent = '▶';
+      startViz();
+    }).catch(e => {
+      console.warn('play failed:', e);
+      // try again after tiny delay
+      setTimeout(() => {
+        audio.play().then(() => {
+          isPlaying = true;
+          document.getElementById('play-btn').textContent = '⏸';
+          document.getElementById('player-status').textContent = '▶';
+          startViz();
+        }).catch(e2 => console.error('play failed again:', e2));
+      }, 100);
+    });
+  }
 }
 
 function playerPause() {
@@ -1661,11 +1688,19 @@ document.addEventListener('mouseup', () => { playerDragging = false; });
 // show player button in taskbar
 document.addEventListener('DOMContentLoaded', () => {});
 
+
+let bgToggled = false;
+function toggleBackground() {
+  bgToggled = !bgToggled;
+  document.getElementById('wallpaper').style.backgroundImage =
+    bgToggled ? "url('images/cover.jpg')" : "url('images/cover_plain.jpg')";
+}
+
 function clippyToggle(){document.getElementById('clippy-bubble').classList.toggle('show');}
 function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
 const isMobile = window.innerWidth <= 768;
-const initCount = isMobile ? 2 : 7;
-const spawnDelay = isMobile ? 15000 : 5000;
+const initCount = isMobile ? 1 : 7;
+const spawnDelay = isMobile ? 30000 : 5000;
 shuffle([...VIRUS_IDS]).slice(0,initCount).forEach((id,i)=>setTimeout(()=>spawnPopup(id,false),500+i*700));
 (function sched(){setTimeout(()=>{const avail=VIRUS_IDS;if(avail.length){const pool=[];avail.forEach(id=>{const w=POPUP_WEIGHTS[id]!==undefined?POPUP_WEIGHTS[id]:POPUP_WEIGHTS._default;for(let i=0;i<w;i++)pool.push(id);});spawnPopup(pool[Math.floor(Math.random()*pool.length)],true);}sched();},spawnDelay+Math.random()*15000);})();
 </script>
