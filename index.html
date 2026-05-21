@@ -719,6 +719,30 @@ input[type=text], textarea {
 <body>
 
 <div id="wallpaper"></div>
+<div id="heaven-overlay">
+  <div id="heaven-clouds">☁️ ☁️ ☁️</div>
+  <div id="heaven-gate-img">🌟</div>
+  <div id="heaven-title">YOU MADE IT</div>
+  <div id="heaven-sub">
+    you opened <strong>1,000 popups</strong>.<br>
+    the gates are open.<br>
+    there is nothing left for you here.<br><br>
+    <em>refresh to return to the living.</em>
+  </div>
+  <button id="heaven-refresh" onclick="location.reload()">↺ return to earth</button>
+</div>
+
+<div id="secret-overlay">
+  <div id="secret-titlebar">
+    🔒 RESTRICTED ACCESS
+    <button onclick="document.getElementById('secret-overlay').classList.remove('show')"
+      style="width:14px;height:13px;background:#c0c0c0;border:2px solid;border-color:#fff #808080 #808080 #fff;font-size:9px;cursor:pointer;">✕</button>
+  </div>
+  <div id="secret-body" style="padding:0;position:relative;">
+    <img src="images/dungeon.jpg" style="width:100%;display:block;"/>
+  </div>
+</div>
+
 <div id="floating-logo"><img src="images/logo_transparent.png" id="floating-logo-img" style="width:200px;height:200px;object-fit:contain;animation:spin-logo 8s linear infinite;"/></div>
 <div id="bg-click-layer" onclick="toggleBackground()"></div>
 <div id="desktop-icons">
@@ -1464,7 +1488,7 @@ function checkHeaven() {
     document.querySelectorAll('.popup').forEach(p => p.remove());
     openPopups = {};
     const overlay = document.getElementById('heaven-overlay');
-    overlay.classList.add('show');
+    if (overlay) overlay.classList.add('show');
     // add twinkling stars
     for (let i = 0; i < 20; i++) {
       const star = document.createElement('div');
@@ -1502,7 +1526,7 @@ function doDoubleUp() {
   const logo = document.getElementById('floating-logo');
   if (!logo) return;
 
-  const SIZE = 110;
+  const SIZE = 240;
   let x, y, vx, vy;
   let dvdInterval = null;
   let dragging = false, ox, oy;
