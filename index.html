@@ -1076,8 +1076,7 @@ const POPUP_DEFS={
     body:`<video src="videos/tv_shit.mp4" autoplay loop muted playsinline style="width:100%;display:block;"></video>`,
     buttons:[{l:"Change Channel",a:"close"}],w:320},
   virus_fefm:{title:"FEFM - Coming Soon",icon:"★",
-    body:`<img src="images/fefm.png" style="width:100%;display:block;margin-bottom:8px;"/><p style="text-align:center;font-size:22px;font-weight:900;letter-spacing:4px;font-family:'Arial Black',sans-serif;">FEFM</p>
-    <p style="text-align:center;font-size:11px;">a new faceeater project<br><strong>release date: TBA</strong></p>
+    body:`<img src="images/fefm.png" style="width:100%;display:block;margin-bottom:8px;"/><p style="text-align:center;font-size:11px;margin-top:6px;">a new faceeater project<br>release date: TBA</p>
     <div class="progress-wrap" style="margin-top:6px;"><div class="progress-fill" style="animation-duration:15s"></div></div>
     <p style="text-align:center;font-size:10px;color:#555;">loading hype...</p>`,
     buttons:[{l:"Remind me",a:"duplicate"},{l:"Dismiss",a:"close"}],w:220},
@@ -1188,11 +1187,11 @@ const POPUP_DEFS={
   virus_ghouls:{title:"!! HOT SINGLES IN YOUR AREA !!",icon:"👻",
     body:`<img src="${IMG_GHOULS}" style="width:100%;display:block;"/>`,
     buttons:[{l:"JOIN NOW",a:"ghouls-join"},{l:"No (liar)",a:"duplicate"}],w:310},
-  virus_18:{title:"Age Verification",icon:"⚠",
+  virus_18:{title:"⚠ Age Verification",icon:"⚠",
     body:`<div class="warn-box"><span class="warn-icon">⚠️</span>
-    <div><p><strong>You must be 18 or older</strong> to enter this site.</p>
+    <div><p>You must be <strong>18 or older</strong> to enter this site.</p>
     <p style="font-size:10px;color:#555;">This site contains extremely normal content.</p></div></div>`,
-    buttons:[{l:"Yes, I am 18",a:"crash",d:true},{l:"No",a:"respawn"}],w:260},
+    buttons:[{l:"Yes, I am 18",a:"close",d:true},{l:"No",a:"crash"}],w:280},
   virus_car:{title:"Wir kaufen Ihr AUTO",icon:"🚗",
     body:`<img src="${IMG_CAR}" style="width:100%;display:block;"/>`,
     buttons:[{l:"Jetzt anrufen!",a:"car-honk",danger:true},{l:"Nein danke",a:"close"}],w:330},
