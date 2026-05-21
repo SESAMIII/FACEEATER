@@ -807,7 +807,7 @@ input[type=text], textarea {
       </svg>
     </div><div class="icon-label">complaints</div>
   </div>
-  <div class="icon-btn" ondblclick="window.open('https://mega.nz/folder/cJ9iELbI#5b9eoabm7cJzssyA-pJnlw','_blank')" onclick="window.open('https://mega.nz/folder/cJ9iELbI#5b9eoabm7cJzssyA-pJnlw','_blank')" title="stems">
+  <div class="icon-btn" ondblclick="window.open('https://mega.nz/folder/cJ9iELbI#5b9eoabm7cJzssyA-pJnlw','_blank')" title="stems">
     <div class="retro-icon">
       <svg width="32" height="32" viewBox="0 0 32 32" style="image-rendering:pixelated">
         <rect x="4" y="6" width="24" height="20" fill="#c0c0c0" stroke="#000" stroke-width="1"/>
@@ -818,7 +818,7 @@ input[type=text], textarea {
       </svg>
     </div><div class="icon-label">stems</div>
   </div>
-  <div class="icon-btn" ondblclick="window.open('https://mega.nz/folder/0FdiAKYJ#Iwqufag84SfCZrz5WeerWQ','_blank')" onclick="window.open('https://mega.nz/folder/0FdiAKYJ#Iwqufag84SfCZrz5WeerWQ','_blank')" title="sample pack">
+  <div class="icon-btn" ondblclick="window.open('https://mega.nz/folder/0FdiAKYJ#Iwqufag84SfCZrz5WeerWQ','_blank')" title="sample pack">
     <div class="retro-icon">
       <svg width="32" height="32" viewBox="0 0 32 32" style="image-rendering:pixelated">
         <rect x="4" y="10" width="24" height="18" fill="#f0c040" stroke="#000" stroke-width="1"/>
@@ -1076,7 +1076,7 @@ const POPUP_DEFS={
     body:`<video src="videos/tv_shit.mp4" autoplay loop muted playsinline style="width:100%;display:block;"></video>`,
     buttons:[{l:"Change Channel",a:"close"}],w:320},
   virus_fefm:{title:"FEFM - Coming Soon",icon:"★",
-    body:`<p style="text-align:center;font-size:22px;font-weight:900;letter-spacing:4px;font-family:'Arial Black',sans-serif;">FEFM</p>
+    body:`<img src="images/fefm.png" style="width:100%;display:block;margin-bottom:8px;"/><p style="text-align:center;font-size:22px;font-weight:900;letter-spacing:4px;font-family:'Arial Black',sans-serif;">FEFM</p>
     <p style="text-align:center;font-size:11px;">a new faceeater project<br><strong>release date: TBA</strong></p>
     <div class="progress-wrap" style="margin-top:6px;"><div class="progress-fill" style="animation-duration:15s"></div></div>
     <p style="text-align:center;font-size:10px;color:#555;">loading hype...</p>`,
@@ -1098,7 +1098,7 @@ const POPUP_DEFS={
   virus_tracklist:{title:"FACEEATER — full tracklist",icon:"📋",
     menu:["File","Edit","View"],
     body:`<img src="images/albumcover.png" style="width:100%;display:block;"/>
-    <p style="font-size:10px;text-align:center;margin-top:4px;color:#555;">click track to play (?)</p>`,
+`,
     status:"11 tracks",buttons:[{l:"▶ Bandcamp",a:"bandcamp"},{l:"Close",a:"close"}],w:320},
 
   virus_albumcover:{title:"\"FACEEATER\" the album — MAY 21",icon:"💿",
@@ -1141,7 +1141,7 @@ const POPUP_DEFS={
     body:`<div style="position:relative;">
     <img src="images/doubleup.png" style="width:100%;display:block;"/>
     <div style="position:absolute;bottom:0;left:0;right:0;background:rgba(0,0,0,0.7);padding:8px;text-align:center;">
-    <button class="popup-btn default-btn" onclick="handleBtn(this.closest('.popup').id,this.closest('.popup').id.replace(/_[^_]*$/,''),'doubleup')" style="margin-right:6px;">Yes</button>
+    <button class="popup-btn default-btn" onclick="DOUBLEUP_SND.currentTime=0;DOUBLEUP_SND.play().catch(()=>{});setTimeout(doDoubleUp,100);this.closest('.popup').remove();" style="margin-right:6px;">Yes</button>
     <button class="popup-btn" onclick="this.closest('.popup').remove()">No</button>
     </div></div>`,
     buttons:[],w:300},
