@@ -730,7 +730,7 @@ input[type=text], textarea {
   <div class="icon-btn" ondblclick="openPopupById('complaints')" title="complaints">
     <div class="icon-img">📮</div><div class="icon-label">complaints</div>
   </div>
-  <div class="icon-btn" ondblclick="window.open('https://mega.nz/folder/cJ9iELbI#5b9eoabm7cJzssyA-pJnlw','_blank')" onclick="openPopupById('stems')" title="stems">
+  <div class="icon-btn" ondblclick="window.open('https://mega.nz/folder/cJ9iELbI#5b9eoabm7cJzssyA-pJnlw','_blank')" onclick="window.open('https://mega.nz/folder/cJ9iELbI#5b9eoabm7cJzssyA-pJnlw','_blank')" title="stems">
     <div class="icon-img">💾</div><div class="icon-label">stems</div>
   </div>
   <div class="icon-btn" ondblclick="window.open('https://mega.nz/folder/0FdiAKYJ#Iwqufag84SfCZrz5WeerWQ','_blank')" onclick="window.open('https://mega.nz/folder/0FdiAKYJ#Iwqufag84SfCZrz5WeerWQ','_blank')" title="sample pack">
@@ -883,7 +883,7 @@ input[type=text], textarea {
   </button>
   <div class="taskbar-divider"></div>
   <!-- quick launch icons -->
-  <div class="quicklaunch" title="stems" ondblclick="window.open('https://mega.nz/folder/cJ9iELbI#5b9eoabm7cJzssyA-pJnlw','_blank')" onclick="openPopupById('stems')">
+  <div class="quicklaunch" title="stems" ondblclick="window.open('https://mega.nz/folder/cJ9iELbI#5b9eoabm7cJzssyA-pJnlw','_blank')" onclick="window.open('https://mega.nz/folder/cJ9iELbI#5b9eoabm7cJzssyA-pJnlw','_blank')">
     <svg width="16" height="16" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges">
       <rect x="2" y="0" width="28" height="30" fill="#1a1a1a"/>
       <rect x="4" y="2" width="24" height="26" fill="#336699"/>
@@ -1125,6 +1125,16 @@ const POPUP_DEFS={
     <div class="progress-wrap" style="margin:4px 0;"><div class="progress-fill" style="animation-duration:3s"></div></div>
     <p class="blink" style="font-size:10px;color:#cc0000;">DO NOT TURN OFF YOUR BRAIN</p></div></div>`,
     buttons:[{l:"Update Now",a:"crash",d:true},{l:"Remind Me Later",a:"respawn"}],w:280},
+
+  virus_pukemon:{title:"🎮 ???.exe",icon:"❓",
+    body:`<div style="text-align:center;background:#1a1a2e;padding:12px;">
+    <img src="images/pokeball.png" style="width:80px;height:80px;display:block;margin:0 auto 8px;animation:spin-logo 2s linear infinite;"/>
+    <p style="color:#ff0;font-size:10px;font-family:monospace;margin-bottom:8px;" class="blink">A wild PUKEMON appeared!</p>
+    <img src="images/virus_cat.jpg" style="width:160px;height:auto;display:block;margin:0 auto 10px;"/>
+    <p style="color:#fff;font-size:13px;font-weight:bold;margin-bottom:4px;">u caught a mysterious pukemon</p>
+    <p style="color:#aaa;font-size:10px;font-style:italic;">"Do you want to be my friend ...?"</p>
+    </div>`,
+    buttons:[{l:"Yes!",a:"close",d:true},{l:"Run",a:"close"}],w:260},
   virus_riddle:{title:"RIDDLE.exe",icon:"❓",
     body:`<p>I have no face,<br>but I eat yours.<br><br>What am I?</p>
     <p><input type="text" placeholder="type answer..." id="riddle-input" style="width:100%;margin-top:4px;"></p>`,
@@ -1386,6 +1396,7 @@ function renderTrivia(uid) {
   const q = qs[state.q];
   const total = qs.length;
   const body = el.querySelector('.trivia-body');
+  if (!body) return;
   if (!q) {
     const msg = state.score===total ? 'perfect. you are one of us.' :
                 state.score>=total*0.6 ? 'not bad. listen more.' : 'go listen to the album again.';
@@ -1908,13 +1919,13 @@ function showInfectionWarning() {
   warn.id = 'infection-overlay';
   warn.style.cssText = 'position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);' +
     'background:#cc0000;border:4px solid #fff;padding:24px 32px;z-index:99995;' +
-    'text-align:center;font-family:monospace;color:#fff;min-width:300px;box-shadow:0 0 0 9999px rgba(0,0,0,0.5);';
+    'text-align:center;font-family:monospace;color:#fff;min-width:300px;box-shadow:4px 4px 0 #000;';
   warn.innerHTML =
-    '<p style="font-size:22px;font-weight:900;margin-bottom:8px;">⚠ 你已中毒 ⚠</p>' +
-    '<p style="font-size:13px;margin-bottom:16px;">要關掉嗎?</p>' +
+    '<p style="font-size:22px;font-weight:900;margin-bottom:8px;">⚠ YOU ARE INFECTED ⚠</p>' +
+    '<p style="font-size:13px;margin-bottom:16px;">Do you want to close this?</p>' +
     '<div style="display:flex;gap:12px;justify-content:center;">' +
-    '<button onclick="closeAllDoubleUp()" style="background:#fff;color:#cc0000;border:none;padding:8px 20px;font-size:14px;font-weight:bold;cursor:pointer;font-family:monospace;">關掉</button>' +
-    '<button onclick="keepDoubleUp()" style="background:#000;color:#fff;border:2px solid #fff;padding:8px 20px;font-size:14px;cursor:pointer;font-family:monospace;">不</button>' +
+    '<button onclick="closeAllDoubleUp()" style="background:#fff;color:#cc0000;border:none;padding:8px 20px;font-size:14px;font-weight:bold;cursor:pointer;font-family:monospace;">Close</button>' +
+    '<button onclick="keepDoubleUp()" style="background:#000;color:#fff;border:2px solid #fff;padding:8px 20px;font-size:14px;cursor:pointer;font-family:monospace;">No</button>' +
     '</div>';
   document.body.appendChild(warn);
 }
