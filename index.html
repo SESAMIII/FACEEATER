@@ -902,8 +902,6 @@ input[type=text], textarea {
             <h3>&#128193; DOWNLOADS</h3>
             <a href="https://mega.nz/folder/cJ9iELbI#5b9eoabm7cJzssyA-pJnlw" target="_blank">💾 Stems</a>
             <a href="https://mega.nz/folder/0FdiAKYJ#Iwqufag84SfCZrz5WeerWQ" target="_blank">📦 Sample Pack</a>
-            <a onclick="openPopupById('zine')">📄 Zine PDF (print at home)</a>
-            <a onclick="openPopupById('foldingguide')">📐 Folding Instructions</a>
           </td>
           <td class="site-td">
             <h3>&#128236; CONTACT</h3>
@@ -1008,16 +1006,7 @@ input[type=text], textarea {
       <rect x="3" y="11" width="26" height="2" fill="#f8e060"/>
     </svg>
   </div>
-  <div class="quicklaunch" title="zine.pdf" ondblclick="openPopupById('zine')">
-    <svg width="16" height="16" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges">
-      <rect x="4" y="2" width="18" height="24" fill="#fff" stroke="#000" stroke-width="1"/>
-      <rect x="16" y="2" width="6" height="6" fill="#c0c0c0" stroke="#000" stroke-width="1"/>
-      <rect x="7" y="12" width="10" height="1" fill="#888"/>
-      <rect x="7" y="15" width="10" height="1" fill="#888"/>
-      <rect x="14" y="18" width="10" height="8" fill="#cc2200"/>
-    </svg>
-  </div>
-  <div class="quicklaunch" title="complaints" ondblclick="openPopupById('complaints')">
+<div class="quicklaunch" title="complaints" ondblclick="openPopupById('complaints')">
     <svg width="16" height="16" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges">
       <rect x="2" y="8" width="26" height="18" fill="#fff" stroke="#000" stroke-width="1"/>
       <rect x="3" y="9" width="1" height="8" fill="#ccc"/>
@@ -1047,13 +1036,6 @@ const POPUP_DEFS={
     body:`<p>200+ samples. Mold sounds. Strange textures.</p>
     <p class="blink" style="color:#cc0000;font-size:10px;">WARNING: may cause ear damage</p>`,
     buttons:[{l:"Download",a:"close",d:true},{l:"Cancel",a:"close"}],w:260},
-  zine:{title:"zine.pdf - Adobe Acrobat",icon:"📄",menu:["File","Edit","View","Tools","Help"],
-    body:`<p>A3, double sided, 100% scale.<br>Trim. Fold. Keep.</p>
-    <div class="progress-wrap"><div class="progress-fill"></div></div>`,
-    status:"Page 1 of 8",buttons:[{l:"Open",a:"close",d:true},{l:"Save As...",a:"close"},{l:"Cancel",a:"close"}],w:290},
-  foldingguide:{title:"README.txt - Notepad",icon:"🗒️",menu:["File","Edit","Format","Help"],
-    body:`<div class="notepad-body">FOLDING INSTRUCTIONS<br>====================<br><br>1. Print the zine PDF<br>2. Fold in half (long side)<br>3. Fold again<br>4. Cut along dotted line<br>5. You did it.<br><br><span class="blink">Still confused? That is fine.</span></div>`,
-    buttons:[{l:"OK",a:"close",d:true}],w:260},
   complaints:{title:"Submit a Complaint",icon:"📮",cls:'blink-border',
     body:`<p>Name:<br><input type="text" style="width:100%;margin:2px 0 6px;"></p>
     <p>Email:<br><input type="email" style="width:100%;margin:2px 0 6px;" placeholder="your@email.com"></p>
