@@ -50,9 +50,10 @@ body {
 }
 .icon-btn {
   display: flex; flex-direction: column; align-items: center;
-  width: 56px; cursor: pointer; padding: 4px 2px;
+  width: 64px; cursor: pointer; padding: 4px 2px;
   border: 1px solid transparent;
 }
+.icon-btn:hover { background: rgba(0,0,128,0.4); border: 1px dotted #fff; }
 .icon-btn:hover { background: rgba(0,0,128,0.3); border-color: rgba(255,255,255,0.5); }
 .icon-img { font-size: 24px; line-height: 1; }
 .icon-label {
@@ -115,12 +116,24 @@ body {
 #heaven-overlay {
   display: none;
   position: fixed; top:0; left:0; right:0; bottom:0;
-  background: linear-gradient(180deg, #fffbe0 0%, #fff4b0 40%, #ffe070 100%);
+  background-image: url('images/heaven_bg.jpg'), url('images/heaven_bg.jpg'), url('images/heaven_bg.jpg');
+  background-size: 34% 100%, 34% 100%, 34% 100%;
+  background-position: left center, center center, right center;
+  background-repeat: no-repeat;
   z-index: 999999;
   text-align: center;
   font-family: 'MS Sans Serif','Arial',sans-serif;
   overflow: hidden;
 }
+#heaven-overlay::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: rgba(255, 220, 50, 0.45);
+  pointer-events: none;
+  z-index: 1;
+}
+#heaven-overlay > * { position: relative; z-index: 2; }
+#heaven-overlay.show { display: flex; flex-direction: column; align-items: center; justify-content: center; }
 #heaven-overlay.show { display: flex; flex-direction: column; align-items: center; justify-content: center; }
 #heaven-gate {
   font-size: 11px; color: #555; margin-bottom: 20px;
@@ -377,17 +390,23 @@ body {
 
 /* mobile: hide player or make compact */
 @media (max-width: 768px) {
-  #mobile-notice { display: block !important; font-size: 14px !important; font-weight: bold !important; padding: 10px !important; }
-  #desktop-icons { display: flex !important; z-index: 50 !important; }
-  #site { padding-bottom: 170px !important; }
+  #mobile-notice { display: block !important; font-size: 14px !important; font-weight: bold !important; padding: 10px !important; top: 0; position: fixed; width: 100%; z-index: 99990; box-sizing: border-box; }
+  #desktop-icons { display: flex !important; z-index: 50 !important; top: 40px !important; }
+  #site { padding-top: 40px !important; padding-bottom: 180px !important; }
   #site-content { width: 96vw !important; max-width: 96vw !important; margin: 0 auto !important; box-sizing: border-box !important; padding: 8px !important; }
   .popup { max-width: 92vw !important; }
   .quicklaunch { display: none !important; }
   #player { width: 100vw !important; left: 0 !important; right: 0 !important; transform: none !important; bottom: 28px !important; box-sizing: border-box !important; }
   #player-left { width: 90px !important; }
-  #player-right { max-height: 80px !important; }
-  .track-item { font-size: 11px !important; padding: 3px 6px !important; }
-  .ctrl-btn { font-size: 13px !important; padding: 3px 7px !important; }
+  #player-right { max-height: 90px !important; }
+  .track-item { font-size: 12px !important; padding: 4px 6px !important; }
+  .ctrl-btn { font-size: 14px !important; padding: 4px 8px !important; }
+  #player-artist { font-size: 13px !important; }
+  #player-track { font-size: 11px !important; }
+  #player-time { font-size: 10px !important; }
+}
+@media (min-width: 769px) {
+  #mobile-notice { display: none !important; }
 }
 @media (min-width: 769px) {
   #mobile-notice { display: none !important; }
@@ -451,6 +470,22 @@ body {
 }
 @media (min-width: 769px) {
   #mobile-notice { display: none !important; }
+}
+
+
+.retro-icon {
+  width: 32px; height: 32px;
+  image-rendering: pixelated;
+  margin-bottom: 2px;
+}
+.icon-label {
+  font-size: 10px; color: #fff;
+  text-align: center;
+  text-shadow: 1px 1px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000;
+  font-family: 'MS Sans Serif','Arial',sans-serif;
+  word-break: break-word;
+  margin-top: 2px;
+  max-width: 60px;
 }
 
 /* SITE */
@@ -747,25 +782,72 @@ input[type=text], textarea {
 <div id="bg-click-layer" onclick="toggleBackground()"></div>
 <div id="desktop-icons">
   <div class="icon-btn" ondblclick="openPopupById('mission')" title="team.txt">
-    <div class="icon-img">🗒️</div><div class="icon-label">team.txt</div>
+    <div class="retro-icon">
+      <svg width="32" height="32" viewBox="0 0 32 32" style="image-rendering:pixelated">
+        <rect x="4" y="2" width="20" height="26" fill="#fff" stroke="#000" stroke-width="1"/>
+        <rect x="4" y="2" width="20" height="4" fill="#000080"/>
+        <rect x="6" y="8" width="14" height="1" fill="#000"/>
+        <rect x="6" y="11" width="14" height="1" fill="#000"/>
+        <rect x="6" y="14" width="10" height="1" fill="#000"/>
+        <rect x="6" y="17" width="12" height="1" fill="#000"/>
+        <rect x="22" y="2" width="4" height="4" fill="#c0c0c0" stroke="#000" stroke-width="1"/>
+      </svg>
+    </div><div class="icon-label">team.txt</div>
   </div>
   <div class="icon-btn" ondblclick="openPopupById('complaints')" title="complaints">
-    <div class="icon-img">📮</div><div class="icon-label">complaints</div>
+    <div class="retro-icon">
+      <svg width="32" height="32" viewBox="0 0 32 32" style="image-rendering:pixelated">
+        <rect x="2" y="6" width="28" height="20" fill="#fff" stroke="#000" stroke-width="1"/>
+        <polygon points="2,6 16,18 30,6" fill="#c0c0c0" stroke="#000" stroke-width="1"/>
+        <line x1="2" y1="26" x2="12" y2="16" stroke="#000" stroke-width="1"/>
+        <line x1="30" y1="26" x2="20" y2="16" stroke="#000" stroke-width="1"/>
+      </svg>
+    </div><div class="icon-label">complaints</div>
   </div>
   <div class="icon-btn" ondblclick="window.open('https://mega.nz/folder/cJ9iELbI#5b9eoabm7cJzssyA-pJnlw','_blank')" onclick="window.open('https://mega.nz/folder/cJ9iELbI#5b9eoabm7cJzssyA-pJnlw','_blank')" title="stems">
-    <div class="icon-img">💾</div><div class="icon-label">stems</div>
+    <div class="retro-icon">
+      <svg width="32" height="32" viewBox="0 0 32 32" style="image-rendering:pixelated">
+        <rect x="4" y="6" width="24" height="20" fill="#c0c0c0" stroke="#000" stroke-width="1"/>
+        <rect x="8" y="4" width="16" height="4" fill="#808080" stroke="#000" stroke-width="1"/>
+        <rect x="12" y="4" width="8" height="3" fill="#fff"/>
+        <rect x="8" y="10" width="16" height="12" fill="#000080"/>
+        <rect x="10" y="12" width="4" height="4" fill="#c0c0c0"/>
+      </svg>
+    </div><div class="icon-label">stems</div>
   </div>
   <div class="icon-btn" ondblclick="window.open('https://mega.nz/folder/0FdiAKYJ#Iwqufag84SfCZrz5WeerWQ','_blank')" onclick="window.open('https://mega.nz/folder/0FdiAKYJ#Iwqufag84SfCZrz5WeerWQ','_blank')" title="sample pack">
-    <div class="icon-img">📦</div><div class="icon-label">sample pack</div>
+    <div class="retro-icon">
+      <svg width="32" height="32" viewBox="0 0 32 32" style="image-rendering:pixelated">
+        <rect x="4" y="10" width="24" height="18" fill="#f0c040" stroke="#000" stroke-width="1"/>
+        <rect x="4" y="10" width="10" height="5" fill="#f0c040" stroke="#000" stroke-width="1"/>
+        <rect x="4" y="6" width="10" height="5" rx="1" fill="#f0c040" stroke="#000" stroke-width="1"/>
+        <rect x="7" y="16" width="18" height="1" fill="#c08000"/>
+        <rect x="7" y="19" width="14" height="1" fill="#c08000"/>
+      </svg>
+    </div><div class="icon-label">sample pack</div>
   </div>
   <div class="icon-btn" ondblclick="spawnPopup('virus_lyrictrivia',true)" title="trivia">
-    <div class="icon-img">🎵</div><div class="icon-label">trivia.exe</div>
+    <div class="retro-icon">
+      <svg width="32" height="32" viewBox="0 0 32 32" style="image-rendering:pixelated">
+        <rect x="4" y="4" width="24" height="24" fill="#c0c0c0" stroke="#000" stroke-width="1"/>
+        <rect x="4" y="4" width="24" height="6" fill="#000080"/>
+        <text x="16" y="11" text-anchor="middle" fill="#fff" font-size="5" font-family="Arial">trivia.exe</text>
+        <text x="16" y="22" text-anchor="middle" fill="#000" font-size="12" font-family="serif">?</text>
+      </svg>
+    </div><div class="icon-label">trivia.exe</div>
   </div>
   <div class="icon-btn" ondblclick="spawnPukemon()" title="???.exe">
-    <div class="icon-img">❓</div><div class="icon-label">???.exe</div>
+    <div class="retro-icon">
+      <svg width="32" height="32" viewBox="0 0 32 32" style="image-rendering:pixelated">
+        <rect x="4" y="4" width="24" height="24" fill="#c0c0c0" stroke="#000" stroke-width="1"/>
+        <rect x="4" y="4" width="24" height="6" fill="#808080"/>
+        <text x="16" y="11" text-anchor="middle" fill="#fff" font-size="5" font-family="Arial">???.exe</text>
+        <text x="16" y="23" text-anchor="middle" fill="#800000" font-size="14" font-family="serif" font-weight="bold">?</text>
+      </svg>
+    </div><div class="icon-label">???.exe</div>
   </div>
 </div>
-<div id="mobile-notice">⚠ best viewed on desktop — mobile experience may be chaotic</div>
+<div id="mobile-notice">⚠ best viewed on desktop browser</div>
 
 
 
@@ -1489,16 +1571,7 @@ function checkHeaven() {
     openPopups = {};
     const overlay = document.getElementById('heaven-overlay');
     if (overlay) overlay.classList.add('show');
-    // add twinkling stars
-    for (let i = 0; i < 20; i++) {
-      const star = document.createElement('div');
-      star.className = 'heaven-star';
-      star.textContent = ['⭐','✨','🌟'][Math.floor(Math.random()*3)];
-      star.style.left = Math.random()*100 + 'vw';
-      star.style.top = Math.random()*100 + 'vh';
-      star.style.animationDelay = Math.random()*2 + 's';
-      overlay.appendChild(star);
-    }
+
   }
 }
 
