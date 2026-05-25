@@ -901,13 +901,13 @@ input[type=text], textarea {
           <td class="site-td">
             <h3>&#128193; DOWNLOADS</h3>
             <a href="https://mega.nz/folder/cJ9iELbI#5b9eoabm7cJzssyA-pJnlw" target="_blank">💾 Stems</a>
-            <a href="https://mega.nz/folder/0FdiAKYJ#Iwqufag84SfCZrz5WeerWQ" target="_blank">📦 Sample Pack</a>
+            <a href="https://mega.nz/folder/0FdiAKYJ#Iwqufag84SfCZrz5WeerWQ" target="_blank">📦 Sample Pack</a><br><a onclick="openDungeonPopup()" style="cursor:pointer;color:#cc0000;">🔒 Restricted Access</a>
           </td>
           <td class="site-td">
             <h3>&#128236; CONTACT</h3>
             <a onclick="openPopupById('complaints')">📮 Submit a Complaint</a>
             <a onclick="openPopupById('mission')">👥 About the Team</a>
-            <a href="https://faceeaterz.bandcamp.com" target="_blank">🔗 Bandcamp</a>
+            <a href="https://www.youtube.com/@FaceEater-Music" target="_blank">🔗 YouTube</a>
             <a href="https://www.instagram.com/faceeaterz" target="_blank">🔗 Instagram</a>
           </td>
         </tr>
@@ -1155,6 +1155,13 @@ const POPUP_DEFS={
       </a>
     </div>
     <p style="font-size:9px;color:#888;margin-top:8px;text-align:center;">free. take it.</p>
+    </div><div style="border-top:1px solid #ccc;margin-top:8px;padding-top:6px;">
+    <p style="font-size:10px;color:#555;margin-bottom:4px;">i want to stream it (not cool)</p>
+    <a href="https://faceeaterz.bandcamp.com" target="_blank" style="display:block;font-size:11px;color:#0000cc;text-decoration:underline;margin-bottom:2px;">Bandcamp</a>
+    <a href="https://open.spotify.com/intl-de/album/1NSVG5xepgxTuYuXF8XLdv?si=CCLlHX8KS8SZSsqXPXNyCg" target="_blank" style="display:block;font-size:11px;color:#0000cc;text-decoration:underline;margin-bottom:2px;">Spotify</a>
+    <a href="https://music.apple.com/de/album/faceeater/6766120050" target="_blank" style="display:block;font-size:11px;color:#0000cc;text-decoration:underline;margin-bottom:2px;">Apple Music</a>
+    <a href="https://tidal.com/album/521284294/u" target="_blank" style="display:block;font-size:11px;color:#0000cc;text-decoration:underline;margin-bottom:2px;">Tidal</a>
+    <a href="https://music.youtube.com/channel/UCSSFqLpZtKx3DpaU8sMT5jQ?si=jLrYI4LMalCsaeX8" target="_blank" style="display:block;font-size:11px;color:#0000cc;text-decoration:underline;margin-bottom:2px;">YouTube Music</a>
     </div>`,
     buttons:[{l:"Close",a:"close"}],w:280},
 
@@ -1169,7 +1176,7 @@ const POPUP_DEFS={
     body:`<video src="videos/lp_promo.mp4" autoplay loop muted playsinline controls style="width:100%;display:block;"></video>`,
     buttons:[{l:"Close",a:"close"}],w:340},
 
-  virus_webcam:{title:"📹 Nick bedroom live cam",icon:"📹",
+  virus_webcam:{title:"📹 live_fe_hq",icon:"📹",
     body:`<video src="videos/webcam02.mp4" autoplay loop playsinline style="width:100%;display:block;"></video>`,
     buttons:[{l:"Close",a:"close"}],w:320},
   virus_rotten:{title:"🎬 ROTTEN — official",icon:"🎬",
@@ -1477,9 +1484,14 @@ const TRIVIA_QS = [
 ];
 
 function initTrivia(uid) {
-  const shuffled = [...TRIVIA_QS].sort(()=>Math.random()-0.5).slice(0,5);
   const el = document.getElementById(uid);
   if (!el) return;
+  // Re-inject the trivia body HTML in case it was replaced
+  const body = el.querySelector('.popup-body');
+  if (body && !el.querySelector('.trivia-body')) {
+    body.innerHTML = '<div class="trivia-body"><p style="font-weight:bold;margin-bottom:6px;">finish the lyric:</p><p class="trivia-q" style="font-style:italic;font-size:13px;color:#000080;margin-bottom:8px;"></p><div class="trivia-opts" style="display:flex;flex-direction:column;gap:4px;"></div></div>';
+  }
+  const shuffled = [...TRIVIA_QS].sort(()=>Math.random()-0.5).slice(0,5);
   el._trivia = { q: 0, score: 0, questions: shuffled };
   renderTrivia(uid);
 }
@@ -1648,7 +1660,7 @@ function checkDungeonPW() {
   const err = document.getElementById('dungeon-err');
   if (!inp) return;
   const val = inp.value.trim().toLowerCase();
-  if (val === '914223' || val === 'faceeaterz123' || val === '1312') {
+  if (val==='rotten'||val==='faceeaterz123'||val==='1312') {
     window.open('https://mega.nz/folder/YVt2CBJR#iDdrb8ZBl6WaS2N9hZxV8A', '_blank');
   } else {
     if (err) err.textContent = 'wrong password.';
