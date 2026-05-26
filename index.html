@@ -945,9 +945,10 @@ input[type=text], textarea {
   <img src="images/clippy.png" width="80" height="80" style="display:block;" alt="clippy"/>
 </div>
 <div id="clippy-bubble">
-  It looks like you're visiting a virus.<br>
-  <a onclick="spawnRandomPopup()">• Open another popup</a>
-  <a onclick="document.getElementById('clippy-bubble').classList.remove('show')">• No, go away</a>
+  Need help?<br>
+  Press PANIC to close all pop ups.<br>
+  Press START to open more pop ups.
+  <a onclick="document.getElementById('clippy-bubble').classList.remove('show')">• Close</a>
 </div>
 
 <!-- TASKBAR -->
@@ -1081,7 +1082,7 @@ const POPUP_DEFS={
     <div class="hearts" style="margin-top:4px;">❤️ 🖤 ❤️ 🖤 ❤️</div>
     <p style="text-align:center;font-size:11px;font-weight:bold;margin-top:4px;">WE LOVE YOU</p>`,
     status:"",
-    buttons:[{danger:true,l:"❤",a:"duplicate"},{l:"OK",a:"close",d:true}],w:280},
+    buttons:[{l:"❤",a:"duplicate"},{l:"OK",a:"close",d:true}],w:280},
   virus_moldvideo:{title:"MOLD01.mp4 — Windows Media Player",icon:"🎥",menu:["File","View","Play","Help"],
     body:`<div style="position:relative;width:100%;">
     <video autoplay muted loop playsinline style="width:100%;display:block;">
@@ -1332,7 +1333,7 @@ function handleBtn(uid,defId,action){
     }
   }else if(action==='money-rain'){
     doCelebration();
-    el.querySelector('.popup-body').innerHTML='<div style="text-align:center;padding:20px;font-size:20px;">💵 CONGRATULATIONS! 💵</div>';
+    el.querySelector('.popup-body').innerHTML='<div style="text-align:center;padding:20px;font-size:16px;font-weight:bold;">CONGRATULATIONS!</div>';
   }else if(action==='lego-buy'){
     LEGO_SND.currentTime=0; LEGO_SND.play().catch(()=>{});
     el.remove(); delete openPopups[defId];
@@ -1388,7 +1389,7 @@ function handleBtn(uid,defId,action){
     }
   }else if(action==='money-rain'){
     doCelebration();
-    el.querySelector('.popup-body').innerHTML='<div style="text-align:center;padding:20px;font-size:20px;">💵 CONGRATULATIONS! 💵</div>';
+    el.querySelector('.popup-body').innerHTML='<div style="text-align:center;padding:20px;font-size:16px;font-weight:bold;">CONGRATULATIONS!</div>';
   }else if(action==='lego-buy'){
     LEGO_SND.currentTime=0; LEGO_SND.play().catch(()=>{});
     el.remove(); delete openPopups[defId];
@@ -1552,10 +1553,14 @@ function renderTrivia(uid) {
   if (!q) {
     const msg = state.score===total ? 'perfect. you are one of us.' :
                 state.score>=total*0.6 ? 'not bad. listen more.' : 'go listen to the album again.';
-    const secretBtn = state.score===total ? '<p style="font-weight:bold;color:#000080;margin-top:8px;text-align:center;">恭喜你獲得 🔒 Restricted Access 的密碼:</p><p style="font-size:13px;font-weight:bold;text-align:center;margin-top:4px;letter-spacing:2px;">faceeaterz123</p>' : '';
+    const secretBtn = state.score===total ?
+      '<div style="text-align:center;margin-top:8px;">' +
+      '<p style="font-size:12px;color:#000080;margin-bottom:4px;">Congrats! You have earned the password of 🔒 Restricted Access:</p>' +
+      '<p style="font-size:13px;font-weight:bold;letter-spacing:2px;">faceeaterz123</p>' +
+      '</div>' : '';
     body.innerHTML = '<p style="text-align:center;font-size:16px;font-weight:bold;margin-bottom:6px;">score: ' + state.score + '/' + total + '</p>' +
       '<p style="text-align:center;font-size:12px;color:#555;margin-bottom:8px;">' + msg + '</p>' +
-      '<div class="popup-btns"><button class="popup-btn default-btn" onclick="reinitTrivia(\'' + uid + '\')">Play Again</button>' + secretBtn + '</div>';
+      '<div class="popup-btns" style="margin-top:8px;"><button class="popup-btn" style="font-size:11px;padding:3px 10px;" onclick="reinitTrivia(\'' + uid + '\')">Play Again</button></div>' + secretBtn;
     return;
   }
   el.querySelector('.trivia-q').textContent = q.q;
