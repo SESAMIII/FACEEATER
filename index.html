@@ -559,15 +559,13 @@ body {
   overflow: hidden; white-space: nowrap;
   margin-bottom: 10px;
   border-top: 1px solid #fff; border-bottom: 1px solid #808080;
-  display: flex;
 }
 .marquee-inner {
-  display: inline-block; flex-shrink: 0;
-  animation: scrollx 18s linear infinite;
+  display: inline-block;
+  animation: scrollx 22s linear infinite;
   color: #000; font-size: 12px; font-weight: bold;
 }
-#mq2 { animation-delay: -9s; }
-@keyframes scrollx { from{transform:translateX(0);} to{transform:translateX(-100%);} }
+@keyframes scrollx { from{transform:translateX(100vw);} to{transform:translateX(-100%);} }
 
 .hr-rainbow {
   height: 4px;
@@ -900,7 +898,8 @@ input[type=text], textarea {
         <span class="blink">★ NEW ALBUM OUT NOW ★</span>
       </p>
       <div class="marquee-wrap">
-        <div class="marquee-inner" id="mq1">★ FACEEATER ★ FREE DOWNLOAD ★ LISTEN LOUD ★ MOLD IS REAL ★ DO NOT FEED THE ANIMALS ★ FACEEATER LIVES IN YOUR WALLS ★ CHECK YOUR BASEMENT ★ &nbsp;&nbsp;&nbsp; </div><div class="marquee-inner" id="mq2">★ FACEEATER ★ FREE DOWNLOAD ★ LISTEN LOUD ★ MOLD IS REAL ★ DO NOT FEED THE ANIMALS ★ FACEEATER LIVES IN YOUR WALLS ★ CHECK YOUR BASEMENT ★ &nbsp;&nbsp;&nbsp; </div>
+        <div class="marquee-inner">
+          ★ FACEEATER ★ FREE DOWNLOAD ★ LISTEN LOUD ★ MOLD IS REAL ★ DO NOT FEED THE ANIMALS ★ FACEEATER LIVES IN YOUR WALLS ★ CHECK YOUR BASEMENT ★ BEST VIEWED★
         </div>
       </div>
       <hr class="hr-rainbow">
@@ -1562,7 +1561,7 @@ function renderTrivia(uid) {
                 state.score>=total*0.6 ? 'not bad. listen more.' : 'go listen to the album again.';
     const secretBtn = state.score===total ?
       '<div style="text-align:center;margin-top:8px;">' +
-      '<p style="font-size:12px;color:#000080;margin-bottom:4px;">Congrats! Here\'s the password of<br>🔒 Restricted Access:</p>' +
+      '<p style="font-size:12px;color:#000080;margin-bottom:4px;">Congrats! Here\'s the password of 🔒 Restricted Access:</p>' +
       '<p style="font-size:13px;font-weight:bold;letter-spacing:2px;">faceeaterz123</p>' +
       '</div>' : '';
     body.innerHTML = '<p style="text-align:center;font-size:16px;font-weight:bold;margin-bottom:6px;">score: ' + state.score + '/' + total + '</p>' +
