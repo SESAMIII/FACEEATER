@@ -1201,7 +1201,23 @@ const POPUP_DEFS={
   virus_webcam:{title:"📹 live_fe_hq",icon:"📹",
     body:`<video src="videos/webcam02.mp4" autoplay loop playsinline style="width:100%;display:block;"></video>`,
     buttons:[{l:"Close",a:"close"}],w:320},
-    virus_rotten:{title:"🎬 ROTTEN — official",icon:"📺",
+  
+  virus_dissipate_mv:{title:"🎬 DISSIPATE — official video",icon:"🎬",
+    body:`<video src="videos/dissipate_mv.mp4" autoplay loop muted playsinline style="width:100%;display:block;"></video>`,
+    buttons:[{l:"Watch Now",a:"watch-dissipate",danger:true},{l:"Close",a:"close"}],w:340},
+
+  virus_mold_mv:{title:"🎬 MOLD — official video",icon:"🎬",
+    body:`<video src="videos/mold_mv.mp4" autoplay loop muted playsinline style="width:100%;display:block;"></video>`,
+    buttons:[{l:"Watch Now",a:"watch-mold",danger:true},{l:"Close",a:"close"}],w:340},
+
+  virus_faceeater_mv:{title:"🎬 FACEEATER — official video",icon:"🎬",
+    body:`<video src="videos/faceeater_mv.mp4" autoplay loop muted playsinline style="width:100%;display:block;"></video>`,
+    buttons:[{l:"Watch Now",a:"watch-faceeater",danger:true},{l:"Close",a:"close"}],w:340},
+
+  virus_album_viz:{title:"🎬 FACEEATER — album visualizer",icon:"🎬",
+    body:`<video src="videos/album_viz.mp4" autoplay loop muted playsinline style="width:100%;display:block;"></video>`,
+    buttons:[{l:"Watch Now",a:"watch-albumviz",danger:true},{l:"Close",a:"close"}],w:340},
+  virus_rotten:{title:"🎬 ROTTEN — official",icon:"📺",
     body:`<video src="videos/rotten.mp4" autoplay loop muted playsinline style="width:100%;display:block;"></video>`,
     buttons:[{l:"Close",a:"close"}],w:340},
   virus_ghouls:{title:"!! HOT SINGLES IN YOUR AREA !!",icon:"👻",
@@ -1267,7 +1283,7 @@ const POPUP_DEFS={
     buttons:[{l:"Submit",a:"riddle-answer",d:true,danger:true},{l:"Give Up",a:"close"}],w:230},
 };
 
-const VIRUS_IDS=['virus_logo','virus_tvshit','virus_tranquivex','virus_fefm','virus_welove','virus_moldvideo','virus_tracklist','virus_albumcover','virus_cover','virus_lewok','virus_hbs','virus_lppromo','virus_webcam','virus_rotten','virus_5000','virus_chat','virus_lyrictrivia','virus_doubleup','virus_ghouls','virus_18','virus_car','virus_nudefolder','virus_survey','virus_error',
+const VIRUS_IDS=['virus_logo','virus_tvshit','virus_tranquivex','virus_fefm','virus_welove','virus_moldvideo','virus_tracklist','virus_albumcover','virus_cover','virus_lewok','virus_hbs','virus_lppromo','virus_webcam','virus_dissipate_mv','virus_mold_mv','virus_faceeater_mv','virus_album_viz','virus_rotten','virus_5000','virus_chat','virus_lyrictrivia','virus_doubleup','virus_ghouls','virus_18','virus_car','virus_nudefolder','virus_survey','virus_error',
   'virus_lego','virus_update','virus_riddle'];
 
 let openPopups={},popupZTop=1000,popupCounter=0;
@@ -1309,7 +1325,7 @@ function spawnPopup(defId,forceNew){
 }
 
 function openPopupById(id){spawnPopup(id,false);}
-const POPUP_WEIGHTS={virus_lppromo:6,virus_webcam:5,virus_lewok:2,virus_lego:3,virus_tranquivex:5,virus_nudefolder:1,virus_5000:1,virus_rotten:3,virus_tvshit:6,virus_doubleup:1,virus_ghouls:3,virus_car:2,virus_hbs:3,virus_cover:3,virus_albumcover:4,virus_chat:5,virus_lyrictrivia:5,_default:10};
+const POPUP_WEIGHTS={virus_dissipate_mv:3,virus_mold_mv:3,virus_faceeater_mv:8,virus_album_viz:3,virus_lppromo:6,virus_webcam:5,virus_lewok:2,virus_lego:3,virus_tranquivex:5,virus_nudefolder:1,virus_5000:1,virus_rotten:3,virus_tvshit:6,virus_doubleup:1,virus_ghouls:3,virus_car:2,virus_hbs:3,virus_cover:3,virus_albumcover:4,virus_chat:5,virus_lyrictrivia:5,_default:10};
 function spawnRandomPopup(){
   const avail=VIRUS_IDS.filter(id=>!openPopups[id]);
   if(!avail.length)return;
@@ -1360,6 +1376,14 @@ function handleBtn(uid,defId,action){
       '</div>';
     if(el.querySelector('.popup-btns')) el.querySelector('.popup-btns').innerHTML=
       '<button class="popup-btn default-btn" onclick="this.closest(\'.popup\').remove()">Close</button>';
+  }else if(action==='watch-dissipate'){
+    window.open('https://www.youtube.com/watch?v=1Qi_bNmdivE','_blank');
+  }else if(action==='watch-mold'){
+    window.open('https://www.youtube.com/watch?v=rPoP1ZFFXjk','_blank');
+  }else if(action==='watch-faceeater'){
+    window.open('https://youtu.be/u3xztzYMdCA','_blank');
+  }else if(action==='watch-albumviz'){
+    window.open('https://www.youtube.com/watch?v=8f3Tq9-GtXQ&t=1525s','_blank');
   }else if(action==='nude-open'){
     const img = el.querySelector('#nude-img');
     if (!img) return;
@@ -1454,6 +1478,14 @@ function handleBtn(uid,defId,action){
       '</div>';
     if(el.querySelector('.popup-btns')) el.querySelector('.popup-btns').innerHTML=
       '<button class="popup-btn default-btn" onclick="this.closest(\'.popup\').remove()">Close</button>';
+  }else if(action==='watch-dissipate'){
+    window.open('https://www.youtube.com/watch?v=1Qi_bNmdivE','_blank');
+  }else if(action==='watch-mold'){
+    window.open('https://www.youtube.com/watch?v=rPoP1ZFFXjk','_blank');
+  }else if(action==='watch-faceeater'){
+    window.open('https://youtu.be/u3xztzYMdCA','_blank');
+  }else if(action==='watch-albumviz'){
+    window.open('https://www.youtube.com/watch?v=8f3Tq9-GtXQ&t=1525s','_blank');
   }else if(action==='nude-open'){
     const img = el.querySelector('#nude-img');
     if (!img) return;
