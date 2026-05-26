@@ -1078,7 +1078,7 @@ const POPUP_DEFS={
     body:`<img src="images/fefm.png" style="width:100%;display:block;margin-bottom:8px;"/><p style="text-align:center;font-size:11px;margin-top:6px;">a new faceeater project<br>release date: TBA</p>
     <div class="progress-wrap" style="margin-top:6px;"><div class="progress-fill" style="animation-duration:15s"></div></div>
     <p style="text-align:center;font-size:10px;color:#555;">loading hype...</p>`,
-    buttons:[{l:"Remind me",a:"duplicate"},{l:"Close",a:"close"}],w:220},
+    buttons:[{l:"Close",a:"close"}],w:220},
   virus_welove:{title:"we_love_you_01.mp4 — Windows Media Player",icon:"▶",
     menu:["File","View","Play","Help"],
     body:`<video autoplay muted loop playsinline style="width:100%;display:block;">
@@ -1107,14 +1107,15 @@ const POPUP_DEFS={
   virus_albumcover:{title:"\"FACEEATER\" the album — MAY 21",icon:"💿",
     body:`<img src="images/tracklist.jpg" style="width:100%;display:block;"/>
     `,
-    buttons:[{l:"Listen Now",a:"open-download",d:true},{l:"Close",a:"close"}],w:300},
+    buttons:[{l:"Listen Now",a:"open-download",d:true,danger:true},{l:"Close",a:"close"}],w:300},
 
-  virus_nudefolder:{title:"📁 private — DO NOT OPEN",icon:"📁",
+    virus_nudefolder:{title:"📁 private — DO NOT OPEN",icon:"📁",
     menu:["File","Edit","View","Help"],
-    body:`<img src="images/nude.png" style="width:100%;display:block;image-rendering:pixelated;"/>
-    <p style="font-size:10px;color:#cc0000;margin-top:4px;" class="blink">⚠ PRIVATE FILES — DO NOT SHARE</p>`,
-    status:"9 items | 420.69 MB",
-    buttons:[{l:"Open All",a:"duplicate"},{l:"Delete",a:"close"}],w:280},
+    body:`<div style="position:relative;cursor:pointer;" onclick="cycleNude(this)">
+    <img id="nude-img" src="images/nudes01.jpg" style="width:100%;display:block;" data-idx="0"/>
+    </div>`,
+    status:"DO NOT OPEN",
+    buttons:[{l:"Open",a:"nude-open",danger:true},{l:"Close",a:"close"}],w:280},
 
   virus_chat:{title:"💬 FACEEATER ENTITY — chat v0.1",icon:"💬",
     menu:["File","Connect","Help"],
@@ -1205,7 +1206,7 @@ const POPUP_DEFS={
     buttons:[{l:"Close",a:"close"}],w:340},
   virus_ghouls:{title:"!! HOT SINGLES IN YOUR AREA !!",icon:"👻",
     body:`<img src="${IMG_GHOULS}" style="width:100%;display:block;"/>`,
-    buttons:[{danger:true,l:"JOIN NOW",a:"ghouls-join"},{l:"No (liar)",a:"duplicate"}],w:310},
+    buttons:[{danger:true,l:"JOIN NOW",a:"ghouls-join"},{l:"No (liar)",a:"close"}],w:310},
   virus_18:{title:"⚠ Age Verification",icon:"⚠",
     body:`<div class="warn-box"><span class="warn-icon">⚠️</span>
     <div><p>You must be <strong>18 or older</strong> to enter this site.</p>
@@ -1213,7 +1214,7 @@ const POPUP_DEFS={
     buttons:[{l:"No",a:"crash"},{l:"Yes, I am 18",a:"close",d:true}],w:280},
   virus_car:{title:"Wir kaufen Ihr AUTO",icon:"🚗",
     body:`<img src="${IMG_CAR}" style="width:100%;display:block;"/>`,
-    buttons:[{danger:true,l:"Jetzt anrufen!",a:"car-honk",danger:true},{l:"Nein danke",a:"close"}],w:330},
+    buttons:[{danger:true,l:"Jetzt anrufen!",a:"car-phone"},{l:"Nein danke",a:"close"}],w:330},
   virus_survey:{title:"Important User Survey",icon:"📋",
     body:`<p style="font-weight:bold;margin-bottom:5px;">How did you first hear about FACEEATER?</p>
     <div class="survey-q">
@@ -1222,13 +1223,13 @@ const POPUP_DEFS={
       <label><input type="radio" name="q1"> I didn't (you are lying)</label>
       <label><input type="radio" name="q1"> I AM FACEEATER</label>
     </div>`,
-    buttons:[{l:"Submit",a:"survey-thanks",d:true},{l:"Skip",a:"close"}],w:260},
+    buttons:[{l:"Submit",a:"survey-thanks",d:true,danger:true},{l:"Skip",a:"close"}],w:260},
   virus_error:{title:"Error",icon:"🛑",
     body:`<div class="warn-box"><span class="warn-icon">🛑</span>
     <div><p>A fatal exception <span class="blink" style="font-family:'Courier New';">0xFACEEA7E</span> has occurred.</p>
     <p style="font-size:10px;color:#cc0000;margin-top:3px;">FACEEATER.DLL not found</p>
     <p style="font-size:10px;color:#555;margin-top:2px;"></p></div></div>`,
-    buttons:[{l:"OK",a:"error-respawn",d:true}],w:270,behavior:'shake'},
+    buttons:[{l:"OK",a:"error-respawn",d:true,danger:true}],w:270,behavior:'shake'},
 
   virus_lewok:{title:"🎵 you might also like...",icon:"🎵",
     body:`<div style="text-align:center;">
@@ -1250,7 +1251,7 @@ const POPUP_DEFS={
     <div><p>An update for <strong>FACEEATER</strong> is ready to install.</p>
     <div class="progress-wrap" style="margin:4px 0;"><div class="progress-fill" style="animation-duration:3s"></div></div>
     <p class="blink" style="font-size:10px;color:#cc0000;">DO NOT TURN OFF YOUR BRAIN</p></div></div>`,
-    buttons:[{l:"Update Now",a:"crash",d:true},{l:"Remind Me Later",a:"respawn"}],w:280},
+    buttons:[{l:"Update Now",a:"crash",d:true,danger:true},{l:"Remind Me Later",a:"respawn"}],w:280},
 
   virus_pukemon:{title:"❓ ???.exe",icon:"❓",
     body:`<div style="text-align:center;background:#fff;padding:12px;">
@@ -1263,7 +1264,7 @@ const POPUP_DEFS={
   virus_riddle:{title:"RIDDLE.exe",icon:"❓",
     body:`<p>I have no face,<br>but I eat yours.<br><br>What am I?</p>
     <p><input type="text" placeholder="type answer..." id="riddle-input" style="width:100%;margin-top:4px;"></p>`,
-    buttons:[{l:"Submit",a:"riddle-answer",d:true},{l:"Give Up",a:"close"}],w:230},
+    buttons:[{l:"Submit",a:"riddle-answer",d:true,danger:true},{l:"Give Up",a:"close"}],w:230},
 };
 
 const VIRUS_IDS=['virus_logo','virus_tvshit','virus_tranquivex','virus_fefm','virus_welove','virus_moldvideo','virus_tracklist','virus_albumcover','virus_cover','virus_lewok','virus_hbs','virus_lppromo','virus_webcam','virus_rotten','virus_5000','virus_chat','virus_lyrictrivia','virus_doubleup','virus_ghouls','virus_18','virus_car','virus_nudefolder','virus_survey','virus_error',
@@ -1359,6 +1360,19 @@ function handleBtn(uid,defId,action){
       '</div>';
     if(el.querySelector('.popup-btns')) el.querySelector('.popup-btns').innerHTML=
       '<button class="popup-btn default-btn" onclick="this.closest(\'.popup\').remove()">Close</button>';
+  }else if(action==='nude-open'){
+    const img = el.querySelector('#nude-img');
+    if (!img) return;
+    const idx = parseInt(img.dataset.idx||'0');
+    const nudes = ['images/nudes01.jpg','images/nudes02.jpg','images/nudes03.jpg','images/nudes04.jpg'];
+    const next = idx + 1;
+    if (next >= nudes.length) {
+      // final image - remove open button, keep only close
+      el.querySelector('.popup-btns').innerHTML = '<button class="popup-btn default-btn" onclick="this.closest(\'.popup\').remove()">Close</button>';
+    } else {
+      img.src = nudes[next];
+      img.dataset.idx = next;
+    }
   }else if(action==='welove-heart'){
     // Toggle heart cursor on whole page
     document.body.classList.toggle('heart-cursor');
@@ -1440,6 +1454,19 @@ function handleBtn(uid,defId,action){
       '</div>';
     if(el.querySelector('.popup-btns')) el.querySelector('.popup-btns').innerHTML=
       '<button class="popup-btn default-btn" onclick="this.closest(\'.popup\').remove()">Close</button>';
+  }else if(action==='nude-open'){
+    const img = el.querySelector('#nude-img');
+    if (!img) return;
+    const idx = parseInt(img.dataset.idx||'0');
+    const nudes = ['images/nudes01.jpg','images/nudes02.jpg','images/nudes03.jpg','images/nudes04.jpg'];
+    const next = idx + 1;
+    if (next >= nudes.length) {
+      // final image - remove open button, keep only close
+      el.querySelector('.popup-btns').innerHTML = '<button class="popup-btn default-btn" onclick="this.closest(\'.popup\').remove()">Close</button>';
+    } else {
+      img.src = nudes[next];
+      img.dataset.idx = next;
+    }
   }else if(action==='welove-heart'){
     // Toggle heart cursor on whole page
     document.body.classList.toggle('heart-cursor');
