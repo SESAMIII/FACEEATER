@@ -504,6 +504,8 @@ body {
 
 .heart-cursor { cursor: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgdmlld0JveD0iMCAwIDMyIDMyIj48cGF0aCBkPSJNMTYgMjggQzE2IDI4IDQgMjAgNCAxMiBDNCA3LjYgNy42IDQgMTIgNCBDMTQgNCAxNS41IDUgMTYgNiBDMTYuNSA1IDE4IDQgMjAgNCBDMjQuNCA0IDI4IDcuNiAyOCAxMiBDMjggMjAgMTYgMjggMTYgMjhaIiBmaWxsPSJyZWQiIHN0cm9rZT0iZGFya3JlZCIgc3Ryb2tlLXdpZHRoPSIxIi8+PC9zdmc+") 16 16, auto !important; }
 
+.popup-btn.default-btn:not(.danger) { border-color: #fff #808080 #808080 #fff !important; }
+
 /* SITE */
 #site {
   position: fixed;
@@ -1105,7 +1107,7 @@ const POPUP_DEFS={
   virus_albumcover:{title:"\"FACEEATER\" the album — MAY 21",icon:"💿",
     body:`<img src="images/tracklist.jpg" style="width:100%;display:block;"/>
     `,
-    buttons:[{l:"Listen Now",a:"close",d:true},{l:"Close",a:"close"}],w:300},
+    buttons:[{l:"Listen Now",a:"open-download",d:true},{l:"Close",a:"close"}],w:300},
 
   virus_nudefolder:{title:"📁 private — DO NOT OPEN",icon:"📁",
     menu:["File","Edit","View","Help"],
