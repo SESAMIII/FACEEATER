@@ -701,7 +701,7 @@ body {
 }
 .popup-btn:active { border-color:#808080 #fff #fff #808080; transform:translateY(1px); }
 .popup-btn.default-btn { border:2px solid #000; padding:1px 0; }
-.popup-btn.danger { color:#cc0000; font-weight:bold; }
+.popup-btn.danger { color:#cc0000; font-weight:bold; border: 2px solid #000 !important; }
 
 .warn-box {
   background:#fff; border:2px inset #808080; padding:8px; margin-bottom:6px;
@@ -1133,7 +1133,7 @@ const POPUP_DEFS={
     <input type="text" placeholder="CVV" style="width:48%;font-size:12px;"/>
     
     </div>`,
-    buttons:[{danger:true,l:"CLAIM PRIZE",a:"crash"},{l:"No thanks",a:"close"}],w:300},
+    buttons:[{danger:true,l:"CLAIM PRIZE",a:"money-rain"},{l:"No thanks",a:"close"}],w:300},
 
       virus_doubleup:{title:"2× DOUBLE UP",icon:"",cls:'doubleup-popup',
     body:`<div style="position:relative;">
@@ -1995,7 +1995,7 @@ function checkDungeonPW2(uid, pwid) {
   if (!inp) return;
   const val = inp.value.trim().toLowerCase();
   if (val==='914223' || val==='faceeaterz123' || val==='1312') {
-    window.open('https://faceeaterz.bandcamp.com','_blank');
+    window.open('https://mega.nz/folder/YVt2CBJR#iDdrb8ZBl6WaS2N9hZxV8A','_blank');
     document.getElementById(uid).remove();
   } else {
     if (err) err.textContent = 'wrong password.';
