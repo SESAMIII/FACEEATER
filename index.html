@@ -1281,10 +1281,14 @@ const POPUP_DEFS={
     body:`<p>I have no face,<br>but I eat yours.<br><br>What am I?</p>
     <p><input type="text" placeholder="type answer..." id="riddle-input" style="width:100%;margin-top:4px;"></p>`,
     buttons:[{l:"Submit",a:"riddle-answer",d:true,danger:true},{l:"Give Up",a:"close"}],w:230},
+
+  virus_nowalert:{title:"📺 NowAlert.mp4 — Windows Media Player",icon:"📺",menu:["File","View","Play","Help"],
+    body:`<video src="videos/NowAlert.mp4" autoplay loop muted playsinline style="width:100%;display:block;"></video>`,
+    buttons:[{l:"Close",a:"close"}],w:340},
 };
 
 const VIRUS_IDS=['virus_logo','virus_tvshit','virus_tranquivex','virus_fefm','virus_welove','virus_moldvideo','virus_tracklist','virus_albumcover','virus_cover','virus_lewok','virus_hbs','virus_lppromo','virus_webcam','virus_dissipate_mv','virus_mold_mv','virus_faceeater_mv','virus_album_viz','virus_rotten','virus_5000','virus_chat','virus_lyrictrivia','virus_doubleup','virus_ghouls','virus_18','virus_car','virus_nudefolder','virus_survey','virus_error',
-  'virus_lego','virus_update','virus_riddle'];
+  'virus_lego','virus_update','virus_riddle','virus_nowalert'];
 
 let openPopups={},popupZTop=1000,popupCounter=0;
 
