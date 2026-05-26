@@ -899,7 +899,7 @@ input[type=text], textarea {
       </p>
       <div class="marquee-wrap">
         <div class="marquee-inner">
-          ★ FACEEATER ★ FREE DOWNLOAD ★ LISTEN LOUD ★ MOLD IS REAL ★ DO NOT FEED THE ANIMALS ★ FACEEATER LIVES IN YOUR WALLS ★ CHECK YOUR BASEMENT ★ BEST VIEWED 800x600 ★
+          ★ FACEEATER ★ FREE DOWNLOAD ★ LISTEN LOUD ★ MOLD IS REAL ★ DO NOT FEED THE ANIMALS ★ FACEEATER LIVES IN YOUR WALLS ★ CHECK YOUR BASEMENT ★ BEST VIEWED★
         </div>
       </div>
       <hr class="hr-rainbow">
@@ -934,7 +934,7 @@ input[type=text], textarea {
       </p>
       <div class="footer-links">
         <a href="mailto:faceeater.business@gmail.com">contact</a> | <a href="https://faceeaterz.bandcamp.com" target="_blank">bandcamp</a> | <a href="https://www.instagram.com/faceeaterz" target="_blank">instagram</a> | <a href="https://www.youtube.com/@FaceEater-Music" target="_blank">youtube</a><br>
-        © FACEEATER MMX — best viewed in Netscape Navigator 4.0 at 800×600 — 28.8k modem recommended
+        © FACEEATER — best viewed on desktop browser in a cold dark basement
       </div>
     </div>
   </div>
@@ -1088,7 +1088,7 @@ const POPUP_DEFS={
     <video autoplay muted loop playsinline style="width:100%;display:block;">
     <source src="videos/mold01.mp4" type="video/mp4"></video></div>
     <p style="font-size:10px;margin-top:3px;color:#555;">mold01.mp4 | 00:00 / 01:24</p>`,
-    status:"",buttons:[{danger:true,l:"■ Stop",a:"close"},{l:"⏏ Eject",a:"duplicate"}],w:280},
+    status:"",buttons:[{l:"Close",a:"close"}],w:280},
     virus_tracklist:{title:"🎵 FACEEATER — the album",icon:"🎵",
     body:`<div style="text-align:center;">
     <img src="images/bandcamp_ss.jpg" style="width:100%;display:block;margin-bottom:8px;"/>
@@ -1224,7 +1224,7 @@ const POPUP_DEFS={
     <div><p>A fatal exception <span class="blink" style="font-family:'Courier New';">0xFACEEA7E</span> has occurred.</p>
     <p style="font-size:10px;color:#cc0000;margin-top:3px;">FACEEATER.DLL not found</p>
     <p style="font-size:10px;color:#555;margin-top:2px;"></p></div></div>`,
-    buttons:[{l:"OK",a:"close",d:true}],w:270,behavior:'shake'},
+    buttons:[{l:"OK",a:"error-respawn",d:true}],w:270,behavior:'shake'},
 
   virus_lewok:{title:"🎵 you might also like...",icon:"🎵",
     body:`<div style="text-align:center;">
@@ -1334,6 +1334,9 @@ function handleBtn(uid,defId,action){
   }else if(action==='money-rain'){
     doCelebration();
     el.querySelector('.popup-body').innerHTML='<div style="text-align:center;padding:20px;font-size:16px;font-weight:bold;">CONGRATULATIONS!</div>';
+  }else if(action==='error-respawn'){
+    el.remove(); delete openPopups[defId];
+    spawnPopup('virus_error', true);
   }else if(action==='lego-buy'){
     LEGO_SND.currentTime=0; LEGO_SND.play().catch(()=>{});
     el.remove(); delete openPopups[defId];
@@ -1390,6 +1393,9 @@ function handleBtn(uid,defId,action){
   }else if(action==='money-rain'){
     doCelebration();
     el.querySelector('.popup-body').innerHTML='<div style="text-align:center;padding:20px;font-size:16px;font-weight:bold;">CONGRATULATIONS!</div>';
+  }else if(action==='error-respawn'){
+    el.remove(); delete openPopups[defId];
+    spawnPopup('virus_error', true);
   }else if(action==='lego-buy'){
     LEGO_SND.currentTime=0; LEGO_SND.play().catch(()=>{});
     el.remove(); delete openPopups[defId];
@@ -1555,7 +1561,7 @@ function renderTrivia(uid) {
                 state.score>=total*0.6 ? 'not bad. listen more.' : 'go listen to the album again.';
     const secretBtn = state.score===total ?
       '<div style="text-align:center;margin-top:8px;">' +
-      '<p style="font-size:12px;color:#000080;margin-bottom:4px;">Congrats! You have earned the password of 🔒 Restricted Access:</p>' +
+      '<p style="font-size:12px;color:#000080;margin-bottom:4px;">Congrats! Here\'s the password of 🔒 Restricted Access:</p>' +
       '<p style="font-size:13px;font-weight:bold;letter-spacing:2px;">faceeaterz123</p>' +
       '</div>' : '';
     body.innerHTML = '<p style="text-align:center;font-size:16px;font-weight:bold;margin-bottom:6px;">score: ' + state.score + '/' + total + '</p>' +
