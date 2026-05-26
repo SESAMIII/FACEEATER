@@ -1329,7 +1329,7 @@ function spawnPopup(defId,forceNew){
 }
 
 function openPopupById(id){spawnPopup(id,false);}
-const POPUP_WEIGHTS={virus_dissipate_mv:3,virus_mold_mv:3,virus_faceeater_mv:8,virus_album_viz:3,virus_lppromo:6,virus_webcam:5,virus_lewok:2,virus_lego:3,virus_tranquivex:5,virus_nudefolder:1,virus_5000:1,virus_rotten:3,virus_tvshit:6,virus_doubleup:1,virus_ghouls:3,virus_car:2,virus_hbs:3,virus_cover:3,virus_albumcover:4,virus_chat:5,virus_lyrictrivia:5,_default:10};
+const POPUP_WEIGHTS={virus_dissipate_mv:3,virus_mold_mv:3,virus_faceeater_mv:8,virus_album_viz:3,virus_lppromo:6,virus_webcam:5,virus_lewok:2,virus_lego:3,virus_tranquivex:5,virus_nudefolder:1,virus_5000:1,virus_rotten:3,virus_tvshit:6,virus_doubleup:1,virus_ghouls:3,virus_car:2,virus_hbs:3,virus_cover:3,virus_albumcover:4,virus_chat:5,virus_lyrictrivia:5,virus_nowalert:1,_default:10};
 function spawnRandomPopup(){
   const avail=VIRUS_IDS.filter(id=>!openPopups[id]);
   if(!avail.length)return;
