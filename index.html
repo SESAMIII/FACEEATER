@@ -559,13 +559,14 @@ body {
   overflow: hidden; white-space: nowrap;
   margin-bottom: 10px;
   border-top: 1px solid #fff; border-bottom: 1px solid #808080;
+  display: flex;
 }
 .marquee-inner {
-  display: inline-block;
-  animation: scrollx 20s linear infinite;
+  display: inline-block; flex-shrink: 0;
+  animation: scrollx 18s linear infinite;
   color: #000; font-size: 12px; font-weight: bold;
-  padding-left: 100%;
 }
+#mq2 { animation-delay: -9s; }
 @keyframes scrollx { from{transform:translateX(0);} to{transform:translateX(-100%);} }
 
 .hr-rainbow {
@@ -899,7 +900,7 @@ input[type=text], textarea {
         <span class="blink">★ NEW ALBUM OUT NOW ★</span>
       </p>
       <div class="marquee-wrap">
-        <div class="marquee-inner">★ FACEEATER ★ FREE DOWNLOAD ★ LISTEN LOUD ★ MOLD IS REAL ★ DO NOT FEED THE ANIMALS ★ FACEEATER LIVES IN YOUR WALLS ★ CHECK YOUR BASEMENT ★ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </div>
+        <div class="marquee-inner" id="mq1">★ FACEEATER ★ FREE DOWNLOAD ★ LISTEN LOUD ★ MOLD IS REAL ★ DO NOT FEED THE ANIMALS ★ FACEEATER LIVES IN YOUR WALLS ★ CHECK YOUR BASEMENT ★ &nbsp;&nbsp;&nbsp; </div><div class="marquee-inner" id="mq2">★ FACEEATER ★ FREE DOWNLOAD ★ LISTEN LOUD ★ MOLD IS REAL ★ DO NOT FEED THE ANIMALS ★ FACEEATER LIVES IN YOUR WALLS ★ CHECK YOUR BASEMENT ★ &nbsp;&nbsp;&nbsp; </div>
         </div>
       </div>
       <hr class="hr-rainbow">
