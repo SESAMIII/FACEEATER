@@ -2254,7 +2254,14 @@ const isMobile = window.innerWidth <= 768;
 const initCount = isMobile ? 1 : 7;
 const spawnDelay = isMobile ? 55000 : 5000;
 const mobileMaxPopups = 3;
-shuffle([...VIRUS_IDS]).slice(0,initCount).forEach((id,i)=>setTimeout(()=>spawnPopup(id,false),500+i*700));
+// Always include a zine popup in the first batch
+(function(){
+  const zineIds = ['virus_zine_video','virus_zine_photos'];
+  const zinePick = zineIds[Math.floor(Math.random()*zineIds.length)];
+  const others = shuffle([...VIRUS_IDS].filter(id=>!zineIds.includes(id))).slice(0, Math.max(0, initCount - 1));
+  const firstBatch = shuffle([zinePick, ...others]);
+  firstBatch.forEach((id,i)=>setTimeout(()=>spawnPopup(id,false),500+i*700));
+})();
 (function sched(){setTimeout(()=>{const avail=VIRUS_IDS;if(avail.length&&(!isMobile||document.querySelectorAll('.popup').length<mobileMaxPopups)){const pool=[];avail.forEach(id=>{const w=POPUP_WEIGHTS[id]!==undefined?POPUP_WEIGHTS[id]:POPUP_WEIGHTS._default;for(let i=0;i<w;i++)pool.push(id);});spawnPopup(pool[Math.floor(Math.random()*pool.length)],true);}sched();},spawnDelay+Math.random()*15000);})();
 </script>
 </body>
