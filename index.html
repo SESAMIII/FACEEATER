@@ -706,6 +706,7 @@ body {
 .popup-btn:active { border-color:#808080 #fff #fff #808080; transform:translateY(1px); }
 .popup-btn.default-btn { border:2px solid #000; padding:1px 0; }
 .popup-btn.danger { color:#cc0000; font-weight:bold; border: 2px solid #000 !important; }
+.popup-btn.danger { border: 2px solid #cc0000 !important; color:#cc0000; font-weight:bold; }
 
 .warn-box {
   background:#fff; border:2px inset #808080; padding:8px; margin-bottom:6px;
@@ -844,6 +845,11 @@ input[type=text], textarea {
       </svg>
     </div><div class="icon-label">sample pack</div>
   </div>
+  <div class="icon-btn" ondblclick="window.location.href='/zine'" title="Zine">
+    <div class="retro-icon">
+      <img src="images/zine-icon.png" width="32" height="32" style="image-rendering:pixelated;object-fit:contain;" alt="zine"/>
+    </div><div class="icon-label">Zine</div>
+  </div>
   <div class="icon-btn" ondblclick="spawnPopup('virus_lyrictrivia',true)" title="trivia">
     <div class="retro-icon">
       <svg width="32" height="32" viewBox="0 0 32 32" style="image-rendering:pixelated">
@@ -916,7 +922,9 @@ input[type=text], textarea {
           <td class="site-td">
             <h3>&#128193; DOWNLOADS</h3>
             <a href="https://mega.nz/folder/cJ9iELbI#5b9eoabm7cJzssyA-pJnlw" target="_blank">💾 Stems</a>
-            <a href="https://mega.nz/folder/0FdiAKYJ#Iwqufag84SfCZrz5WeerWQ" target="_blank">📦 Sample Pack</a><br><a onclick="openDungeonPopup()" style="cursor:pointer;color:#cc0000;">🔒 Restricted Access</a>
+            <a href="https://mega.nz/folder/0FdiAKYJ#Iwqufag84SfCZrz5WeerWQ" target="_blank">📦 Sample Pack</a>
+            <a href="/zine" style="cursor:pointer;color:#000080;">📋 Request your ZINE</a>
+            <a onclick="openDungeonPopup()" style="cursor:pointer;color:#cc0000;">🔒 Restricted Access</a>
           </td>
           <td class="site-td">
             <h3>&#128236; CONTACT</h3>
@@ -1285,10 +1293,18 @@ const POPUP_DEFS={
   virus_nowalert:{title:"📺 NowAlert.mp4 — Windows Media Player",icon:"📺",menu:["File","View","Play","Help"],
     body:`<video src="videos/NowAlert.mp4" autoplay loop muted playsinline style="width:100%;display:block;"></video>`,
     buttons:[{l:"Close",a:"close"}],w:340},
+
+  virus_zine_video:{title:"📼 FACEEATER — ZINE preview",icon:"📼",menu:["File","View","Play","Help"],
+    body:`<video src="videos/website_zine_visual.mov" autoplay loop muted playsinline style="width:100%;display:block;background:#000;"></video>`,
+    buttons:[{l:"Request",a:"zine-link",danger:true},{l:"Close",a:"close"}],w:360},
+
+  virus_zine_photos:{title:"📋 FACEEATER ZINE — preview",icon:"📋",menu:["File","View","Help"],
+    body:`<div style="background:#000;text-align:center;padding:0;"><img id="zine-gif-img" src="images/lpg_1.jpg" style="width:100%;max-height:320px;object-fit:contain;display:block;"/></div>`,
+    buttons:[{l:"Request",a:"zine-link",danger:true},{l:"Close",a:"close"}],w:340},
 };
 
 const VIRUS_IDS=['virus_logo','virus_tvshit','virus_tranquivex','virus_fefm','virus_welove','virus_moldvideo','virus_tracklist','virus_albumcover','virus_cover','virus_lewok','virus_hbs','virus_lppromo','virus_webcam','virus_dissipate_mv','virus_mold_mv','virus_faceeater_mv','virus_album_viz','virus_rotten','virus_5000','virus_chat','virus_lyrictrivia','virus_doubleup','virus_ghouls','virus_18','virus_car','virus_nudefolder','virus_survey','virus_error',
-  'virus_lego','virus_update','virus_riddle','virus_nowalert'];
+  'virus_lego','virus_update','virus_riddle','virus_nowalert','virus_zine_video','virus_zine_photos'];
 
 let openPopups={},popupZTop=1000,popupCounter=0;
 
@@ -1324,12 +1340,13 @@ function spawnPopup(defId,forceNew){
   if(def.behavior==='respawn') openPopups[defId]=popup;
   bringToFront(popup);
   if(def.trivia) setTimeout(()=>initTrivia(uid),50);
+  if(defId==='virus_zine_photos') setTimeout(()=>startZineSlideshow(uid),100);
   checkHeaven();
   return popup;
 }
 
 function openPopupById(id){spawnPopup(id,false);}
-const POPUP_WEIGHTS={virus_dissipate_mv:3,virus_mold_mv:3,virus_faceeater_mv:8,virus_album_viz:3,virus_lppromo:6,virus_webcam:5,virus_lewok:2,virus_lego:3,virus_tranquivex:5,virus_nudefolder:1,virus_5000:1,virus_rotten:3,virus_tvshit:6,virus_doubleup:1,virus_ghouls:3,virus_car:2,virus_hbs:3,virus_cover:3,virus_albumcover:4,virus_chat:5,virus_lyrictrivia:5,virus_nowalert:1,_default:10};
+const POPUP_WEIGHTS={virus_dissipate_mv:3,virus_mold_mv:3,virus_faceeater_mv:8,virus_album_viz:3,virus_lppromo:6,virus_webcam:5,virus_lewok:2,virus_lego:3,virus_tranquivex:5,virus_nudefolder:1,virus_5000:1,virus_rotten:3,virus_tvshit:6,virus_doubleup:1,virus_ghouls:3,virus_car:2,virus_hbs:3,virus_cover:3,virus_albumcover:4,virus_chat:5,virus_lyrictrivia:5,virus_nowalert:1,virus_zine_video:4,virus_zine_photos:4,_default:10};
 function spawnRandomPopup(){
   const avail=VIRUS_IDS.filter(id=>!openPopups[id]);
   if(!avail.length)return;
@@ -1523,6 +1540,8 @@ function handleBtn(uid,defId,action){
     doGhoulsJoin(uid);
     }else if(action==='bandcamp'){window.open('https://faceeaterz.bandcamp.com','_blank');
     window.open('https://faceeater.bandcamp.com','_blank');
+  }else if(action==='zine-link'){
+    window.open('/zine','_blank');
   }else if(action==='riddle-check'){
     const inp=el.querySelector('#riddle-input')||el.querySelector('input[type=text]');
     const val=(inp?.value||'').toLowerCase().trim();
@@ -1533,6 +1552,18 @@ function handleBtn(uid,defId,action){
       setTimeout(()=>{el.remove();delete openPopups[defId];spawnRandomPopup();},1500);
     }else{spawnPopup('virus_error',true);}
   }
+}
+const ZINE_SLIDES=['images/lpg_1.jpg','images/lpg_2.jpg','images/lpg_3.jpg','images/lpg_4.jpg','images/lpg_5.jpg','images/lpg_6.jpg','images/lpg_7.jpg','images/lpg_8.jpg','images/lpg_9.jpg','images/lpg_10.jpg'];
+const _zineSlideshowTimers={};
+function startZineSlideshow(uid){
+  let idx=0;
+  const el=document.getElementById(uid);if(!el)return;
+  const img=el.querySelector('#zine-gif-img');if(!img)return;
+  _zineSlideshowTimers[uid]=setInterval(()=>{
+    if(!document.getElementById(uid)){clearInterval(_zineSlideshowTimers[uid]);return;}
+    idx=(idx+1)%ZINE_SLIDES.length;
+    img.src=ZINE_SLIDES[idx];
+  },900);
 }
 function crashEffect(){
   document.querySelectorAll('.popup').forEach(p=>p.remove());openPopups={};
