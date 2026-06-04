@@ -704,8 +704,10 @@ body {
 }
 .popup-btn:active { border-color:#808080 #fff #fff #808080; transform:translateY(1px); }
 .popup-btn.default-btn { border:2px solid #000; padding:1px 0; color:#000; font-weight:bold; }
-.popup-btn.danger { color:#000; border: 2px solid #000 !important; }
-.popup-btn.danger.zine-request { border: 2px solid #cc0000 !important; color:#cc0000; }
+.popup-btn.danger { color:#000; border: 2px solid #000 !important; font-weight:bold; }
+.popup-btns .popup-btn:first-child { border:2px solid #000 !important; color:#000 !important; font-weight:bold; }
+.popup-btn.danger.zine-request,
+.popup-btns .popup-btn.zine-request:first-child { border: 2px solid #cc0000 !important; color:#cc0000 !important; }
 
 .warn-box {
   background:#fff; border:2px inset #808080; padding:8px; margin-bottom:6px;
