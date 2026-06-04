@@ -708,6 +708,8 @@ body {
 .popup-btns .popup-btn:first-child { border:2px solid #000 !important; color:#000 !important; font-weight:bold; }
 .popup-btn.danger.zine-request,
 .popup-btns .popup-btn.zine-request:first-child { border: 2px solid #cc0000 !important; color:#cc0000 !important; }
+.popup-btn.no-border,
+.popup-btns .popup-btn.no-border:first-child { border: 2px solid; border-color: #fff #808080 #808080 #fff !important; font-weight: normal !important; }
 
 .warn-box {
   background:#fff; border:2px inset #808080; padding:8px; margin-bottom:6px;
@@ -1095,7 +1097,7 @@ const POPUP_DEFS={
     <div class="hearts" style="margin-top:4px;">❤️ 🖤 ❤️ 🖤 ❤️</div>
     <p style="text-align:center;font-size:11px;font-weight:bold;margin-top:4px;">WE LOVE YOU</p>`,
     status:"",
-    buttons:[{l:"❤",a:"welove-heart",danger:true},{l:"OK",a:"close",d:true}],w:280},
+    buttons:[{l:"❤",a:"welove-heart",danger:true},{l:"OK",a:"close"}],w:280},
   virus_moldvideo:{title:"MOLD01.mp4 — Windows Media Player",icon:"🎥",menu:["File","View","Play","Help"],
     body:`<div style="position:relative;width:100%;">
     <video autoplay muted loop playsinline style="width:100%;display:block;">
@@ -1236,7 +1238,7 @@ const POPUP_DEFS={
     body:`<div class="warn-box"><span class="warn-icon">⚠️</span>
     <div><p>You must be <strong>18 or older</strong> to enter this site.</p>
     <p style="font-size:10px;color:#555;">This site contains extremely normal content.</p></div></div>`,
-    buttons:[{l:"No",a:"crash"},{l:"Yes, I am 18",a:"close",d:true}],w:280},
+    buttons:[{l:"No",a:"crash",cls:"no-border"},{l:"Yes, I am 18",a:"close",cls:"no-border"}],w:280},
   virus_car:{title:"Wir kaufen Ihr AUTO",icon:"🚗",
     body:`<img src="${IMG_CAR}" style="width:100%;display:block;"/>`,
     buttons:[{danger:true,l:"Jetzt anrufen!",a:"car-phone"},{l:"Nein danke",a:"close"}],w:330},
