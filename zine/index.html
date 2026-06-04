@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>FACEEATER — Request your ZINE</title>
+<link rel="icon" type="image/jpeg" href="../images/favicon.jpg"/>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background-color: #121212;
+  min-height: 100vh;
+  font-family: 'MS Sans Serif','Arial',sans-serif;
+  font-size: 11px;
+  color: #fff;
+  overflow: hidden;
+  position: relative;
+}
+
+/* WALLPAPER — 3 copies of cover2.jpg tiled */
+#wallpaper {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 28px;
+  background-image: url("images/pg_3.jpg"), url("images/pg_3.jpg"), url("images/pg_3.jpg");
+  background-size: 34% 100%, 34% 100%, 34% 100%;
+  background-position: left center, center center, right center;
+  background-repeat: no-repeat;
+  z-index: 0;
+  filter: saturate(0.55) brightness(0.3);
+}
+
+/* SITE WINDOW */
+#site {
+  position: fixed;
+  top: 0; left: 64px; right: 0; bottom: 28px;
+  overflow-y: auto;
+  padding: 10px 14px;
+  text-align: center;
+  z-index: 10;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 16px;
+}
+
+#site-content {
+  max-width: 600px;
+  width: 100%;
+  margin: 0 auto;
+  background: #c0c0c0;
+  border: 2px solid; border-color: #fff #808080 #808080 #fff;
+  box-shadow: 4px 4px 0 #000;
+  overflow: hidden;
+}
+
+/* Fake IE address bar */
+#site-urlbar {
+  background: #c0c0c0;
+  border-bottom: 2px solid #808080;
+  padding: 2px 6px;
+  display: flex; align-items: center; gap: 4px;
+  font-size: 10px; color: #000;
+}
+#site-back-btn {
+  background: #c0c0c0;
+  border: 2px solid; border-color: #fff #808080 #808080 #fff;
+  font-size: 9px; padding: 1px 7px;
+  cursor: pointer; font-family: 'MS Sans Serif','Arial',sans-serif;
+  color: #000; display: flex; align-items: center; gap: 2px;
+}
+#site-back-btn:active { border-color: #808080 #fff #fff #808080; }
+#site-urlbar-input {
+  flex: 1; background: #fff;
+  border: 2px solid; border-color: #808080 #fff #fff #808080;
+  padding: 1px 4px; font-size: 10px; font-family: 'Arial',sans-serif;
+  color: #000;
+}
+
+/* Page content */
+#site-page {
+  background: #ffffff;
+  padding: 10px 12px 16px;
+  border-left: 2px solid #808080;
+  border-right: 2px solid #fff;
+}
+
+/* SLIDESHOW */
+#slideshow-wrap {
+  position: relative;
+  width: calc(100% - 16px);
+  margin: 0 auto 12px;
+  background: #000;
+  border: 2px solid #808080;
+  overflow: hidden;
+  user-select: none;
+}
+#slideshow-img {
+  width: 100%;
+  display: block;
+  max-height: 420px;
+  object-fit: contain;
+  background: #000;
+}
+.slide-arrow {
+  position: absolute;
+  top: 50%; transform: translateY(-50%);
+  background: rgba(192,192,192,0.35);
+  border: 1px solid rgba(255,255,255,0.4);
+  color: #fff;
+  font-size: 22px;
+  padding: 6px 10px;
+  cursor: pointer;
+  z-index: 5;
+  line-height: 1;
+  transition: background 0.15s;
+  text-shadow: 1px 1px 2px #000;
+}
+.slide-arrow:hover { background: rgba(192,192,192,0.6); }
+#slide-prev { left: 4px; }
+#slide-next { right: 4px; }
+#slide-counter {
+  position: absolute; bottom: 6px; right: 8px;
+  font-size: 9px; color: rgba(255,255,255,0.6);
+  font-family: monospace; background: rgba(0,0,0,0.4);
+  padding: 1px 4px;
+}
+
+/* FORM */
+#zine-form {
+  text-align: left;
+  padding: 4px 2px 0;
+}
+.form-row {
+  margin-bottom: 7px;
+  display: flex; align-items: baseline; gap: 6px;
+  flex-wrap: wrap;
+}
+.form-row label {
+  font-size: 11px; color: #000;
+  min-width: 110px; flex-shrink: 0;
+  font-family: 'MS Sans Serif','Arial',sans-serif;
+}
+.form-row input[type=text],
+.form-row input[type=email],
+.form-row textarea {
+  flex: 1; min-width: 0;
+  background: #fff;
+  border: 2px solid; border-color: #808080 #fff #fff #808080;
+  padding: 2px 4px;
+  font-size: 11px;
+  font-family: 'MS Sans Serif','Arial',sans-serif;
+  color: #000;
+}
+.form-row textarea {
+  resize: vertical; min-height: 52px;
+}
+.form-check-row {
+  margin-bottom: 6px;
+  display: flex; align-items: flex-start; gap: 6px;
+}
+.form-check-row input[type=checkbox] {
+  margin-top: 1px; flex-shrink: 0;
+  accent-color: #000080;
+}
+.form-check-row label {
+  font-size: 11px; color: #000; line-height: 1.35;
+  font-family: 'MS Sans Serif','Arial',sans-serif;
+}
+.form-email-row {
+  display: flex; align-items: baseline; gap: 6px; margin-bottom: 7px; flex-wrap: wrap;
+}
+.form-email-row label:first-child {
+  font-size: 11px; color: #000;
+  min-width: 110px; flex-shrink: 0;
+  font-family: 'MS Sans Serif','Arial',sans-serif;
+}
+.form-email-row input[type=email] {
+  flex: 1; min-width: 0;
+  background: #fff;
+  border: 2px solid; border-color: #808080 #fff #fff #808080;
+  padding: 2px 4px;
+  font-size: 11px;
+  font-family: 'MS Sans Serif','Arial',sans-serif;
+  color: #000;
+}
+
+hr.hr-rainbow {
+  height: 4px;
+  background: linear-gradient(to right, red,orange,yellow,green,blue,purple);
+  margin: 8px 0; border: none;
+}
+
+#submit-btn {
+  display: block;
+  margin: 10px auto 2px;
+  background: #c0c0c0;
+  border: 2px solid; border-color: #fff #808080 #808080 #fff;
+  padding: 4px 28px;
+  font-size: 12px;
+  font-family: 'MS Sans Serif','Arial',sans-serif;
+  cursor: pointer; color: #000;
+  font-weight: bold;
+}
+#submit-btn:active { border-color: #808080 #fff #fff #808080; }
+#submit-btn:hover { background: #d0d0d0; }
+
+.form-disclaimer {
+  text-align: center;
+  font-size: 10px; color: #555;
+  margin-top: 8px;
+  font-style: italic;
+  line-height: 1.6;
+  font-family: 'MS Sans Serif','Arial',sans-serif;
+}
+
+/* THANK YOU POPUP */
+#thankyou-overlay {
+  display: none;
+  position: fixed; top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  background: #c0c0c0;
+  border: 2px solid; border-color: #fff #808080 #808080 #fff;
+  box-shadow: 4px 4px 0 #000;
+  z-index: 99999;
+  width: 320px;
+  font-family: 'MS Sans Serif','Arial',sans-serif;
+}
+#thankyou-overlay.show { display: block; }
+#thankyou-titlebar {
+  background: #000080; color: #fff;
+  padding: 3px 6px;
+  display: flex; align-items: center; justify-content: space-between;
+  font-size: 12px; font-weight: bold;
+}
+#thankyou-titlebar .win-btns { display: flex; gap: 2px; }
+#thankyou-titlebar button {
+  width: 16px; height: 14px;
+  background: #c0c0c0; border: 1px solid; border-color: #fff #808080 #808080 #fff;
+  font-size: 9px; cursor: pointer; color: #000; padding: 0; line-height: 1;
+  font-family: 'MS Sans Serif','Arial',sans-serif;
+}
+#thankyou-body {
+  padding: 28px 20px 20px;
+  text-align: center;
+  font-size: 16px;
+  font-weight: bold;
+  color: #000;
+}
+#thankyou-close-btn {
+  display: block; margin: 12px auto 0;
+  background: #c0c0c0;
+  border: 2px solid; border-color: #fff #808080 #808080 #fff;
+  padding: 3px 24px;
+  font-size: 11px;
+  font-family: 'MS Sans Serif','Arial',sans-serif;
+  cursor: pointer; color: #000;
+}
+#thankyou-close-btn:active { border-color: #808080 #fff #fff #808080; }
+
+/* TASKBAR */
+#taskbar {
+  position: fixed; bottom: 0; left: 0; right: 0;
+  height: 28px;
+  background: #c0c0c0;
+  border-top: 2px solid #fff;
+  display: flex; align-items: center;
+  z-index: 9000;
+  padding: 0 4px;
+  gap: 4px;
+}
+.start-btn {
+  background: #c0c0c0;
+  border: 2px solid; border-color: #fff #808080 #808080 #fff;
+  font-family: 'MS Sans Serif','Arial',sans-serif;
+  font-size: 11px; font-weight: bold;
+  padding: 2px 6px; height: 20px;
+  cursor: pointer; display: flex; align-items: center; gap: 3px;
+}
+.start-btn:active { border-color: #808080 #fff #fff #808080; }
+#taskbar-clock {
+  margin-left: auto;
+  background: #c0c0c0;
+  border: 1px solid; border-color: #808080 #fff #fff #808080;
+  padding: 2px 8px;
+  font-size: 11px; color: #000;
+  font-family: 'MS Sans Serif','Arial',sans-serif;
+}
+
+/* DESKTOP ICONS */
+#desktop-icons {
+  position: fixed;
+  left: 6px; top: 6px;
+  display: flex; flex-direction: column; gap: 6px;
+  z-index: 50; pointer-events: all;
+}
+.icon-btn {
+  display: flex; flex-direction: column; align-items: center;
+  width: 64px; cursor: pointer; padding: 4px 2px;
+  border: 1px solid transparent;
+}
+.icon-btn:hover { background: rgba(0,0,128,0.3); border-color: rgba(255,255,255,0.5); }
+.retro-icon { width: 32px; height: 32px; image-rendering: pixelated; margin-bottom: 2px; }
+.icon-label {
+  font-size: 10px; color: #fff; text-align: center;
+  text-shadow: 1px 1px 0 #000,-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000;
+  font-family: 'MS Sans Serif','Arial',sans-serif;
+  word-break: break-word; max-width: 60px; margin-top: 2px;
+}
+
+@media (max-width: 768px) {
+  #site { left: 0; padding: 8px; padding-top: 16px; }
+  #site-content { max-width: 98vw; }
+  #desktop-icons { display: none; }
+}
+</style>
+</head>
+<body>
+
+<div id="wallpaper"></div>
+
+<!-- Desktop icon -->
+<div id="desktop-icons">
+  <div class="icon-btn" ondblclick="window.location.href='../'" title="home">
+    <div class="retro-icon">
+      <svg width="32" height="32" viewBox="0 0 32 32" style="image-rendering:pixelated">
+        <polygon points="16,4 2,16 6,16 6,28 13,28 13,20 19,20 19,28 26,28 26,16 30,16" fill="#c0c0c0" stroke="#000" stroke-width="1"/>
+        <rect x="13" y="20" width="6" height="8" fill="#000080"/>
+      </svg>
+    </div><div class="icon-label">home</div>
+  </div>
+</div>
+
+<!-- SITE WINDOW -->
+<div id="site">
+  <div id="site-content">
+    <!-- Fake address bar with back button -->
+    <div id="site-urlbar">
+      <button id="site-back-btn" onclick="window.location.href='../'">◀ Back</button>
+      <span style="font-weight:bold;font-size:10px;">Address</span>
+      <div id="site-urlbar-input">http://www.faceeater.org/zine</div>
+      <button style="border:2px solid;border-color:#fff #808080 #808080 #fff;background:#c0c0c0;font-size:9px;padding:1px 4px;cursor:pointer;">Go</button>
+    </div>
+
+    <!-- White page content -->
+    <div id="site-page">
+
+      <!-- SLIDESHOW -->
+      <div id="slideshow-wrap">
+        <img id="slideshow-img" src="images/pg_1.jpg" alt="zine page"/>
+        <button class="slide-arrow" id="slide-prev" onclick="slideMove(-1)">&#9664;</button>
+        <button class="slide-arrow" id="slide-next" onclick="slideMove(1)">&#9654;</button>
+        <div id="slide-counter">1 / 9</div>
+      </div>
+
+      <hr class="hr-rainbow">
+
+      <!-- FORM -->
+      <div id="zine-form">
+        <div class="form-row">
+          <label>name:</label>
+          <input type="text" id="f-name" placeholder="name"/>
+        </div>
+        <div class="form-row">
+          <label>mailing address:</label>
+          <input type="text" id="f-address" placeholder="address"/>
+        </div>
+        <div class="form-email-row">
+          <label>email address:</label>
+          <input type="email" id="f-email" placeholder="email"/>
+        </div>
+        <div class="form-check-row">
+          <input type="checkbox" id="f-members"/>
+          <label for="f-members">are you interested in being added to the members list?</label>
+        </div>
+        <div class="form-check-row">
+          <input type="checkbox" id="f-recruit"/>
+          <label for="f-recruit">are you interested in receiving additional zines to recruit new members?</label>
+        </div>
+        <div class="form-row" style="align-items:flex-start;">
+          <label style="padding-top:2px;">notes:</label>
+          <textarea id="f-notes" placeholder=""></textarea>
+        </div>
+
+        <button id="submit-btn" onclick="submitZine()">[ Request your ZINE ]</button>
+
+        <p class="form-disclaimer">
+          // there is only limited supply //<br>
+          // this request does not guarantee you will receive a zine //<br>
+          // thank you and good luck saving yourself //
+        </p>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- THANK YOU POPUP -->
+<div id="thankyou-overlay">
+  <div id="thankyou-titlebar">
+    <span>📋 zine request</span>
+    <div class="win-btns">
+      <button onclick="closeThankYou()">✕</button>
+    </div>
+  </div>
+  <div id="thankyou-body">
+    Thank you for submitting.
+  </div>
+  <button id="thankyou-close-btn" onclick="closeThankYou()">Close</button>
+</div>
+
+<!-- TASKBAR -->
+<div id="taskbar">
+  <button class="start-btn" onclick="window.location.href='../'">⊞ Start</button>
+  <div style="flex:1"></div>
+  <div id="taskbar-clock">--:--</div>
+</div>
+
+<script>
+// SLIDESHOW
+const SLIDES = [
+  'images/pg_1.jpg',
+  'images/pg_2.jpg',
+  'images/pg_3.jpg',
+  'images/pg_4.jpg',
+  'images/pg_5.jpg',
+  'images/pg_6.jpg',
+  'images/pg_7.jpg',
+  'images/pg_8.jpg',
+  'images/pg_9.jpg',
+  'images/pg_10.jpg',
+];
+let slideIdx = 0;
+function slideMove(dir) {
+  slideIdx = (slideIdx + dir + SLIDES.length) % SLIDES.length;
+  document.getElementById('slideshow-img').src = SLIDES[slideIdx];
+  document.getElementById('slide-counter').textContent = (slideIdx+1) + ' / ' + SLIDES.length;
+}
+
+// FORM SUBMIT
+function submitZine() {
+  const name = document.getElementById('f-name').value.trim();
+  const address = document.getElementById('f-address').value.trim();
+  const email = document.getElementById('f-email').value.trim();
+  const members = document.getElementById('f-members').checked;
+  const recruit = document.getElementById('f-recruit').checked;
+  const notes = document.getElementById('f-notes').value.trim();
+
+  fetch('https://formspree.io/f/xjgdkgrz', {
+    method: 'POST',
+    headers: {'Content-Type':'application/json','Accept':'application/json'},
+    body: JSON.stringify({
+      name, address, email,
+      members_list: members ? 'yes' : 'no',
+      recruit_zines: recruit ? 'yes' : 'no',
+      notes,
+      _subject: 'ZINE REQUEST'
+    })
+  }).catch(()=>{});
+
+  document.getElementById('thankyou-overlay').classList.add('show');
+}
+
+function closeThankYou() {
+  document.getElementById('thankyou-overlay').classList.remove('show');
+  // clear form
+  ['f-name','f-address','f-email','f-notes'].forEach(id=>{
+    const el = document.getElementById(id);
+    if(el) el.value='';
+  });
+  document.getElementById('f-members').checked = false;
+  document.getElementById('f-recruit').checked = false;
+}
+
+// CLOCK
+function updateClock() {
+  const now = new Date();
+  const h = String(now.getHours()).padStart(2,'0');
+  const m = String(now.getMinutes()).padStart(2,'0');
+  document.getElementById('taskbar-clock').textContent = h+':'+m;
+}
+updateClock();
+setInterval(updateClock, 10000);
+</script>
+</body>
+</html>
