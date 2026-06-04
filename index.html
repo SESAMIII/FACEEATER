@@ -706,7 +706,7 @@ body {
 .popup-btn:active { border-color:#808080 #fff #fff #808080; transform:translateY(1px); }
 .popup-btn.default-btn { border:2px solid #000; padding:1px 0; }
 .popup-btn.danger { color:#cc0000; font-weight:bold; border: 2px solid #000 !important; }
-.popup-btn.danger { border: 2px solid #cc0000 !important; color:#cc0000; font-weight:bold; }
+.popup-btn.danger.zine-request { border: 2px solid #cc0000 !important; }
 
 .warn-box {
   background:#fff; border:2px inset #808080; padding:8px; margin-bottom:6px;
@@ -923,7 +923,7 @@ input[type=text], textarea {
             <h3>&#128193; DOWNLOADS</h3>
             <a href="https://mega.nz/folder/cJ9iELbI#5b9eoabm7cJzssyA-pJnlw" target="_blank">💾 Stems</a>
             <a href="https://mega.nz/folder/0FdiAKYJ#Iwqufag84SfCZrz5WeerWQ" target="_blank">📦 Sample Pack</a>
-            <a href="/zine" style="cursor:pointer;color:#000080;">📋 Request your ZINE</a>
+            <a href="/zine" style="cursor:pointer;color:#0000cc;">📋 Request your ZINE</a>
             <a onclick="openDungeonPopup()" style="cursor:pointer;color:#cc0000;">🔒 Restricted Access</a>
           </td>
           <td class="site-td">
@@ -1296,11 +1296,11 @@ const POPUP_DEFS={
 
   virus_zine_video:{title:"📼 FACEEATER — ZINE preview",icon:"📼",menu:["File","View","Play","Help"],
     body:`<video src="videos/website_zine_visual.mov" autoplay loop muted playsinline style="width:100%;display:block;background:#000;"></video>`,
-    buttons:[{l:"Request",a:"zine-link",danger:true},{l:"Close",a:"close"}],w:360},
+    buttons:[{l:"Request",a:"zine-link",danger:true,cls:"zine-request"},{l:"Close",a:"close"}],w:360},
 
   virus_zine_photos:{title:"📋 FACEEATER ZINE — preview",icon:"📋",menu:["File","View","Help"],
     body:`<div style="background:#000;text-align:center;padding:0;"><img id="zine-gif-img" src="images/lpg_1.jpg" style="width:100%;max-height:320px;object-fit:contain;display:block;"/></div>`,
-    buttons:[{l:"Request",a:"zine-link",danger:true},{l:"Close",a:"close"}],w:340},
+    buttons:[{l:"Request",a:"zine-link",danger:true,cls:"zine-request"},{l:"Close",a:"close"}],w:340},
 };
 
 const VIRUS_IDS=['virus_logo','virus_tvshit','virus_tranquivex','virus_fefm','virus_welove','virus_moldvideo','virus_tracklist','virus_albumcover','virus_cover','virus_lewok','virus_hbs','virus_lppromo','virus_webcam','virus_dissipate_mv','virus_mold_mv','virus_faceeater_mv','virus_album_viz','virus_rotten','virus_5000','virus_chat','virus_lyrictrivia','virus_doubleup','virus_ghouls','virus_18','virus_car','virus_nudefolder','virus_survey','virus_error',
@@ -1346,7 +1346,7 @@ function spawnPopup(defId,forceNew){
 }
 
 function openPopupById(id){spawnPopup(id,false);}
-const POPUP_WEIGHTS={virus_dissipate_mv:3,virus_mold_mv:3,virus_faceeater_mv:8,virus_album_viz:3,virus_lppromo:6,virus_webcam:5,virus_lewok:2,virus_lego:3,virus_tranquivex:5,virus_nudefolder:1,virus_5000:1,virus_rotten:3,virus_tvshit:6,virus_doubleup:1,virus_ghouls:3,virus_car:2,virus_hbs:3,virus_cover:3,virus_albumcover:4,virus_chat:5,virus_lyrictrivia:5,virus_nowalert:1,virus_zine_video:4,virus_zine_photos:4,_default:10};
+const POPUP_WEIGHTS={virus_dissipate_mv:3,virus_mold_mv:3,virus_faceeater_mv:8,virus_album_viz:3,virus_lppromo:6,virus_webcam:5,virus_lewok:2,virus_lego:3,virus_tranquivex:5,virus_nudefolder:1,virus_5000:1,virus_rotten:3,virus_tvshit:6,virus_doubleup:1,virus_ghouls:3,virus_car:2,virus_hbs:3,virus_cover:3,virus_albumcover:4,virus_chat:5,virus_lyrictrivia:5,virus_nowalert:1,virus_zine_video:8,virus_zine_photos:8,_default:10};
 function spawnRandomPopup(){
   const avail=VIRUS_IDS.filter(id=>!openPopups[id]);
   if(!avail.length)return;
@@ -1427,7 +1427,7 @@ function handleBtn(uid,defId,action){
     el.querySelector('.popup-title-text').textContent='📞 Calling...';
     el.querySelector('.popup-body').innerHTML=
       '<div style="text-align:center;padding:16px;font-size:18px;font-family:monospace;">' +
-      '<p style="font-size:14px;margin-bottom:12px;">(872) 207-0575</p>' +
+      '<p style="font-size:14px;margin-bottom:12px;">+1 (872) 207-0575</p>' +
       '</div>';
     el.querySelector('.popup-btns') && (el.querySelector('.popup-btns').innerHTML=
       '<button class="popup-btn default-btn" onclick="this.closest(\'.popup\').remove()">Close</button>');
@@ -1529,7 +1529,7 @@ function handleBtn(uid,defId,action){
     el.querySelector('.popup-title-text').textContent='📞 Calling...';
     el.querySelector('.popup-body').innerHTML=
       '<div style="text-align:center;padding:16px;font-size:18px;font-family:monospace;">' +
-      '<p style="font-size:14px;margin-bottom:12px;">(872) 207-0575</p>' +
+      '<p style="font-size:14px;margin-bottom:12px;">+1 (872) 207-0575</p>' +
       '</div>';
     el.querySelector('.popup-btns') && (el.querySelector('.popup-btns').innerHTML=
       '<button class="popup-btn default-btn" onclick="this.closest(\'.popup\').remove()">Close</button>');
