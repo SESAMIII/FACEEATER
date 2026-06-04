@@ -504,7 +504,6 @@ body {
 
 .heart-cursor { cursor: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgdmlld0JveD0iMCAwIDMyIDMyIj48cGF0aCBkPSJNMTYgMjggQzE2IDI4IDQgMjAgNCAxMiBDNCA3LjYgNy42IDQgMTIgNCBDMTQgNCAxNS41IDUgMTYgNiBDMTYuNSA1IDE4IDQgMjAgNCBDMjQuNCA0IDI4IDcuNiAyOCAxMiBDMjggMjAgMTYgMjggMTYgMjhaIiBmaWxsPSJyZWQiIHN0cm9rZT0iZGFya3JlZCIgc3Ryb2tlLXdpZHRoPSIxIi8+PC9zdmc+") 16 16, auto !important; }
 
-.popup-btn.default-btn:not(.danger) { border-color: #fff #808080 #808080 #fff !important; }
 
 /* SITE */
 #site {
@@ -704,9 +703,9 @@ body {
   padding:2px 0; font-size:11px; cursor:pointer; color:#000; min-width:72px;
 }
 .popup-btn:active { border-color:#808080 #fff #fff #808080; transform:translateY(1px); }
-.popup-btn.default-btn { border:2px solid #000; padding:1px 0; }
-.popup-btn.danger { color:#cc0000; font-weight:bold; border: 2px solid #000 !important; }
-.popup-btn.danger.zine-request { border: 2px solid #cc0000 !important; }
+.popup-btn.default-btn { border:2px solid #000; padding:1px 0; color:#000; font-weight:bold; }
+.popup-btn.danger { color:#000; border: 2px solid #000 !important; }
+.popup-btn.danger.zine-request { border: 2px solid #cc0000 !important; color:#cc0000; }
 
 .warn-box {
   background:#fff; border:2px inset #808080; padding:8px; margin-bottom:6px;
@@ -923,7 +922,7 @@ input[type=text], textarea {
             <h3>&#128193; DOWNLOADS</h3>
             <a href="https://mega.nz/folder/cJ9iELbI#5b9eoabm7cJzssyA-pJnlw" target="_blank">💾 Stems</a>
             <a href="https://mega.nz/folder/0FdiAKYJ#Iwqufag84SfCZrz5WeerWQ" target="_blank">📦 Sample Pack</a>
-            <a href="/zine" style="cursor:pointer;color:#0000cc;">📋 Request your ZINE</a>
+            <a href="/zine" target="_self" style="cursor:pointer;color:#0000cc;">📋 Request your ZINE</a>
             <a onclick="openDungeonPopup()" style="cursor:pointer;color:#cc0000;">🔒 Restricted Access</a>
           </td>
           <td class="site-td">
@@ -1541,7 +1540,7 @@ function handleBtn(uid,defId,action){
     }else if(action==='bandcamp'){window.open('https://faceeaterz.bandcamp.com','_blank');
     window.open('https://faceeater.bandcamp.com','_blank');
   }else if(action==='zine-link'){
-    window.open('/zine','_blank');
+    window.location.href='/zine';
   }else if(action==='riddle-check'){
     const inp=el.querySelector('#riddle-input')||el.querySelector('input[type=text]');
     const val=(inp?.value||'').toLowerCase().trim();
