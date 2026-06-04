@@ -38,13 +38,13 @@ body {
   text-align: center;
   z-index: 10;
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: center;
   padding-top: 16px;
 }
 
 #site-content {
-  max-width: 600px;
+  max-width: 560px;
   width: 100%;
   margin: 0 auto;
   background: #c0c0c0;
@@ -136,8 +136,8 @@ body {
   flex-wrap: wrap;
 }
 .form-row label {
-  font-size: 11px; color: #000;
-  min-width: 110px; flex-shrink: 0;
+  font-size: 13px; color: #000;
+  min-width: 120px; flex-shrink: 0;
   font-family: 'MS Sans Serif','Arial',sans-serif;
 }
 .form-row input[type=text],
@@ -163,15 +163,15 @@ body {
   accent-color: #000080;
 }
 .form-check-row label {
-  font-size: 11px; color: #000; line-height: 1.35;
+  font-size: 13px; color: #000; line-height: 1.35;
   font-family: 'MS Sans Serif','Arial',sans-serif;
 }
 .form-email-row {
   display: flex; align-items: baseline; gap: 6px; margin-bottom: 7px; flex-wrap: wrap;
 }
 .form-email-row label:first-child {
-  font-size: 11px; color: #000;
-  min-width: 110px; flex-shrink: 0;
+  font-size: 13px; color: #000;
+  min-width: 120px; flex-shrink: 0;
   font-family: 'MS Sans Serif','Arial',sans-serif;
 }
 .form-email-row input[type=email] {
@@ -346,7 +346,7 @@ hr.hr-rainbow {
 
       <!-- SLIDESHOW -->
       <div id="slideshow-wrap">
-        <img id="slideshow-img" src="images/pg_1.jpg" alt="zine page"/>
+        <img id="slideshow-img" src="images/lpg_1.jpg" alt="zine page"/>
         <button class="slide-arrow" id="slide-prev" onclick="slideMove(-1)">&#9664;</button>
         <button class="slide-arrow" id="slide-next" onclick="slideMove(1)">&#9654;</button>
         <div id="slide-counter">1 / 9</div>
@@ -418,16 +418,16 @@ hr.hr-rainbow {
 <script>
 // SLIDESHOW
 const SLIDES = [
-  'images/pg_1.jpg',
-  'images/pg_2.jpg',
-  'images/pg_3.jpg',
-  'images/pg_4.jpg',
-  'images/pg_5.jpg',
-  'images/pg_6.jpg',
-  'images/pg_7.jpg',
-  'images/pg_8.jpg',
-  'images/pg_9.jpg',
-  'images/pg_10.jpg',
+  'images/lpg_1.jpg',
+  'images/lpg_2.jpg',
+  'images/lpg_3.jpg',
+  'images/lpg_4.jpg',
+  'images/lpg_5.jpg',
+  'images/lpg_6.jpg',
+  'images/lpg_7.jpg',
+  'images/lpg_8.jpg',
+  'images/lpg_9.jpg',
+  'images/lpg_10.jpg',
 ];
 let slideIdx = 0;
 function slideMove(dir) {
