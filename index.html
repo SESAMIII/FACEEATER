@@ -2264,5 +2264,7 @@ const mobileMaxPopups = 3;
 })();
 (function sched(){setTimeout(()=>{const avail=VIRUS_IDS;if(avail.length&&(!isMobile||document.querySelectorAll('.popup').length<mobileMaxPopups)){const pool=[];avail.forEach(id=>{const w=POPUP_WEIGHTS[id]!==undefined?POPUP_WEIGHTS[id]:POPUP_WEIGHTS._default;for(let i=0;i<w;i++)pool.push(id);});spawnPopup(pool[Math.floor(Math.random()*pool.length)],true);}sched();},spawnDelay+Math.random()*15000);})();
 </script>
+<script data-goatcounter="https://faceeater.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>
